@@ -13,7 +13,7 @@ public class Project {
 	private GregorianCalendar startDate;
 	private Admin creator;
 	
-	private Developer projectManager = null;
+	private Developer projectLeader = null;
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
 	
@@ -33,14 +33,14 @@ public class Project {
 		return startDate;
 	}
 	
-	public void setProjectManager(Developer projectManager) {
-		this.projectManager = projectManager;
+	public void setProjectLeader(Developer projectLeader) {
+		this.projectLeader = projectLeader;
 	}
-	public Developer getProjectManager() {
-		return projectManager;
+	public Developer getProjectLeader() {
+		return projectLeader;
 	}
-	public boolean isProjectManager(Developer developer) {
-		return projectManager.equals(developer);
+	public boolean isProjectLeader(Developer developer) {
+		return projectLeader.equals(developer);
 	}
 	
 	public void assignDeveloper(Developer admin, Developer developer) throws OperationNotAllowedException {
