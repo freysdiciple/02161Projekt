@@ -15,6 +15,7 @@ public class Activity {
 	
 	private List<Developer> developers = new ArrayList<>();
 	private List<Session> registeredSessions = new ArrayList<>();
+	private List<ActivitySummary> summaries = new ArrayList<>();
 	
 	public Activity(int id, Project project) {
 		this.project = project;
@@ -66,5 +67,13 @@ public class Activity {
 	}
 	public List<Session> getRegisteredSession() {
 		return registeredSessions;
+	}
+	
+	public void createSummary() {
+		Session[] sessions = new Session[registeredSessions.size()];
+		registeredSessions.toArray(sessions);
+		
+		ActivitySummary summary = new ActivitySummary(sessions);
+		summaries.add(summary);
 	}
 }

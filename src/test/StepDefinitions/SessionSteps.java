@@ -25,7 +25,6 @@ public class SessionSteps {
 	public SessionSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
 		this.errorMessageHolder = errorMessageHolder;
-		
 	}
 	
 	@Given("there is a developer")
