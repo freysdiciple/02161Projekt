@@ -11,4 +11,6 @@ public class CreateProjectSteps {
 	public void theUserIsAnAdmin() {
 		assertTrue(SoftwareAS.model.theUserIsAnAdmin(developer.isAdmin()));
 	}
+	
+	//Nyeste version
 }
