@@ -7,8 +7,8 @@ public class Session {
 	private int sessionId;
 	private Developer developer;
 	private Activity activity;
-	private GregorianCalendar startTime;
-	private GregorianCalendar endTime;
+	private Calendar startTime;
+	private Calendar endTime;
 	
 	public Session(GregorianCalendar startTime, GregorianCalendar endTime, Developer developer, Activity activity) {
 		this.developer = developer;

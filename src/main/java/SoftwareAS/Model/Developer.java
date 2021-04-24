@@ -2,6 +2,7 @@ package SoftwareAS.Model;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
 
 public class Developer {
@@ -31,5 +32,14 @@ public class Developer {
 		Session newSession = new Session(startTime, endTime, this, activity);
 		registeredSessions.add(newSession);
 		activity.registerSession(newSession);;
+	}
+	
+	public boolean overlapsWithOtherSession(Session current) {
+		
+		for(Session previous : registeredSessions) {
+			
+		}
+		
+		return false;
 	}
 }
