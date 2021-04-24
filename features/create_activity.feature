@@ -4,9 +4,16 @@ Actor: Project leader
 
 Scenario: Successfully create activity
 	Given there is a project
+	And there is a user with id {String} and database {DataBase}
 	And the user is a project leader
-	When the project leader creates an activity in that project
+	When the user creates an activity in that project
 	Then the activity is listed under the project
+
+#Scenario: Successfully create activity
+#	Given there is a project
+#	And the user is a project leader
+#	When the project leader creates an activity in that project
+#	Then the activity is listed under the project
 
 Scenario: Duplicate name
 	Given there is a project
