@@ -32,7 +32,7 @@ public class CreateActivitySteps {
 
 	@Then("the activity is listed under the project")
 	public void activityIsListedUnderTheProject() {
-		assertTrue(project.containsActivityWithID(activityID));
+		assertTrue(project.containsActivityWithId(activityID));
 	}
 }
 
