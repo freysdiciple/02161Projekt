@@ -4,7 +4,8 @@ Actors: Developer
 
 Scenario: The developer successfully registers a session
 	Given there is a developer
-	And the developer is assigned to an activity
+	And there is an activity
+	And the developer is assigned to the activity
 	When the developer registers a session
 	Then the session is registered under the activity
 	And the session is registered under the developer
