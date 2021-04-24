@@ -64,4 +64,7 @@ public class Activity {
 	public void registerSession(Session session) {
 		registeredSessions.add(session);
 	}
+	public List<Session> getRegisteredSession() {
+		return registeredSessions;
+	}
 }

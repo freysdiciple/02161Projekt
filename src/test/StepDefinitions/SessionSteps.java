@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 
 import SoftwareAS.Model.Activity;
 import SoftwareAS.Model.Developer;
+import SoftwareAS.Model.Session;
 import io.cucumber.java.en.*;
 
 public class SessionSteps {
@@ -40,13 +41,14 @@ public class SessionSteps {
 
 	@Then("the session is registered under the activity")
 	public void the_session_is_registered_under_the_activity() {
-	    assertTrue(activity);
+		Session sessionInActivity = activity.getRegisteredSession().get(0);
+	    assertTrue(sessionInActivity.getStartTime() == start && sessionInActivity.getEndTime() == end);
 	}
 
 	@Then("the session is registered under the developer")
 	public void the_session_is_registered_under_the_developer() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		Session sessionInDeveloper = developer.getRegisteredSession().get(0);
+	    assertTrue(sessionInDeveloper.getStartTime() == start && sessionInDeveloper.getEndTime() == end);
 	}
 
 	@Given("the developer registers a session")
