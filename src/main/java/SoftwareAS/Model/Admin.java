@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Admin extends Developer{
 	
-	private Database database;
+	private DataBase database;
 	
 	private List<Project> projects = new ArrayList<>();
 
-	public Admin(String id, DataBase db) {
-		super(id, db);
+	public Admin(String id, DataBase database) {
+		super(id, database);
 		setAdminState(true);
 		this.database = database;
 	}
