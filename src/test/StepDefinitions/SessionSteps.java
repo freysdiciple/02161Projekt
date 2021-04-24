@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
+import Exceptions.OperationNotAllowedException;
+import SoftwareAS.Controller.SoftwareAS;
+import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.Activity;
 import SoftwareAS.Model.Developer;
 import SoftwareAS.Model.Session;
@@ -9,12 +12,21 @@ import io.cucumber.java.en.*;
 
 public class SessionSteps {
 	
+	
+	ErrorMessageHolder errorMessageHolder;
+	
 	DataBase database;
 	Activity activity;
 	Developer developer;
 	
 	GregorianCalendar start;
 	GregorianCalendar end;
+	
+	public SessionSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+		
+	}
 	
 	@Given("there is a developer")
 	public void there_is_a_developer() {
@@ -47,26 +59,34 @@ public class SessionSteps {
 
 	@Then("the session is registered under the developer")
 	public void the_session_is_registered_under_the_developer() {
-		Session sessionInDeveloper = developer.getRegisteredSession().get(0);
+		Session sessionInDeveloper = developer.getRegisteredSessions().get(0);
 	    assertTrue(sessionInDeveloper.getStartTime() == start && sessionInDeveloper.getEndTime() == end);
 	}
 
 	@Given("the developer registers a session")
 	public void the_developer_registers_a_session() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		start = new GregorianCalendar();
+		end = new GregorianCalendar();
+		end.add(GregorianCalendar.DAY_OF_MONTH, 10);
+	    developer.registerSession(activity, start, end);
 	}
 
 	@When("the developer registers another overlapping session")
 	public void the_developer_registers_another_overlapping_session() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    start.add(GregorianCalendar.DAY_OF_MONTH, 5);
+	    end.add(GregorianCalendar.DAY_OF_MONTH, 5);
+	    
+	    try {	    	
+	    	developer.registerSession(activity, start, end);
+	    }
+	    catch(OperationNotAllowedException e){
+	    	errorMessageHolder.setErrorMessage(e.getMessage());
+	    }
 	}
 
 	@Then("the system throws an OverlappingSessionsException")
 	public void the_system_throws_an_overlapping_sessions_exception() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals("Overlapping Sessions", errorMessageHolder.getErrorMessage());
 	}
 
 }

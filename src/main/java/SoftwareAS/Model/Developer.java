@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OverlappingSessionsException;
 
 public class Developer {
 	
@@ -29,9 +30,9 @@ public class Developer {
 		isAdmin = state;
 	}
 	
-	public void registerSession(Activity activity, GregorianCalendar startTime, GregorianCalendar endTime) throws OperationNotAllowedException {
+	public void registerSession(Activity activity, GregorianCalendar startTime, GregorianCalendar endTime) throws OperationNotAllowedException, OverlappingSessionsException {
 		if(startTime.compareTo(endTime) >= 0) throw new OperationNotAllowedException("A session cannot end before it starts...");
-		if(overlapsWithOtherSession(startTime, endTime)) throw new OperationNotAllowedException("Two sessions cannot overlap");
+		if(overlapsWithOtherSession(startTime, endTime)) throw new OverlappingSessionsException("Overlapping Sessions");
 		Session newSession = new Session(startTime, endTime, this, activity);
 		
 		registeredSessions.add(newSession);
