@@ -38,6 +38,10 @@ public class Developer {
 		activity.registerSession(newSession);
 	}
 	
+	public List<Session> getRegisteredSessions(){
+		return registeredSessions;
+	}
+	
 	public boolean overlapsWithOtherSession(GregorianCalendar currentStart, GregorianCalendar currentEnd) {
 		
 		for(Session previous : registeredSessions) {

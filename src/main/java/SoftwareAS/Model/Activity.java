@@ -21,6 +21,12 @@ public class Activity {
 		this.id = id;
 	}
 	
+	public Activity() {
+		
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,12 +52,19 @@ public class Activity {
 		this.startWeek = startWeek;
 	}
 	
-	public void assignDeveloper(Developer projectManager,Developer developer) throws OperationNotAllowedException {
-		if(projectManager.equals(project.getProjectManager())) developers.add(developer);
+	public void assignDeveloper(Developer projectLeader,Developer developer) throws OperationNotAllowedException {
+		if(projectLeader.equals(project.getProjectLeader())) developers.add(developer);
 		else throw new OperationNotAllowedException("Only project managers can assign to activity");
+	}
+	
+	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {
+		developers.add(developer);
 	}
 	
 	public void registerSession(Session session) {
 		registeredSessions.add(session);
+	}
+	public List<Session> getRegisteredSession() {
+		return registeredSessions;
 	}
 }
