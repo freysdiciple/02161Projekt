@@ -20,6 +20,9 @@ public class Session {
 	public int getSessionID() {
 		return sessionId;
 	}
+	public int getDuration() {
+		return 0;
+	}
 	public GregorianCalendar getStartTime() {
 		return startTime;
 	}

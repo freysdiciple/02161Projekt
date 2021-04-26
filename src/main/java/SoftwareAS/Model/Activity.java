@@ -12,6 +12,7 @@ public class Activity {
 	private int startWeek;
 	private int endWeek;
 	private int estimatedWorkHours;
+	private int timeLeft;
 	
 	private List<Developer> developers = new ArrayList<>();
 	private List<Session> registeredSessions = new ArrayList<>();
@@ -31,7 +32,6 @@ public class Activity {
 	public int getId() {
 		return id;
 	}
-
 	
 	public int getEndWeek() {
 		return endWeek;
@@ -45,7 +45,15 @@ public class Activity {
 	}
 	public void setEstimatedWorkHours(int estimatedWorkHours) {
 		this.estimatedWorkHours = estimatedWorkHours;
+		this.timeLeft = estimatedWorkHours;
 	}
+	public int getTimeLeft() {
+		return timeLeft;
+	}
+	public void setTimeLeft(int timeLeft) {
+		this.timeLeft = timeLeft;
+	}
+	
 	public int getStartWeek() {
 		return startWeek;
 	}
@@ -73,7 +81,7 @@ public class Activity {
 		Session[] sessions = new Session[registeredSessions.size()];
 		registeredSessions.toArray(sessions);
 		
-		ActivitySummary summary = new ActivitySummary(sessions);
+		ActivitySummary summary = new ActivitySummary(this, sessions);
 		summaries.add(summary);
 	}
 }

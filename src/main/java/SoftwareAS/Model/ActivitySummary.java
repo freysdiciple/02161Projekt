@@ -6,9 +6,12 @@ public class ActivitySummary {
 	private int totalWorkLoad;
 	private int remainingTime;
 	
-	public ActivitySummary(Session[] sessions) {
+	public ActivitySummary(Activity activity, Session[] sessions) {
 		
 		dailyWorkLoad = SummaryHelper.calculateDailyWorkload(sessions);
+		totalWorkLoad = SummaryHelper.calculateTotalWorkload(sessions);
+		remainingTime = SummaryHelper.calculateRemainingTime(sessions, activity.getTimeLeft());
+		activity.setTimeLeft(remainingTime);
 	}
 	
 	public int[] getDailyWorkLoad() {
