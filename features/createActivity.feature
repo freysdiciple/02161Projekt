@@ -14,8 +14,8 @@ Scenario: Duplicate name
 	And there is a user with id {String} and database {DataBase}
 	And the user is a project leader
 	And there is an activity with the ID {int}
-	When an activity with the same name is created
-	Then a DuplicateNameException is thrown
+	When an activity with the same ID is created
+	Then an ActivityAlreadyExistsException is thrown
 
 Scenario: Developer trying to create activity
 	Given there is a project

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
@@ -51,14 +52,17 @@ public class Project {
 		}
 		return false;
 	}
-	
 	public void assignDeveloper(Developer admin, Developer developer) throws OperationNotAllowedException {
 		if(admin.isAdmin()) developers.add(developer);
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
-	
-	public void createActivity(int id, Developer developer) throws NotAuthorizedException {
-		if (this.isProjectLeader(developer)) activities.add(new Activity(id, this));
+	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
+		if (this.isProjectLeader(developer)) {
+			if (!this.containsActivityWithId(id))
+				activities.add(new Activity(id, this));
+			else
+				throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
+		}
 		else throw new NotAuthorizedException("Only the project leader can create activities.");
 	}
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
