@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import Exceptions.ActivityNotFoundException;
+import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 
 public class Project {
@@ -56,8 +57,10 @@ public class Project {
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
 	
-	public void createActivity(int id) {
-		activities.add(new Activity(id, this));
+	public void createActivity(int id, Developer developer) throws NotAuthorizedException {
+		if (this.isProjectLeader(developer))
+			activities.add(new Activity(id, this));
+		else throw new NotAuthorizedException("Only the project leader can create activities.");
 	}
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
 		for(Activity activity : activities) {
