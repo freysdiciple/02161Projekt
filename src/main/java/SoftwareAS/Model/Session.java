@@ -20,8 +20,8 @@ public class Session {
 	public int getSessionID() {
 		return sessionId;
 	}
-	public int getDuration() {
-		return 0;
+	public int getDurationInHours() {
+		return (int)(getStartTime().getTimeInMillis() - getEndTime().getTimeInMillis())/(1000 * 60 * 60);
 	}
 	public GregorianCalendar getStartTime() {
 		return startTime;
