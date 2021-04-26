@@ -57,14 +57,13 @@ public class CreateProjectSteps {
 	
 	@When("the user creates a project with a number {int} identical to an existing project")
 	public void theUserCreatesProject() {
-		projectNumber=existingProjectNumber;
+		admin.createProject(existingProjectNumber);
 	}
 	
 	@Then("the system throws ExistingProjectException")
 	public void systemThrowsExistingProjectException() {
-		if (database.containsProject(projectNumber))
+		if (database.containsProject(existingProjectNumber))
 			throw ExistingProjectException();
-		admin.createProject(projectNumber);
 	}
 	
 //	# Alternate scenario three
@@ -89,9 +88,9 @@ public class CreateProjectSteps {
 		admin.createProject(projectNumber);
 	}
 
-	@Then("the system throws InvalidUserException")
-	public void systemCreatesProjectWithGivenNumberAndCreator() {
-		assertTrue(database.containsProject(projectNumber));
+	@Then("the system throws AdminNotFoundException")
+	public void systemThrowsAdminNotFoundException() {
+		throw AdminNotFoundException("User not an admin");
 	
 	}
 
