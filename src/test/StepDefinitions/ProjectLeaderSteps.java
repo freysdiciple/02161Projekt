@@ -16,6 +16,13 @@ import io.cucumber.java.en.*;
 
 public class ProjectLeaderSteps {
 
+	private Admin admin;
+	private Developer developer;
+	private Project project;
+	private DataBase database;
+	private int projectNumber = 12345;
+	
+	
 	
 //	Scenario: Assign the role project leader to a developer on an existing project successfully 
 //	Given the user is an admin
@@ -28,13 +35,30 @@ public class ProjectLeaderSteps {
 	
 	
 	
+	@Given("there is an user with id {String} and database {DataBase}")
+	public void thereIsAnUserWithIDAndDataBase() {
+		admin = new Admin("Søren", database);
+	}
+	
 	@Given("the user is an admin")
-	public void theUserIsAnAdmin() throws Exception {
-		
+	public void theUserIsAnAdmin() {
+		assertTrue(admin.isAdmin());
+	}
+	
+	@Given("there is a project with a number {int} and a creator {Admin}")
+	public void thereIsAProjectWithNumberAndCreator() {
+		admin.createProject(projectNumber);
 		
 	}
 	
-	
+	@Given("there is a developer listed on the project")
+	public void thereIsADeveloperListedOnTheProject() {
+		developer = new Developer("Bob", database);
+		database.getProjectById(projectNumber).assignDeveloper(admin, developer);
+		
+		
+		
+	}
 	
 	
 	
