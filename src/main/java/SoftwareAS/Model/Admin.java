@@ -3,6 +3,9 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.ProjectAlreadyExistsException;
+import Exceptions.ProjectNotFoundException;
+
 public class Admin extends Developer{
 	
 	private DataBase database;
@@ -15,7 +18,10 @@ public class Admin extends Developer{
 		this.database = database;
 	}
 	
-	public void createProject(int projectNumber) {
+	public void createProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
+		if(database.containsProject(projectNumber)) 
+			throw new ProjectAlreadyExistsException("Project Already Exists");
+		
 		Project newProject = new Project(projectNumber, this);
 		projects.add(newProject);
 		database.createProject(newProject);
