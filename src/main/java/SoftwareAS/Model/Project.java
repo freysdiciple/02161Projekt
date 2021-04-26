@@ -58,8 +58,7 @@ public class Project {
 	}
 	
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException {
-		if (this.isProjectLeader(developer))
-			activities.add(new Activity(id, this));
+		if (this.isProjectLeader(developer)) activities.add(new Activity(id, this));
 		else throw new NotAuthorizedException("Only the project leader can create activities.");
 	}
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
