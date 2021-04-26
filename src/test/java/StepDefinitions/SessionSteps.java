@@ -1,11 +1,14 @@
-import static org.junit.Assert.*;
+package StepDefinitions;
 
+import static org.junit.Assert.*;
 import java.util.GregorianCalendar;
 
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OverlappingSessionsException;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.Activity;
+import SoftwareAS.Model.DataBase;
 import SoftwareAS.Model.Developer;
 import SoftwareAS.Model.Session;
 import io.cucumber.java.en.*;
@@ -38,12 +41,12 @@ public class SessionSteps {
 	}
 	
 	@Given("the developer is assigned to the activity")
-	public void the_developer_is_assigned_to_the_activity() {
+	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException {
 	    activity.assignDeveloper(developer);
 	}
 	
 	@When("the developer registers a session")
-	public void the_developer_registers_a_session() {
+	public void the_developer_registers_a_session() throws OperationNotAllowedException, OverlappingSessionsException {
 		start = new GregorianCalendar();
 		end = new GregorianCalendar();
 		end.add(GregorianCalendar.DAY_OF_MONTH, 2);
@@ -62,23 +65,17 @@ public class SessionSteps {
 	    assertTrue(sessionInDeveloper.getStartTime() == start && sessionInDeveloper.getEndTime() == end);
 	}
 
-	@Given("the developer registers a session")
-	public void the_developer_registers_a_session() {
-		start = new GregorianCalendar();
-		end = new GregorianCalendar();
-		end.add(GregorianCalendar.DAY_OF_MONTH, 10);
-	    developer.registerSession(activity, start, end);
-	}
+	
 
 	@When("the developer registers another overlapping session")
-	public void the_developer_registers_another_overlapping_session() {
-	    start.add(GregorianCalendar.DAY_OF_MONTH, 5);
-	    end.add(GregorianCalendar.DAY_OF_MONTH, 5);
+	public void the_developer_registers_another_overlapping_session() throws OperationNotAllowedException {
+	    start.add(GregorianCalendar.DAY_OF_MONTH, 1);
+	    end.add(GregorianCalendar.DAY_OF_MONTH, 1);
 	    
 	    try {	    	
 	    	developer.registerSession(activity, start, end);
 	    }
-	    catch(OperationNotAllowedException e){
+	    catch(OverlappingSessionsException e){
 	    	errorMessageHolder.setErrorMessage(e.getMessage());
 	    }
 	}
