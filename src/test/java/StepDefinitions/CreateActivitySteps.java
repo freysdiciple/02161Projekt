@@ -1,5 +1,8 @@
+package StepDefinitions;
 
 import static org.junit.Assert.*;
+
+import Exceptions.ActivityNotFoundException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Model.*;
 
@@ -31,7 +34,7 @@ public class CreateActivitySteps {
 	}
 
 	@Then("the activity is listed under the project")
-	public void activityIsListedUnderTheProject() {
+	public void activityIsListedUnderTheProject() throws ActivityNotFoundException {
 		assertTrue(project.containsActivityWithId(activityID));
 	}
 }

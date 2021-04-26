@@ -18,6 +18,7 @@ public class Developer {
 		this.id = id;
 		this.database = database;
 	}
+	public Developer() {}
 	
 	public String getId() {
 		return id;
