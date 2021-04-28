@@ -11,14 +11,14 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
 public class CreateActivitySteps {
+	private DataBase database;
+	private Admin admin;
+	private Project project;
 	private Developer developer;
 	private Developer developer2;
-	private Project project;
-	private DataBase database;
 	private int activityID = 1;
 	private int activityID2 = 2;
 	private ErrorMessageHolder errorMessageHolder;
-	private Admin admin;
 	
 	//Scenario: Successfully create activity
 	@Given("there is a project")
@@ -47,7 +47,6 @@ public class CreateActivitySteps {
 	public void activityIsListedUnderTheProject() throws ActivityNotFoundException {
 		assertTrue(project.containsActivityWithId(activityID));
 	}
-	
 		//Scenario: Successfully create activity
 		//	Given there is a project
 		//	And there is a user with id {String} and database {DataBase}
@@ -75,13 +74,13 @@ public class CreateActivitySteps {
 	public void anActivityAlreadyExistsExceptionIsThrown() {
 		assertEquals("An activity with that ID already exists.", errorMessageHolder.getErrorMessage());
 	}
-//		Scenario: Duplicate name
-//			Given there is a project
-//			And there is a user with id {String} and database {DataBase}
-//			And the user is a project leader
-//			And there is an activity with the ID {int}
-//			When an activity with the same ID is created
-//			Then an ActivityAlreadyExistsException is thrown
+		//Scenario: Duplicate name
+		//	Given there is a project
+		//	And there is a user with id {String} and database {DataBase}
+		//	And the user is a project leader
+		//	And there is an activity with the ID {int}
+		//	When an activity with the same ID is created
+		//	Then an ActivityAlreadyExistsException is thrown
 	
 	
 	//Scenario: Developer trying to create activity
@@ -113,7 +112,6 @@ public class CreateActivitySteps {
 		assertFalse(project.containsActivityWithId(activityID2));
 		//assertTrue(!project.containsActivityWithId(activityID2));
 	}
-	
 		//Scenario: Developer trying to create activity
 		//	Given there is a project
 		//	And there is a user with id {String} and database {DataBase}
