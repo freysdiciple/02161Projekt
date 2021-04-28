@@ -14,7 +14,7 @@ Scenario: Assign a non-developer to an activity
 	And there is not a developer
 	And there is an activity
 	When the developer is assigned to the activity
-	Then a NoDeveloperException is thrown\newline
+	Then a NoDeveloperException is thrown
 
 Scenario: Assign developer to an activity, that does not exist
 	Given the user is a project leader
