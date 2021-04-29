@@ -3,6 +3,8 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.ActivityNotFoundException;
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.OperationNotAllowedException;
 
 public class Activity {
@@ -83,5 +85,16 @@ public class Activity {
 		
 		ActivitySummary summary = new ActivitySummary(this, sessions);
 		summaries.add(summary);
+	}
+	
+	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
+		for(Developer developer : developers) {
+			if(developer.getId() == id) return developer;
+		}
+		throw new DeveloperNotFoundException("No developer with described ID");
+	}
+	
+	public boolean containsDeveloperWithId(String id) throws DeveloperNotFoundException {
+		return developers.contains(getDeveloperById(id));
 	}
 }
