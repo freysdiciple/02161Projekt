@@ -87,14 +87,22 @@ public class Activity {
 		summaries.add(summary);
 	}
 	
-	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
-		for(Developer developer : developers) {
-			if(developer.getId() == id) return developer;
-		}
-		throw new DeveloperNotFoundException("No developer with described ID");
-	}
+//	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
+//		for(Developer developer : developers) {
+//			if(developer.getId() == id) return developer;
+//		}
+//		throw new DeveloperNotFoundException("No developer with described ID");
+//	}
+//	
+//	public boolean containsDeveloperWithId(String id) throws DeveloperNotFoundException {
+//		return developers.contains(getDeveloperById(id));
+//	}
 	
-	public boolean containsDeveloperWithId(String id) throws DeveloperNotFoundException {
-		return developers.contains(getDeveloperById(id));
+	public boolean isDeveloperOnAcitivty(String name) {
+		for (Developer developer : developers) {
+			if (developer.getId() == name)
+				return true;
+		}
+		return false;
 	}
 }
