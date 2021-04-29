@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 import io.cucumber.java.en.*;
@@ -34,7 +35,7 @@ public class assignDeveloperToActivitySteps {
 	}
 	
 	@Given("the user is a project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException {
+	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException {
 		project.assignDeveloper(admin, developer);
 		project.setProjectLeader(developer);
 	}
@@ -68,6 +69,8 @@ public class assignDeveloperToActivitySteps {
 		//	And there is an activity
 		//	When the second developer is assigned to the activity
 		//	Then the developer is listen under the activity
+	
+	
 
 	//Scenario: Assign developer to an activity that does not exist
 	@Given("there is not an activity ")
