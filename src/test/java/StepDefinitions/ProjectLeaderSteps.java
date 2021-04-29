@@ -106,13 +106,18 @@ public class ProjectLeaderSteps {
 	}
 	
 	@When("the admin assigns the role project leader on the project to the developer")
-	public void adminAssignsProjectLeaderOnProjectToDeveloper() throws ProjectNotFoundException, DeveloperNotFoundException {
-		database.getProjectById(projectNumber2).setProjectLeader(developer);
+	public void adminAssignsProjectLeaderOnProjectToDeveloper() throws ProjectNotFoundException {
+		try {
+			database.getProjectById(projectNumber2).setProjectLeader(developer);
+		}
+		catch(DeveloperNotFoundException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+		
 	}
 	
 	@Then("the system throws developerNotFoundException is given")
 	public void systemThrowsDeveloperNotFoundException() {
-		
-		
+		assertEquals("Existing Project", errorMessageHolder.getErrorMessage());
 	}
 }
