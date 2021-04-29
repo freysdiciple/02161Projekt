@@ -54,7 +54,7 @@ public class ProjectLeaderSteps {
 	@Given("there is a developer listed on the project")
 	public void thereIsADeveloperListedOnTheProject() throws OperationNotAllowedException, ProjectNotFoundException {
 		developer = new Developer("Bob", database);
-		database.getProjectById(projectNumber1).assignDeveloper(admin, developer);
+		database.getProjectById(projectNumber1).assignDeveloperToProject(admin, developer);
 	}
 	
 	@Given("the developer does not have the role project leader")
@@ -120,4 +120,24 @@ public class ProjectLeaderSteps {
 	public void systemThrowsDeveloperNotFoundException() {
 		assertEquals("Existing Project", errorMessageHolder.getErrorMessage());
 	}
+	
+	
+//	# Alternate scenario two
+//	Scenario: Assign the role project leader to a developer who has the role on an existing project 
+//		Given the user is an admin 
+//		And there is a project
+//		And a developer listed under that project
+//		And the developer has the role project leader on the given project
+//		When the admin assigns the role project leader on the project to the developer
+//		Then the system throws developerIsProjectLeaderException is given
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
