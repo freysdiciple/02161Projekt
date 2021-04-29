@@ -1,6 +1,8 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
+
+import Exceptions.DeveloperNotFoundException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Model.*;
 
@@ -28,7 +30,7 @@ public class SeeAvailableDevelopersSteps {
 	}
 	
 	@Given("there is an user with id {String} and database {DataBase}")
-	public void thereIsAnUserWithIDAndDataBase1() {
+	public void thereIsAnUserWithIDAndDataBase1() throws DeveloperNotFoundException {
 		developer = new Developer("Mogens", database);
 		project.setProjectLeader(developer);
 	}

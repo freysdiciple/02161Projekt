@@ -5,6 +5,7 @@ import java.util.List;
 
 import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
+import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 
 public class DataBase {
@@ -62,7 +63,9 @@ public class DataBase {
 	public List<Project> getAllProjects(){
 		return projects;
 	}
-	public void createProject(Project project) {
+	public void createProject(Project project) throws ProjectNotFoundException, ProjectAlreadyExistsException {
+		if(containsProject(project.getProjectNumber())) 
+			throw new ProjectAlreadyExistsException("Project Already Exists");
 		projects.add(project);
 	}
 	public void deleteProject(int projectNumber) {
