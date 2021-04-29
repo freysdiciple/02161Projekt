@@ -35,7 +35,7 @@ public class CreateActivitySteps {
 	
 	@Given("the user is a project leader")
 	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException {
-		project.assignDeveloper(admin, developer);
+		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(developer);
 	}
 
@@ -88,7 +88,7 @@ public class CreateActivitySteps {
 	@Given("the user is not a project leader")
 	public void theUserIsNotAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException {
 		developer2 = new Developer("Developer2ID", database);
-		project.assignDeveloper(admin, developer2);
+		project.assignDeveloperToProject(admin, developer2);
 		project.setProjectLeader(developer2);
 		assertFalse(project.isProjectLeader(developer));
 	}
