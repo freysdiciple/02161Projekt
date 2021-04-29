@@ -56,7 +56,7 @@ public class Project {
 		}
 		return false;
 	}
-	public void assignDeveloper(Developer admin, Developer developer) throws OperationNotAllowedException {
+	public void assignDeveloperToProject(Developer admin, Developer developer) throws OperationNotAllowedException {
 		if(admin.isAdmin()) developers.add(developer);
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
