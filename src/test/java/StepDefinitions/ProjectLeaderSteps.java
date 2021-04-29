@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.OperationNotAllowedException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
@@ -62,7 +63,7 @@ public class ProjectLeaderSteps {
 	}
 	
 	@When("the admin assigns the role project leader on the project to the developer")
-	public void adminAssignsTheRoleProjectLeaderToTheDeveloper() throws ProjectNotFoundException {
+	public void adminAssignsTheRoleProjectLeaderToTheDeveloper() throws ProjectNotFoundException, DeveloperNotFoundException {
 		database.getProjectById(projectNumber1).setProjectLeader(developer);
 	}
 	
@@ -105,12 +106,12 @@ public class ProjectLeaderSteps {
 	}
 	
 	@When("the admin assigns the role project leader on the project to the developer")
-	public void adminAssignsProjectLeaderOnProjectToDeveloper() throws ProjectNotFoundException {
+	public void adminAssignsProjectLeaderOnProjectToDeveloper() throws ProjectNotFoundException, DeveloperNotFoundException {
 		database.getProjectById(projectNumber2).setProjectLeader(developer);
 	}
 	
-	@Then("the system throws developerNotListedOnProjectException is given")
-	public void systemThrowsDeveloperNotListedOnProjectException() {
+	@Then("the system throws developerNotFoundException is given")
+	public void systemThrowsDeveloperNotFoundException() {
 		
 		
 	}
