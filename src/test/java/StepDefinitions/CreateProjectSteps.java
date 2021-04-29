@@ -2,6 +2,7 @@ package StepDefinitions;
 
 import static org.junit.Assert.*;
 
+import Exceptions.AdminNotFoundException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -70,6 +71,7 @@ public class CreateProjectSteps {
 	
 	@Then("the system throws ExistingProjectException")
 	public void systemThrowsExistingProjectException() {
+		assertEquals("Existing Project", errorMessageHolder.getErrorMessage());
 		
 		
 	}
@@ -81,6 +83,25 @@ public class CreateProjectSteps {
 //	   	When the user creates a project with name and number
 //	   	Then the system throws InvalidUserException
 	
+	@Given("there is an user with id {String} and database {DataBase}")
+	public void thereIsAnUserWithIDAndDataBase1() {
+		admin = new Admin("Søren", database);
+	}
+
+	@Given("the user is not an admin")
+	public void theUserIsAnAdmin1() {
+		assertFalse(admin.isAdmin());
+	}
+
+	@When("the user creates a project with a number {int} and a creator {Admin}")
+	public void theUserCreatesProject1() throws ProjectAlreadyExistsException, ProjectNotFoundException {
+		admin.createProject(projectNumber);
+	}
+
+	@Then("the system throws AdminNotFoundException")
+	public void systemThrowsAdminNotFoundException() throws AdminNotFoundException {
+		throw new AdminNotFoundException("User not an admin");
 	
 
+}
 }
