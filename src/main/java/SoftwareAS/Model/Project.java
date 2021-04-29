@@ -6,6 +6,7 @@ import java.util.List;
 
 import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 
@@ -35,8 +36,11 @@ public class Project {
 		return startDate;
 	}
 	
-	public void setProjectLeader(Developer projectLeader) {
-		this.projectLeader = projectLeader;
+	public void setProjectLeader(Developer projectLeader) throws DeveloperNotFoundException {
+		if (isDeveloperOnProject(projectLeader.getId()) == true) {
+			this.projectLeader = projectLeader;
+		}
+		else throw new DeveloperNotFoundException("Developer is not on the project");
 	}
 	public Developer getProjectLeader() {
 		return projectLeader;
