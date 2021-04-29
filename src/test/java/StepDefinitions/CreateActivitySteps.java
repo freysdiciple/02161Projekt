@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 import io.cucumber.java.en.*;
@@ -33,7 +34,7 @@ public class CreateActivitySteps {
 	}
 	
 	@Given("the user is a project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException {
+	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException {
 		project.assignDeveloper(admin, developer);
 		project.setProjectLeader(developer);
 	}
@@ -85,7 +86,7 @@ public class CreateActivitySteps {
 	
 	//Scenario: Developer trying to create activity
 	@Given("the user is not a project leader")
-	public void theUserIsNotAProjectLeader() throws OperationNotAllowedException {
+	public void theUserIsNotAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException {
 		developer2 = new Developer("Developer2ID", database);
 		project.assignDeveloper(admin, developer2);
 		project.setProjectLeader(developer2);
