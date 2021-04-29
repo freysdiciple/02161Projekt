@@ -63,14 +63,14 @@ public class Activity {
 		this.startWeek = startWeek;
 	}
 	
-	public void assignDeveloper(Developer projectLeader,Developer developer) throws OperationNotAllowedException {
+	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException {
 		if(projectLeader.equals(project.getProjectLeader())) developers.add(developer);
 		else throw new OperationNotAllowedException("Only project managers can assign to activity");
 	}
 	
-	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {
-		developers.add(developer);
-	}
+//	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {
+//		developers.add(developer);
+//	}
 	
 	public void registerSession(Session session) {
 		registeredSessions.add(session);
