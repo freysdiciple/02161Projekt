@@ -3,6 +3,7 @@ package StepDefinitions;
 import static org.junit.Assert.*;
 import java.util.GregorianCalendar;
 
+import Exceptions.DeveloperNotFoundException;
 import Exceptions.OperationNotAllowedException;
 import Exceptions.OverlappingSessionsException;
 import SoftwareAS.Controller.SoftwareAS;
@@ -41,8 +42,8 @@ public class SessionSteps {
 	}
 	
 	@Given("the developer is assigned to the activity")
-	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException {
-	    activity.assignDeveloper(developer);
+	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException, DeveloperNotFoundException {
+	    activity.assignDeveloperToActivity(developer, developer);
 	}
 	
 	@When("the developer registers a session")
