@@ -8,10 +8,10 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "features",
-		plugin = { "summary"},
+		plugin = {"summary"},
 		monochrome=true,
 		snippets = SnippetType.CAMELCASE,
-		glue = { "StepDefinitions"})
+		glue = { "src/test/java/StepDefinitions"})
 public class AcceptanceTest {
 
 }
