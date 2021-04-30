@@ -10,6 +10,16 @@ Scenario: Successfully assign developer to activity
 	And there is an activity
 	When the second developer is assigned to the activity
 	Then the second developer is listed under the activity
+
+#Scenario: Assign developer not on project to an activity
+#	Given there is a project
+#	And there is a user with id {String} and database {DataBase}
+#	And the user is a project leader
+#	And there is a second developer with id {String} and database {DataBase}
+#	And the second developer is not part of the project
+#	And there is an activity
+#	When the second developer is assigned to the activity
+#	Then a DeveloperNotFoundException is thrown
 #
 #Scenario: Assign a non-developer to an activity
 #	Given there is a project
