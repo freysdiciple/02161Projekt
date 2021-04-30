@@ -34,7 +34,7 @@ public class assignDeveloperToActivitySteps {
 		project = new Project(012345, admin);
 	}
 	
-	@Given("there is a user with id {String} and database")
+	@Given("there is a user with id developerID and database")
 	public void thereIsAUserWithIDAndDataBase() {
 		developer = new Developer(developerID, database);
 	}
@@ -45,7 +45,7 @@ public class assignDeveloperToActivitySteps {
 		project.setProjectLeader(developer);
 	}
 	
-	@Given("there is a second developer with id {String} and database")
+	@Given("there is a second developer with id developer2ID and database")
 	public void thereIsASecondDeveloperWithIDAndDatabase() {
 		developer2 = new Developer(developer2ID, database);
 	}
