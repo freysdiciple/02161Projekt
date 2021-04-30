@@ -18,6 +18,10 @@ public class Admin extends Developer{
 		this.database = database;
 	}
 	
+	public Admin() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void createProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
 		if(database.containsProject(projectNumber)) 
 			throw new ProjectAlreadyExistsException("Project Already Exists");

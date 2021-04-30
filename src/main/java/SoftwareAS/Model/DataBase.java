@@ -19,9 +19,11 @@ public class DataBase {
 	public List<Developer> getAllDevelopers(){
 		return developers;
 	}
+	
 	public void createDeveloper(Developer developer) {
 		developers.add(developer);
 	}
+	
 	public void deleteDeveloper(String id) {
 		for(Developer developer : developers) {
 			if(developer.getId().equals(id)) developers.remove(developer);
@@ -80,8 +82,17 @@ public class DataBase {
 		
 		throw new ProjectNotFoundException("No project with described ID");
 	}
+	public Project getProjectByIdWithoutException(int projectNumber) {
+		for(Project project : projects) {
+			if(project.getProjectNumber() == projectNumber) return project;
+		}
+		
+		return new Project(0, new Admin());
+	}
+	
+	
 	public boolean containsProject(int projectNumber) throws ProjectNotFoundException {
-		return projects.contains(getProjectById(projectNumber));
+		return projects.contains(getProjectByIdWithoutException(projectNumber));
 	}
 	
 
