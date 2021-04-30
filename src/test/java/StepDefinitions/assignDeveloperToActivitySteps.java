@@ -61,10 +61,10 @@ public class assignDeveloperToActivitySteps {
 	}
 	
 	@When("the second developer is assigned to the activity")
-	public void theSecondDeveloperIsAssignedToTheActivity() throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException {
+	public void theSecondDeveloperIsAssignedToTheActivity() throws ActivityAlreadyExistsException, ActivityNotFoundException {
 		try {
 			project.getActivityById(activityID).assignDeveloperToActivity(developer, developer2);
-		} catch(DeveloperNotFoundException e) {
+		} catch(DeveloperNotFoundException | OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 	}
@@ -94,6 +94,11 @@ public class assignDeveloperToActivitySteps {
 	public void aDeveloperNotFoundExceptionIsThrown() {
 		assertEquals("Developer not on project.", errorMessageHolder.getErrorMessage());
 	}
+	
+	@Then("the second developer is not listed under activity")
+	public void theSecondDeveloperIsNotListedUnderActivity() throws ActivityNotFoundException {
+		assertFalse(project.getActivityById(activityID).isDeveloperOnAcitivty(developer2ID));
+	}
 		//Scenario: Assign developer not on project to an activity
 		//	Given there is a project
 		//	And there is a user with id {String} and database {DataBase}
@@ -103,6 +108,7 @@ public class assignDeveloperToActivitySteps {
 		//	And there is an activity
 		//	When the second developer is assigned to the activity
 		//	Then a DeveloperNotFoundException is thrown
+		//	And the second developer is not listed under activity
 	
 	//Scenario: Assign a non-developer to an activity
 //	@Given("there is not a developer with id {String} and database {DataBase}")
@@ -163,4 +169,26 @@ public class assignDeveloperToActivitySteps {
 		//	And there is not an activity with ID {int}
 		//	When the developer is assigned to the activity
 		//	Then an ActivityNotFoundException is thrown
+	
+	
+	//Scenario: Developer assigns developer to an activity
+	@Given("the user is not a project leader")
+	public void theUserIsNotAProjectLeader() {
+		assertFalse(project.isProjectLeader(developer));
+	}
+	
+	@Then("an OperatonNotAllowedException is thrown")
+	public void anOperationNotAllowedExceptionIsThrown() {
+		assertEquals("Only project leaders can assign to activity", errorMessageHolder.getErrorMessage());
+	}
+		//Scenario: Developer assigns developer to an activity
+		//	Given there is a project
+		//	And there is a user with id {String} and database {DataBase}
+		//	And the user is not a project leader
+		//	And there is a second developer with id {String} and database {DataBase}
+		//	And the second developer is part of the project
+		//	And there is an activity
+		//	When the second developer is assigned to the activity
+		//	Then an OperationNotAllowedException is thrown
+		//	And the second developer is not listed under the activity	
 }

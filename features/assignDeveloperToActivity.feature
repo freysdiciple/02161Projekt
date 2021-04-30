@@ -40,14 +40,15 @@ Scenario: Successfully assign developer to activity
 #	Then an ActivityNotFoundException is thrown
 #
 #Scenario: Developer assigns developer to an activity
-#	Given the user is not a project leader
-#	And there is a developer
+#	Given there is a project
+#	And there is a user with id {String} and database {DataBase}
+#	And the user is not a project leader
+#	And there is a second developer with id {String} and database {DataBase}
+#	And the second developer is part of the project
 #	And there is an activity
-#	When the developer is assigned to the activity
-#	Then a NotAuthorizedException is thrown
-#	And the system does not add the developer to the activity
-
-
+#	When the second developer is assigned to the activity
+#	Then an OperationNotAllowedException is thrown
+#	And the second developer is not listed under the activity	
 
 
 ### Ekstra ting der var hashtag på i forvejen
@@ -72,3 +73,11 @@ Scenario: Successfully assign developer to activity
 #	And there is not an activity
 #	When the developer is assigned to the activity
 #	Then a NoActivityException is thrown
+
+#Scenario: Developer assigns developer to an activity
+#	Given the user is not a project leader
+#	And there is a developer
+#	And there is an activity
+#	When the developer is assigned to the activity
+#	Then a NotAuthorizedException is thrown
+#	And the system does not add the developer to the activity
