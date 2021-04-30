@@ -60,7 +60,7 @@ public class Project {
 		if(admin.isAdmin()) developers.add(developer);
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
-	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
+	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
 		if (this.isProjectLeader(developer)) {
 			if (!this.containsActivityWithId(id))
 				activities.add(new Activity(id, this));
@@ -76,8 +76,13 @@ public class Project {
 		
 		throw new ActivityNotFoundException("No activity with described ID");
 	}
-	public boolean containsActivityWithId(int id) throws ActivityNotFoundException {
-		return activities.contains(getActivityById(id));
+	public boolean containsActivityWithId(int id) {
+		try {
+			activities.contains(getActivityById(id));
+			return true;
+		} catch (ActivityNotFoundException e) {
+			return false;
+		}
 	}
 	
 }
