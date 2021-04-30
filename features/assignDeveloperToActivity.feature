@@ -4,7 +4,7 @@ Actor: Project leader
 
 Scenario: Successfully assign developer to activity
 	Given there is a project
-	And there is a user with id {String} and database {DataBase}
+	And there is a user with id developerID and database
 	And the user is a project leader
 	And there is a second developer with id {String} and database {DataBase}
 	And there is an activity
