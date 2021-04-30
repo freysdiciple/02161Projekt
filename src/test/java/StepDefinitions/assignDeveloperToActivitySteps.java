@@ -45,7 +45,7 @@ public class assignDeveloperToActivitySteps {
 		project.setProjectLeader(developer);
 	}
 	
-	@Given("there is a second developer with id {String} and database {DataBase}")
+	@Given("there is a second developer with id {String} and database")
 	public void thereIsASecondDeveloperWithIDAndDatabase() {
 		developer2 = new Developer(developer2ID, database);
 	}
