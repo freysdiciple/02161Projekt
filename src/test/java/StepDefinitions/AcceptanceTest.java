@@ -11,7 +11,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 		plugin = {"summary"},
 		monochrome=true,
 		snippets = SnippetType.CAMELCASE,
-		glue = { "src/test/java/StepDefinitions"})
+		glue = {""})
 public class AcceptanceTest {
 
 }

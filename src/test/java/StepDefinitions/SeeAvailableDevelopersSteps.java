@@ -12,6 +12,8 @@ public class SeeAvailableDevelopersSteps {
 	private DataBase database;
 	private Project project;
 	private int projectNumber = 12345;
+	private int startWeek;
+	private int endWeek;
 	
 
 
@@ -29,8 +31,8 @@ public class SeeAvailableDevelopersSteps {
 		project = new Project(projectNumber, admin);
 	}
 	
-	@Given("there is an user with id {String} and database {DataBase}")
-	public void thereIsAnUserWithIDAndDataBase1() throws DeveloperNotFoundException {
+	@Given("there is an user with ID {String} and database {DataBase}")
+	public void thereIsAnUserWithIDAndDataBase() throws DeveloperNotFoundException {
 		developer = new Developer("Mogens", database);
 		project.setProjectLeader(developer);
 	}
@@ -41,8 +43,48 @@ public class SeeAvailableDevelopersSteps {
 		
 	}
 	
-	@When("the user provides information of the time slot of the activity where he needs developers")
+	@When("the user provides information of the start week {int} and end week {int} of the activity where he needs developers")
 	public void theUserProvidesTimeSlot() {
+		startWeek=23;
+		endWeek=25;
+		
+	}
+	
+	@Then("the system displays a list of available developers at the given time slot")
+	public void theSystemDisplaysList() {
+		//??
+	}
+		
+//	# Alternate scenario one  
+//	Scenario: Invalid time for available developers
+//  	Given there is a project with id {String}
+// 		Given there is an user with id {String} and database {DataBase}
+//		Given the user is a Project leader
+//		When the user provides information of the time slot of the activity where he needs developers, which isn't valid
+//	   	Then the system provides an error message that the time is invalid
+	
+	@Given("there is a project")
+	public void thereIsAProject1() {
+		admin = new Admin("AdminID", database);
+		project = new Project(projectNumber, admin);
+	}
+	
+	@Given("there is an user with ID {String} and database {DataBase}")
+	public void thereIsAnUserWithIDAndDataBase1() throws DeveloperNotFoundException {
+		developer = new Developer("Mogens", database);
+		project.setProjectLeader(developer);
+	}
+	
+	@Given("the user is a Project leader")
+	public void theUserIsAProjectLeader1() {
+		assertTrue(project.isProjectLeader(developer));
+		
+	}
+	
+	@When("the user provides information of the start week {int} and end week {int} of the activity where he needs developers which isn't valid")
+	public void theUserProvidesInvalidTimeSlot() {
+		startWeek=23;
+		endWeek=25;
 		
 	}
 	

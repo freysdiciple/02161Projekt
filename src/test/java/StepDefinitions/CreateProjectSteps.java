@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import Exceptions.AdminNotFoundException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Controller.SoftwareAS;
@@ -32,9 +33,10 @@ public class CreateProjectSteps {
 	// When the user creates a project with a number {int} and a creator {Admin}
 	// Then the project with a number {int} is contained in the system
 
-	@Given("there is an user with id {String} and database {DataBase}")
+	@Given("^there is an user with id {String} and database {DataBase}")
 	public void thereIsAnUserWithIDAndDataBase() {
 		admin = new Admin("Søren", database);
+		throw new PendingException();
 	}
 
 	@Given("the user is an admin")
@@ -71,7 +73,7 @@ public class CreateProjectSteps {
 	
 	@Then("the system throws ExistingProjectException")
 	public void systemThrowsExistingProjectException() {
-		assertEquals("Existing Project", errorMessageHolder.getErrorMessage());
+		assertEquals("Project Already Exist", errorMessageHolder.getErrorMessage());
 		
 		
 	}
