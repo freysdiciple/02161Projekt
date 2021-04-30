@@ -4,9 +4,9 @@ Actor: Project leader
 
 Scenario: Successfully assign developer to activity
 	Given there is a project
-	And there is a user with id "developerID" and database
+	And there is a user with id {String} and database
 	And the user is a project leader
-	And there is a second developer with id "developer2ID" and database
+	And there is a second developer with id {String} and database
 	And there is an activity
 	When the second developer is assigned to the activity
 	Then the second developer is listed under the activity
