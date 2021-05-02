@@ -99,9 +99,18 @@ public class Activity {
 		GregorianCalendar now = new GregorianCalendar();
 		GregorianCalendar start = getLastMonday(now);
 		
+		//We make a second now, as the first one is for
+		//some reason corrupted while getting last monday
+		GregorianCalendar end = new GregorianCalendar();
+		
+		System.out.println("start day: " + start.get(GregorianCalendar.DAY_OF_MONTH));
+		System.out.println("end day: " + end.get(GregorianCalendar.DAY_OF_MONTH));
+		
 		for(Session session : registeredSessions) {
-			if(endedInInterval(session, start, now)) list.add(session);
+			if(endedInInterval(session, start, end)) list.add(session);
 		}
+		
+		System.out.println(list.size());
 		
 		Session[] array = new Session[list.size()];
 		list.toArray(array);
@@ -112,19 +121,15 @@ public class Activity {
 	private GregorianCalendar getLastMonday(GregorianCalendar now) {
 		int currentDayOfWeek = now.get(GregorianCalendar.DAY_OF_WEEK);
 		
-		System.out.println("Current day: " + currentDayOfWeek);
-		
 		//Puts sunday at end of daylist insted of in front
 		if(currentDayOfWeek == 1) currentDayOfWeek += 7;
 		currentDayOfWeek --;
-		System.out.println("Current day after rework: " + currentDayOfWeek);
 		
 		int daysFromMonday = 0;
 		while(currentDayOfWeek > 1) {
 			daysFromMonday ++;
 			currentDayOfWeek --;
 		}
-		System.out.println("Days from monday: " + daysFromMonday);
 		
 		//Returns last monday at 00:00
 		GregorianCalendar lastMonday = now;
@@ -138,8 +143,11 @@ public class Activity {
 	}
 
 	public ActivitySummary createSummary() {
+		
+		Session[] sessionsFromPastWeek = getSessionsFromPastWeek();
 
-		ActivitySummary summary = new ActivitySummary(this, getSessionsFromPastWeek());
+		ActivitySummary summary = new ActivitySummary(this, sessionsFromPastWeek);
+		
 		summaries.add(summary);
 		
 		return summary;

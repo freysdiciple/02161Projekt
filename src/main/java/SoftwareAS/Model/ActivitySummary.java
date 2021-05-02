@@ -12,6 +12,7 @@ public class ActivitySummary {
 		dailyWorkLoad = SummaryHelper.calculateDailyWorkload(list);
 		totalWorkLoad = SummaryHelper.calculateTotalWorkload(list);
 		remainingTime = activity.getTimeLeft() - totalWorkLoad;
+		//System.out.println("remaining time: " + remainingTime);
 		activity.setTimeLeft(remainingTime);
 	}
 	

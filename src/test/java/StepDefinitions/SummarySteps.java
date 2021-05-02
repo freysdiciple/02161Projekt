@@ -59,12 +59,14 @@ public class SummarySteps {
 	public void theDevelopersHaveRegisteredTheirDailyTimeOnTheActivity() throws OperationNotAllowedException, OverlappingSessionsException {
 		GregorianCalendar start1 = new GregorianCalendar(); 
 		GregorianCalendar end1 = new GregorianCalendar(); 
+		start1.add(GregorianCalendar.DAY_OF_YEAR, -3);
+		end1.add(GregorianCalendar.DAY_OF_YEAR, -3);
 		end1.add(GregorianCalendar.HOUR, 2);
 		
 		GregorianCalendar start2 = new GregorianCalendar();
 		GregorianCalendar end2 = new GregorianCalendar();
-		start2.add(GregorianCalendar.DAY_OF_YEAR, 1);
-		end2.add(GregorianCalendar.DAY_OF_YEAR, 1);
+		start2.add(GregorianCalendar.DAY_OF_YEAR, -2);
+		end2.add(GregorianCalendar.DAY_OF_YEAR, -2);
 		end2.add(GregorianCalendar.HOUR, 4);
 		
 		developer.registerSession(activity1, start1, end1);
@@ -91,8 +93,8 @@ public class SummarySteps {
 	
 	@Then("the project manager recieves a summary of the project")
 	public void theProjectManagerRecievesASummaryOfTheProject() {
-		assertEquals(pSummary.getActivityProgress(), new int[] {estimatedTime1 - workedTime1,estimatedTime2 - workedTime2});
-		assertEquals(pSummary.getActivityWorktime(), new int[] {workedTime1, workedTime2});
+		assertTrue(pSummary.getActivityProgress()[0] == estimatedTime1 - workedTime1 && pSummary.getActivityProgress()[1] == estimatedTime2 - workedTime2);
+		assertTrue(pSummary.getActivityWorktime()[0] == workedTime1 && pSummary.getActivityWorktime()[1] == workedTime2);
 		
 	}
 	
