@@ -3,15 +3,17 @@ package StepDefinitions;
 import static org.junit.Assert.*;
 import java.util.GregorianCalendar;
 
+import Exceptions.ActivityAlreadyExistsException;
+import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
+import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 import Exceptions.OverlappingSessionsException;
+import Exceptions.ProjectAlreadyExistsException;
+import Exceptions.ProjectNotFoundException;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Controller.ErrorMessageHolder;
-import SoftwareAS.Model.Activity;
-import SoftwareAS.Model.DataBase;
-import SoftwareAS.Model.Developer;
-import SoftwareAS.Model.Session;
+import SoftwareAS.Model.*;
 import io.cucumber.java.en.*;
 
 public class SessionSteps {
@@ -20,6 +22,8 @@ public class SessionSteps {
 	ErrorMessageHolder errorMessageHolder;
 	
 	DataBase database;
+	Project project;
+	Admin admin;
 	Activity activity;
 	Developer developer;
 	
@@ -34,15 +38,22 @@ public class SessionSteps {
 	@Given("there is a developer")
 	public void there_is_a_developer() {
 	    developer = new Developer();
+	    
 	}
 
 	@Given("there is an activity")
-	public void there_is_an_activity() {
-	    activity = new Activity();
+	public void there_is_an_activity() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException {
+		admin = new Admin("admin", database);
+		admin.createProject(123);
+		project = database.getProjectById(123);
+		project.assignDeveloperToProject(admin, developer);
+		project.setProjectLeader(developer);
+	    project.createActivity(124, developer);
 	}
 	
 	@Given("the developer is assigned to the activity")
-	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException, DeveloperNotFoundException {
+	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException, DeveloperNotFoundException, ActivityNotFoundException {
+		activity = project.getActivityById(124);
 	    activity.assignDeveloperToActivity(developer, developer);
 	}
 	
@@ -50,7 +61,7 @@ public class SessionSteps {
 	public void the_developer_registers_a_session() throws OperationNotAllowedException, OverlappingSessionsException {
 		start = new GregorianCalendar();
 		end = new GregorianCalendar();
-		end.add(GregorianCalendar.DAY_OF_MONTH, 2);
+		end.add(GregorianCalendar.HOUR_OF_DAY, 2);
 	    developer.registerSession(activity, start, end);
 	}
 
@@ -70,8 +81,8 @@ public class SessionSteps {
 
 	@When("the developer registers another overlapping session")
 	public void the_developer_registers_another_overlapping_session() throws OperationNotAllowedException {
-	    start.add(GregorianCalendar.DAY_OF_MONTH, 1);
-	    end.add(GregorianCalendar.DAY_OF_MONTH, 1);
+	    start.add(GregorianCalendar.HOUR_OF_DAY, 1);
+	    end.add(GregorianCalendar.HOUR_OF_DAY, 1);
 	    
 	    try {	    	
 	    	developer.registerSession(activity, start, end);

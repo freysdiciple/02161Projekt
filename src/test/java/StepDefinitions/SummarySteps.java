@@ -48,13 +48,13 @@ public class SummarySteps {
 	public void theDevelopersHaveRegisteredTheirDailyTimeOnTheActivity() throws OperationNotAllowedException, OverlappingSessionsException {
 		GregorianCalendar start1 = new GregorianCalendar(); 
 		GregorianCalendar end1 = new GregorianCalendar(); 
-		end1.add(GregorianCalendar.HOUR_OF_DAY, 2);
+		end1.add(GregorianCalendar.HOUR, 2);
 		
 		GregorianCalendar start2 = new GregorianCalendar();
 		GregorianCalendar end2 = new GregorianCalendar();
-		start2.add(GregorianCalendar.DAY_OF_WEEK, 1);
-		end2.add(GregorianCalendar.DAY_OF_WEEK, 1);
-		end2.add(GregorianCalendar.HOUR_OF_DAY, 4);
+		start2.add(GregorianCalendar.DAY_OF_YEAR, 1);
+		end2.add(GregorianCalendar.DAY_OF_YEAR, 1);
+		end2.add(GregorianCalendar.HOUR, 4);
 		
 		developer.registerSession(activity1, start1, end1);
 		developer.registerSession(activity2, start2, end2);

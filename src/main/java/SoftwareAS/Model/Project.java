@@ -46,6 +46,11 @@ public class Project {
 	public Developer getProjectLeader() {
 		return projectLeader;
 	}
+	public Developer getProjectLeaderWithoutNull() {
+		return projectLeader == null? new Developer() : projectLeader;
+	}
+	
+	
 	public boolean isProjectLeader(Developer developer) {
 		if (projectLeader == null) return false;
 		return projectLeader.equals(developer);

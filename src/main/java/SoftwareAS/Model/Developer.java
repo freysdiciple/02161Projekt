@@ -37,7 +37,7 @@ public class Developer {
 		Session newSession = new Session(startTime, endTime, this, activity);
 		
 		registeredSessions.add(newSession);
-		activity.registerSession(newSession);
+		if(activity != null) activity.registerSession(newSession);
 	}
 	
 	public List<Session> getRegisteredSessions(){

@@ -1,15 +1,17 @@
 package SoftwareAS.Model;
 
+import java.util.List;
+
 public class ActivitySummary {
 	
 	private int[] dailyWorkLoad;
 	private int totalWorkLoad;
 	private int remainingTime;
 	
-	public ActivitySummary(Activity activity, Session[] sessions) {
+	public ActivitySummary(Activity activity, Session[] list) {
 		
-		dailyWorkLoad = SummaryHelper.calculateDailyWorkload(sessions);
-		totalWorkLoad = SummaryHelper.calculateTotalWorkload(sessions);
+		dailyWorkLoad = SummaryHelper.calculateDailyWorkload(list);
+		totalWorkLoad = SummaryHelper.calculateTotalWorkload(list);
 		remainingTime = activity.getTimeLeft() - totalWorkLoad;
 		activity.setTimeLeft(remainingTime);
 	}
