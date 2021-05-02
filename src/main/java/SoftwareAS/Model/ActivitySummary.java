@@ -18,7 +18,7 @@ public class ActivitySummary {
 	public int[] getDailyWorkLoad() {
 		return dailyWorkLoad;
 	}
-	public int gotTotalWorkLoad() {
+	public int getTotalWorkLoad() {
 		return totalWorkLoad;
 	}
 	public int getRemainingTime() {

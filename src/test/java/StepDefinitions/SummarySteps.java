@@ -13,12 +13,20 @@ public class SummarySteps {
 	private DataBase database;
 	private ErrorMessageHolder errorMessageHolder;
 	
+	private ActivitySummary aSummary;
+	private ProjectSummary pSummary;
+	
 	private Developer developer;
 	private Developer projectLeader;
 	private Admin admin;
 	private Project project;
 	private Activity activity1;
 	private Activity activity2;
+	
+	private int workedTime1 = 2;
+	private int workedTime2 = 4;
+	private int estimatedTime1 = 10;
+	private int estimatedTime2 = 10;
 	
 	public SummarySteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
@@ -42,6 +50,9 @@ public class SummarySteps {
 		activity1 = project.getActivityById(1);
 		activity2 = project.getActivityById(2);
 		
+		activity1.setEstimatedWorkHours(estimatedTime1);
+		activity2.setEstimatedWorkHours(estimatedTime2);
+		
 	}
 	
 	@Given("the developers have registered their daily time on the activities")
@@ -62,22 +73,26 @@ public class SummarySteps {
 	
 	@When("the project leader request a summary of the activity in the last week")
 	public void theProjectLeaderRequestASummaryOfTheActivityInTheLastWeek() {
-		ActivitySummary summary = activity1.createSummary();
+		aSummary = activity1.createSummary();
 	}
 	
 	@Then("the project leader successfully receives a summary of the activity")
 	public void theProjectLeaderSuccessfullyReceivesASummaryOfTheActivity() {
+		assertEquals(aSummary.getTotalWorkLoad(), workedTime1);
+		assertEquals(aSummary.getRemainingTime(), estimatedTime1 - workedTime1);
 		
 	}
 	
 	@When("the project manager requests a summary of the project")
 	public void theProjectManagerRequestsASummaryOfTheProject() {
-		ProjectSummary summary = project.createSummary();
+		pSummary = project.createSummary();
 		
 	}
 	
 	@Then("the project manager recieves a summary of the project")
 	public void theProjectManagerRecievesASummaryOfTheProject() {
+		assertEquals(pSummary.getActivityProgress(), new int[] {estimatedTime1 - workedTime1,estimatedTime2 - workedTime2});
+		assertEquals(pSummary.getActivityWorktime(), new int[] {workedTime1, workedTime2});
 		
 	}
 	

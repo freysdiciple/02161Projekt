@@ -18,11 +18,23 @@ public abstract class SummaryHelper {
 	}
 	
 	public static int[] calculateActivityProgresses(List<ActivitySummary> summaries) {
-		return new int[] {0};
+		int[] progresses = new int[summaries.size()];
+		
+		for(int i=0; i<summaries.size(); i++) {
+			progresses[i] = summaries.get(i).getRemainingTime();
+		}
+		
+		return progresses;
 	}
 	
 	public static int[] calculateActivityWorkTimes(List<ActivitySummary> summaries) {
-		return new int[] {0};
+		int[] worktimes = new int[summaries.size()];
+		
+		for(int i=0; i<summaries.size(); i++) {
+			worktimes[i] = summaries.get(i).getTotalWorkLoad();
+		}
+		
+		return worktimes;
 	}
 
 }

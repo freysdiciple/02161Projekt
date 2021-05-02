@@ -21,7 +21,7 @@ public class Session {
 		return sessionId;
 	}
 	public int getDurationInHours() {
-		return (int)(getStartTime().getTimeInMillis() - getEndTime().getTimeInMillis())/(1000 * 60 * 60);
+		return (int)(getEndTime().getTimeInMillis() - getStartTime().getTimeInMillis())/(1000 * 60 * 60);
 	}
 	public GregorianCalendar getStartTime() {
 		return startTime;
