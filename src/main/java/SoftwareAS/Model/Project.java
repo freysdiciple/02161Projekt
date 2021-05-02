@@ -47,6 +47,7 @@ public class Project {
 		return projectLeader;
 	}
 	public boolean isProjectLeader(Developer developer) {
+		if (projectLeader == null) return false;
 		return projectLeader.equals(developer);
 	}
 	
