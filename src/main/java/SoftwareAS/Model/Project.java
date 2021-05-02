@@ -37,7 +37,7 @@ public class Project {
 		return startDate;
 	}
 	
-	public void setProjectLeader(Developer developer, Developer admin) throws DeveloperNotFoundException, NotAuthorizedException {
+	public void setProjectLeader(Developer admin, Developer developer) throws DeveloperNotFoundException, NotAuthorizedException {
 		if (isDeveloperOnProject(developer.getId()) == true) {
 			if (admin.isAdmin()  == true) this.projectLeader = developer;
 			else throw new NotAuthorizedException("Project leader can only be assigned by Admin");
