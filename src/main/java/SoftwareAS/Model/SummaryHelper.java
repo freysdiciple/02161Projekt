@@ -1,5 +1,7 @@
 package SoftwareAS.Model;
 
+import java.util.List;
+
 public abstract class SummaryHelper {
 	
 	public static int[] calculateDailyWorkload(Session[] sessions) {
@@ -13,6 +15,14 @@ public abstract class SummaryHelper {
 			newTotal += session.getDurationInHours();
 		}
 		return newTotal;
+	}
+	
+	public static int[] calculateActivityProgresses(List<ActivitySummary> summaries) {
+		return new int[] {0};
+	}
+	
+	public static int[] calculateActivityWorkTimes(List<ActivitySummary> summaries) {
+		return new int[] {0};
 	}
 
 }

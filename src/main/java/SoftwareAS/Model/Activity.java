@@ -3,7 +3,6 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.OperationNotAllowedException;
 
@@ -86,12 +85,14 @@ public class Activity {
 		return registeredSessions;
 	}
 	
-	public void createSummary() {
+	public ActivitySummary createSummary() {
 		Session[] sessions = new Session[registeredSessions.size()];
 		registeredSessions.toArray(sessions);
 		
 		ActivitySummary summary = new ActivitySummary(this, sessions);
 		summaries.add(summary);
+		
+		return summary;
 	}
 	
 //	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
