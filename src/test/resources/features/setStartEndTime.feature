@@ -2,12 +2,12 @@ Feature: Set start/deadline for activity
 Description: The project leader assigns a start and a deadline for an activity
 Actor: Project leader
 #
-Scenario: Successfully set start/deadline for an activity
-	Given there is a project
-	And the user is a project leader
-	And there is an activity
-	When the user provides the start/deadline for the activity
-	Then the start/deadline for the activity is set
+#Scenario: Successfully set start/deadline for an activity
+#	Given there is a project
+#	And the user is a project leader
+#	And there is an activity
+#	When the user provides the start/deadline for the activity
+#	Then the start/deadline for the activity is set
 #
 #Scenario: Successfully change start/deadline for an activity
 #	Given there is a project

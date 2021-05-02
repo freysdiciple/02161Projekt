@@ -11,6 +11,7 @@ import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
+/*
 public class assignDeveloperToActivitySteps {
 	private DataBase database;
 	private Admin admin;
@@ -192,3 +193,4 @@ public class assignDeveloperToActivitySteps {
 		//	Then an OperationNotAllowedException is thrown
 		//	And the second developer is not listed under the activity	
 }
+*/

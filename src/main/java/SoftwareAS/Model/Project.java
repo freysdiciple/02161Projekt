@@ -19,6 +19,7 @@ public class Project {
 	private Developer projectLeader = null;
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
+	private List<ProjectSummary> summaries = new ArrayList<>();
 	
 	public Project(int projectNumber, Admin creator) {
 		this.projectNumber = projectNumber;
@@ -84,6 +85,11 @@ public class Project {
 		} catch (ActivityNotFoundException e) {
 			return false;
 		}
+	}
+	public ProjectSummary createSummary() {
+		ProjectSummary summary = new ProjectSummary(activities);
+		summaries.add(summary);
+		return summary;
 	}
 	
 }

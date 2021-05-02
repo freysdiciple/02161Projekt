@@ -10,7 +10,7 @@ import Exceptions.OperationNotAllowedException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
-
+/*
 public class CreateActivitySteps {
 	private DataBase database;
 	private Admin admin;
@@ -121,3 +121,4 @@ public class CreateActivitySteps {
 		//	Then a NotAuthorizedException is thrown
 		//	And the activity is not created
 }
+*/

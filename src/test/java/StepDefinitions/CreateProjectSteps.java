@@ -10,6 +10,7 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
+/*
 public class CreateProjectSteps {
 	private Admin admin;
 	private Project project;
@@ -105,3 +106,4 @@ public class CreateProjectSteps {
 
 }
 }
+*/

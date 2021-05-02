@@ -2,14 +2,14 @@ Feature: Assign developer to activity
 Description: The project leader assigns developers to an existing activity
 Actor: Project leader
 
-Scenario: Successfully assign developer to activity
-	Given there is a project
-	And there is a user with id {String} and database
-	And the user is a project leader
-	And there is a second developer with id {String} and database
-	And there is an activity
-	When the second developer is assigned to the activity
-	Then the second developer is listed under the activity
+#Scenario: Successfully assign developer to activity
+#	Given there is a project
+#	And there is a user with id {String} and database
+#	And the user is a project leader
+#	And there is a second developer with id {String} and database
+#	And there is an activity
+#	When the second developer is assigned to the activity
+#	Then the second developer is listed under the activity
 
 #Scenario: Assign developer not on project to an activity
 #	Given there is a project

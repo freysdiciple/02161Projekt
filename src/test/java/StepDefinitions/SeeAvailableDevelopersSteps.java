@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import Exceptions.DeveloperNotFoundException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Model.*;
-
+/*
 public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;
@@ -49,6 +49,7 @@ public class SeeAvailableDevelopersSteps {
 	
 	
 }
+*/
 	
 
 
