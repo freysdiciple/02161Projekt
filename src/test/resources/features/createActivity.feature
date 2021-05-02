@@ -2,28 +2,31 @@ Feature: Create activity for project
 Description: the project leader creates a new activity
 Actor: Project leader
 
-#Scenario: Successfully create activity
-#	Given there is a project
-#	And there is a user with id {String} and database {DataBase}
-#	And the user is a project leader
-#	When the user creates an activity in that project
-#	Then the activity is listed under the project
+Scenario: Successfully create activity
+	Given there is a project with project number 234234
+	And there is a user with ID createActivityDeveloper1ID and database
+	And the user with ID createActivityDeveloper1ID is a project leader
+	When the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project
+	Then the activity with ID 925 is listed under the project
 
-#Scenario: Duplicate name
-#	Given there is a project
-#	And there is a user with id {String} and database {DataBase}
-#	And the user is a project leader
-#	And there is an activity with the ID {int}
-#	When an activity with the same ID is created
-#	Then an ActivityAlreadyExistsException is thrown
+Scenario: Duplicate name
+	Given there is a project with project number 234234
+	And there is a user with ID createActivityDeveloper1ID and database
+	And the user with ID createActivityDeveloper1ID is a project leader
+	And there is an activity with ID 925
+	When an activity with ID 925 is created
+	Then an ActivityAlreadyExistsException is thrown, createActivity
 
-#Scenario: Developer trying to create activity
-#	Given there is a project
-#	And there is a user with id {String} and database {DataBase}
-#	And the user is not a project leader
-#	When the user creates an activity in that project
-#	Then a NotAuthorizedException is thrown
-#	And the activity is not created
+Scenario: Developer trying to create activity
+	Given there is a project with project number 234234
+	And there is a user with ID createActivityDeveloper1ID and database
+	And the user with ID createActivityDeveloper1ID is not a project leader
+	When the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project
+	Then a NotAuthorizedException is thrown, createActivity
+	And an activity with ID 925 is not created
+
+
+### Old versions (from before implementing code)
 
 #Scenario: Successfully create activity
 #	Given there is a project

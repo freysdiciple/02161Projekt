@@ -37,12 +37,14 @@ public class Project {
 		return startDate;
 	}
 	
-	public void setProjectLeader(Developer projectLeader) throws DeveloperNotFoundException {
-		if (isDeveloperOnProject(projectLeader.getId()) == true) {
-			this.projectLeader = projectLeader;
+	public void setProjectLeader(Developer admin, Developer developer) throws DeveloperNotFoundException, NotAuthorizedException {
+		if (isDeveloperOnProject(developer.getId()) == true) {
+			if (admin.isAdmin()  == true) this.projectLeader = developer;
+			else throw new NotAuthorizedException("Project leader can only be assigned by Admin");
 		}
 		else throw new DeveloperNotFoundException("Developer is not on the project");
 	}
+	
 	public Developer getProjectLeader() {
 		return projectLeader;
 	}
@@ -67,6 +69,7 @@ public class Project {
 		if(admin.isAdmin()) developers.add(developer);
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
+	
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
 		if (this.isProjectLeader(developer)) {
 			if (!this.containsActivityWithId(id))
@@ -76,6 +79,7 @@ public class Project {
 		}
 		else throw new NotAuthorizedException("Only the project leader can create activities.");
 	}
+	
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
 		for(Activity activity : activities) {
 			if(activity.getId() == id) return activity;
@@ -83,6 +87,7 @@ public class Project {
 		
 		throw new ActivityNotFoundException("No activity with described ID");
 	}
+	
 	public boolean containsActivityWithId(int id) {
 		try {
 			activities.contains(getActivityById(id));

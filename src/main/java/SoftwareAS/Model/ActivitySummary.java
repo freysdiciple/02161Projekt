@@ -1,6 +1,5 @@
 package SoftwareAS.Model;
 
-import java.util.List;
 
 public class ActivitySummary {
 	

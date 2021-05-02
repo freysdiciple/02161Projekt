@@ -35,7 +35,7 @@ public class SummarySteps {
 		projectLeader = new Developer("project leader", database);
 		project.assignDeveloperToProject(admin, developer);
 		project.assignDeveloperToProject(admin, projectLeader);
-		project.setProjectLeader(projectLeader);
+		project.setProjectLeader(admin, projectLeader);
 		
 		project.createActivity(1, projectLeader);
 		project.createActivity(2, projectLeader);

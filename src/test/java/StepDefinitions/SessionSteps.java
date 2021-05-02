@@ -47,7 +47,7 @@ public class SessionSteps {
 		admin.createProject(123);
 		project = database.getProjectById(123);
 		project.assignDeveloperToProject(admin, developer);
-		project.setProjectLeader(developer);
+		project.setProjectLeader(admin, developer);
 	    project.createActivity(124, developer);
 	}
 	
