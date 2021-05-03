@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
+import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
@@ -13,12 +14,13 @@ import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
-public class assignDeveloperToActivitySteps {
+public class AssignDeveloperToActivitySteps {
 	private DataBase database = new DataBase();
 	private Admin admin;
 	private Project project;
 	private Developer developer;
 	private Developer developer2;
+	private String adminID = "adminID";
 	private int projectID = 123123;
 	private String developerID = "assignDeveloperToActivityDeveloper1ID";
 	private String developer2ID = "assignDeveloperToActivityDeveloper2ID";
@@ -28,9 +30,11 @@ public class assignDeveloperToActivitySteps {
 	
 	//Scenario: Successfully assign developer to activity
 	@Given("there is a project with project number 123123")
-	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException {
-		admin  = new Admin("adminID", database);
+	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException {
+//		admin  = new Admin("adminID", database);
 		//project = new Project(123123, admin);
+		database.createAdmin(adminID);
+		admin = database.getAdminById(adminID);
 		admin.createProject(projectID);
 		project = database.getProjectById(projectID);
 		assertTrue(database.containsProject(projectID));

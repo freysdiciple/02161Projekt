@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
+import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
@@ -19,6 +20,7 @@ public class CreateActivitySteps {
 	private Project project;
 	private Developer developer;
 //	private Developer developer2;
+	private String adminID = "adminID";
 	private int projectID = 123456;
 	private String developerID = "createActivityDeveloper1ID";
 	private int activityID = 925;
@@ -26,9 +28,11 @@ public class CreateActivitySteps {
 	
 	//Scenario: Successfully create activity
 	@Given("there is a project with project number 234234")
-	public void thereIsAProject() throws ProjectNotFoundException, ProjectAlreadyExistsException {
+	public void thereIsAProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException {
 		errorMessageHolder.setErrorMessage("No Error Message Given (init)");
-		admin  = new Admin("adminID", database);
+//		admin  = new Admin("adminID", database);
+		database.createAdmin(adminID);
+		admin = database.getAdminById(adminID);
 		admin.createProject(projectID);
 		project = database.getProjectById(projectID);
 		assertTrue(database.containsProject(projectID));
