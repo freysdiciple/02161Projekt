@@ -14,7 +14,7 @@ Scenario: Duplicate name
 	And there is a user with ID createActivityDeveloper1ID and database
 	And the user with ID createActivityDeveloper1ID is a project leader
 	And there is an activity with ID 925
-	When an activity with ID 925 is created
+	When the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project
 	Then an ActivityAlreadyExistsException is thrown, createActivity
 
 Scenario: Developer trying to create activity

@@ -7,16 +7,19 @@ import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.ProjectAlreadyExistsException;
+import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
 public class assignDeveloperToActivitySteps {
-	private DataBase database;
+	private DataBase database = new DataBase();
 	private Admin admin;
 	private Project project;
 	private Developer developer;
 	private Developer developer2;
+	private int projectID = 123123;
 	private String developerID = "assignDeveloperToActivityDeveloper1ID";
 	private String developer2ID = "assignDeveloperToActivityDeveloper2ID";
 	private int activityID = 924;
@@ -25,46 +28,61 @@ public class assignDeveloperToActivitySteps {
 	
 	//Scenario: Successfully assign developer to activity
 	@Given("there is a project with project number 123123")
-	public void thereIsAProject() {
+	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException {
 		admin  = new Admin("adminID", database);
-		project = new Project(123123, admin);
+		//project = new Project(123123, admin);
+		admin.createProject(projectID);
+		project = database.getProjectById(projectID);
+		assertTrue(database.containsProject(projectID));
 	}
 	
 	@Given("there is a user with ID assignDeveloperToActivityDeveloper1ID and database")
-	public void thereIsAUserWithIDAndDataBase() {
-		developer = new Developer(developerID, database);
+	public void thereIsAUserWithIDAndDataBase() throws DeveloperNotFoundException {
+		admin.createDeveloper(developerID);
+		developer = database.getDeveloperById(developerID);
+		//developer = new Developer(developerID, database);
+		assertTrue(database.containsDeveloper(developerID));
 	}
 	
 	@Given("the user with ID assignDeveloperToActivityDeveloper1ID is a project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
+	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException {
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
+		assertTrue(project.isProjectLeader(developer));
 	}
 	
 	@Given("there is a second developer with ID assignDeveloperToActivityDeveloper2ID and database")
-	public void thereIsASecondDeveloperWithIDAndDatabase() {
-		developer2 = new Developer(developer2ID, database);
+	public void thereIsASecondDeveloperWithIDAndDatabase() throws DeveloperNotFoundException {
+		admin.createDeveloper(developer2ID);
+		developer2 = database.getDeveloperById(developer2ID);
+		//developer2 = new Developer(developer2ID, database);
+		assertTrue(database.containsDeveloper(developer2ID));
 	}
 	
 	@Given("the second developer with ID assignDeveloperToActivityDeveloper2ID is part of the project")
-	public void theSecondDeveloperIsPartOfTheProject() throws OperationNotAllowedException {
+	public void theSecondDeveloperIsPartOfTheProject() throws OperationNotAllowedException, ProjectNotFoundException {
 		project.assignDeveloperToProject(admin, developer2);
+		assertTrue(project.isDeveloperOnProject(developer2ID));
 	}
 	
 	@Given("there is an activity with ID 924")
-	public void thereIsAnActivity() throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, DeveloperNotFoundException {
+	public void thereIsAnActivity() throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException, OperationNotAllowedException, ProjectNotFoundException {
 		if (project.isProjectLeader(developer)) {
 			project.createActivity(activityID, developer);
 		} else {
-			Developer developer3 = new Developer("developer3ID", database);
+			String developer3ID = "developer3ID";
+			admin.createDeveloper(developer3ID);
+			Developer developer3 = database.getDeveloperById(developer3ID);
+			//Developer developer3 = new Developer("developer3ID", database);
 			project.assignDeveloperToProject(admin, developer3);
 			project.setProjectLeader(admin, developer3);
 			project.createActivity(activityID, developer3);
 		}
+		assertTrue(project.containsActivityWithId(activityID));
 	}
 	
 	@When("the second developer with ID assignDeveloperToActivityDeveloper2ID is assigned to the activity")
-	public void theSecondDeveloperIsAssignedToTheActivity() throws ActivityAlreadyExistsException, ActivityNotFoundException {
+	public void theSecondDeveloperIsAssignedToTheActivity() {
 		try {
 			project.getActivityById(activityID).assignDeveloperToActivity(developer, developer2);
 		} catch(DeveloperNotFoundException | OperationNotAllowedException | ActivityNotFoundException e) {
@@ -73,7 +91,7 @@ public class assignDeveloperToActivitySteps {
 	}
 
 	@Then("the second developer with ID assignDeveloperToActivityDeveloper2ID is listed under the activity")
-	public void activityIsListedUnderTheProject() throws ActivityNotFoundException, DeveloperNotFoundException {
+	public void activityIsListedUnderTheProject() throws ActivityNotFoundException {
 		assertTrue(project.getActivityById(activityID).isDeveloperOnAcitivty(developer2ID));
 	}
 	
@@ -89,7 +107,7 @@ public class assignDeveloperToActivitySteps {
 	
 	//Scenario: Assign developer not on project to an activity
 	@Given("the second developer with ID assignDeveloperToActivityDeveloper2ID is not part of the project")
-	public void theSecondDeveloperIsNotPartOfTheProject() throws OperationNotAllowedException {
+	public void theSecondDeveloperIsNotPartOfTheProject() {
 		assertFalse(project.isDeveloperOnProject(developer2ID));
 	}
 	
