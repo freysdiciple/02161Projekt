@@ -13,6 +13,8 @@ public class Developer {
 	private boolean isAdmin = false;
 	protected DataBase database;
 	private List<Session> registeredSessions = new ArrayList<>();
+	private List<Activity> activities = new ArrayList<>();
+	private List<Project> projects = new ArrayList<>();
 	
 	public Developer(String id, DataBase database) {
 		this.id = id;
@@ -55,5 +57,21 @@ public class Developer {
 		}
 		
 		return false;
+	}
+	public void addActivity(Activity activity) {
+		if(!activities.contains(activity)) activities.add(activity);
+	}
+	
+	public void deleteActivity(Activity activity) {
+		if(activities.contains(activity)) activities.remove(activity);
+		
+	}
+	public void addProject(Project project) {
+		if(!projects.contains(project)) projects.add(project);
+	}
+	
+	public void deleteProject(Project project) {
+		if(projects.contains(project)) projects.remove(project);
+		
 	}
 }

@@ -64,7 +64,7 @@ public class Activity {
 	}
 	
 	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
-		if(projectLeader.equals(project.getProjectLeaderWithoutNull())) {
+		if(projectLeader.equals(project.getProjectLeader())) {
 			if (project.isDeveloperOnProject(developer.getId())) {
 					developers.add(developer);
 			} else {

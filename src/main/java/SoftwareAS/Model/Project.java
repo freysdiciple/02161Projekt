@@ -48,10 +48,6 @@ public class Project {
 	public Developer getProjectLeader() {
 		return projectLeader;
 	}
-	public Developer getProjectLeaderWithoutNull() {
-		return projectLeader == null? new Developer() : projectLeader;
-	}
-	
 	
 	public boolean isProjectLeader(Developer developer) {
 		if (projectLeader == null) return false;
@@ -65,9 +61,22 @@ public class Project {
 		}
 		return false;
 	}
+	
+	public void assignDeveloperToProjectPL(Developer pl, Developer developer) throws OperationNotAllowedException {
+		if(isProjectLeader(pl)) developers.add(developer);
+		else throw new OperationNotAllowedException("Only PL's can assign developers to projects");
+	}
+	
 	public void assignDeveloperToProject(Developer admin, Developer developer) throws OperationNotAllowedException {
 		if(admin.isAdmin()) developers.add(developer);
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
+	}
+	
+	public void removeDeveloperFromProject(Developer developer) {
+		if(developers.contains(developer)) {
+			developer.deleteProject(this);
+			developers.remove(developer);
+		}
 	}
 	
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
@@ -78,6 +87,16 @@ public class Project {
 				throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
 		}
 		else throw new NotAuthorizedException("Only the project leader can create activities.");
+	}
+	
+	public void deleteActivity(int id, Developer developer) throws NotAuthorizedException, ActivityNotFoundException {
+		if (this.isProjectLeader(developer)) {
+			if (!this.containsActivityWithId(id))
+				activities.remove(getActivityById(id));
+			else
+				throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
+		}
+		else throw new NotAuthorizedException("Only the project leader can delete activities.");
 	}
 	
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
