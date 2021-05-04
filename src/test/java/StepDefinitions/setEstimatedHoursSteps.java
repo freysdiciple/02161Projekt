@@ -29,7 +29,6 @@ public class setEstimatedHoursSteps {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createDeveloper(userName);
-		projectLeader= database.getDeveloperById(userName);
 		assertTrue(database.containsDeveloper(userName));
 	}
 	
@@ -41,8 +40,9 @@ public class setEstimatedHoursSteps {
 	}
 	
 	
-	@Given("the user is a Project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
+	@Given("the user {string} is a Project leader")
+	public void theUserIsAProjectLeader(String userName) throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
+		projectLeader = database.getDeveloperById(userName);
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		assertTrue(project.isProjectLeader(projectLeader));
