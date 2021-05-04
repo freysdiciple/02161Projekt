@@ -80,7 +80,7 @@ public class setEstimatedHoursSteps {
 
 	
 	//Scenario: Successfully change estimated work hours
-	@Given("there is an estimated hours {int} set on the activity")
+	@Given("the estimated hours are set to {int} for the activity")
 	public void theUserProvidesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
 		activity.setEstimatedWorkHours(time, projectLeader, project);
 		assertTrue(activity.getEstimatedWorkHours() == time);

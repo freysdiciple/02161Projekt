@@ -8,15 +8,15 @@ Actor: Project leader
 #	And the user "Søren" is a Project leader
 #	And there is an activity with ID 500
 #	When the user provides the estimated hours 72 for the activity
-#	Then the estimated hours 72 for the activity is set
+#	Then the estimated hours for the activity is set
 
 #Scenario: Successfully change estimated work hours
 #	Given there is an user with ID "Søren"
 #   And there is a project with ID 101
 #	And the user "Søren" is a Project leader
 #	And there is an activity with ID 501
-#	And there is an estimated hours set on the activity
-#	When the user changes the estimated hours for the activity
+#	And the estimated hours are set to 72 for the activity
+#	When the user changes the estimated hours to 80 for the activity
 #	Then the estimated hours are the new hours
 
 #Scenario: Developer trying to set estimated work hours
