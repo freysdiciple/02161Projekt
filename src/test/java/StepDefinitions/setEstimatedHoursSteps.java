@@ -9,16 +9,18 @@ import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 public class setEstimatedHoursSteps {
+	private Developer projectLeader;
 	private Developer developer;
 	private Admin admin;
 	private String adminName="Mogens";
 	private DataBase database = new DataBase();
 	private Project project;
-	// Hej
+
 //	Scenario: Successfully set estimated work hours
-//		Given there is a project
-//		And the user is a project leader
-//		And there is an activity
+//		Given there is an user with ID "Søren"
+//	    And there is a project with ID 100
+//		And the user is a Project leader
+//		And there is an activity with ID 500
 //		When the user provides the estimated hours for the activity
 //		Then the estimated hours for the activity is set
 	
@@ -27,7 +29,7 @@ public class setEstimatedHoursSteps {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createDeveloper(userName);
-		developer= database.getDeveloperById(userName);
+		projectLeader= database.getDeveloperById(userName);
 		assertTrue(database.containsDeveloper(userName));
 	}
 	
@@ -41,9 +43,16 @@ public class setEstimatedHoursSteps {
 	
 	@Given("the user is a Project leader")
 	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
-		project.assignDeveloperToProject(admin, developer);
-		project.setProjectLeader(admin, developer);
-		assertTrue(project.isProjectLeader(developer));
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		assertTrue(project.isProjectLeader(projectLeader));
+	}
+	
+	@Given("there is an activity with ID {int}")
+	public void thereIsAnActivityWithID(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException {
+		project.createActivity(activityID, projectLeader);
+		assertTrue(project.containsActivityWithId(activityID));
+		
 	}
 	
 
