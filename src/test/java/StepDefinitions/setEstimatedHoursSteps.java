@@ -15,6 +15,7 @@ public class setEstimatedHoursSteps {
 	private String adminName="Mogens";
 	private DataBase database = new DataBase();
 	private Project project;
+	private Activity activity;
 
 //	Scenario: Successfully set estimated work hours
 //		Given there is an user with ID "Søren"
@@ -49,11 +50,20 @@ public class setEstimatedHoursSteps {
 	}
 	
 	@Given("there is an activity with ID {int}")
-	public void thereIsAnActivityWithID(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException {
+	public void thereIsAnActivityWithID(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
 		project.createActivity(activityID, projectLeader);
+		activity = project.getActivityById(activityID);
 		assertTrue(project.containsActivityWithId(activityID));
 		
 	}
+	
+	@When("the user provides the estimated hours {int} for the activity")
+	public void theUserProvidesTheEstimatedHours(int time) throws NotAuthorizedException {
+		activity.setEstimatedWorkHours(time, projectLeader, project);
+		
+	}
+	
+	
 	
 
 	
