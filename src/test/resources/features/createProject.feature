@@ -3,25 +3,25 @@ Feature: Create new project
    Actors: Admin
    
    
-# Main scenario   
+#Main scenario   
 #Scenario: Create new project
-#	Given there is a user
+#	Given there is an user with ID "Søren"
 #	And the user is an admin
-#  	When the user creates a project with name and number
-#   Then the system creates the project with the given name and number
+# 	When the user creates a project with a number 12345
+#  Then the project with a number 12345 is contained in the system
 
         
-# Alternate scenario two     
+# Alternate scenario one     
 #Scenario: A project with the given number already exists
-#	Given there is a user
+#	Given there is an user with ID "Søren"
 #	And the user is an admin
-#	When the user creates a project with number identical to an existing project
+#	When the user creates a project with a number 12345 identical to an existing project
 #   Then the system throws ExistingProjectException    
  
-# Alternate scenario five
-#Scenario: User is not and admin
-#	Given there is a user
+#Alternate scenario two
+#Scenario: User is not an admin
+#	Given there is an user with ID "Søren"
 #	And the user is not an admin
-#   When the user creates a project with name and number
+#   When the user tries to create a project with a number 12345
 #   Then the system throws InvalidUserException
  

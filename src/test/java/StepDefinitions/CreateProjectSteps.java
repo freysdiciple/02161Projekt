@@ -3,6 +3,9 @@ package StepDefinitions;
 import static org.junit.Assert.*;
 
 import Exceptions.AdminNotFoundException;
+import Exceptions.DeveloperNotFoundException;
+import Exceptions.NotAuthorizedException;
+import Exceptions.OperationNotAllowedException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -10,32 +13,31 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
-/*
+
 public class CreateProjectSteps {
 	private Admin admin;
 	private Project project;
-	private DataBase database;
-	private ErrorMessageHolder errorMessageHolder;
-	
-	private int projectNumber = 12345;
-	private int existingProjectNumber = projectNumber;
-	
+	private DataBase database = new DataBase();
+	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	/*
 	
 	public CreateProjectSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
 		this.errorMessageHolder = errorMessageHolder;
-	}
+	
 
 	// # Main scenario
 	// Scenario: Create new project
-	// Given there is an user with id {String} and database {DataBase}
+	// Given there is an user with ID {string}
 	// And the user is an admin
-	// When the user creates a project with a number {int} and a creator {Admin}
+	// When the user creates a project with a number {int}
 	// Then the project with a number {int} is contained in the system
 
-	@Given("there is an user with id {String} and database {DataBase}")
-	public void thereIsAnUserWithIDAndDataBase() {
-		admin = new Admin("Søren", database);
+	@Given("there is an user with ID {string}")
+	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException {
+		database.createAdmin(userName);
+		admin = database.getAdminById(userName);
+		assertTrue(database.containsAdmin(userName));
 	}
 
 	@Given("the user is an admin")
@@ -43,25 +45,26 @@ public class CreateProjectSteps {
 		assertTrue(admin.isAdmin());
 	}
 
-	@When("the user creates a project with a number {int} and a creator {Admin}")
-	public void theUserCreatesProject() throws ProjectAlreadyExistsException, ProjectNotFoundException {
+	@When("the user creates a project with a number {int}")
+	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
 		admin.createProject(projectNumber);
 	}
 
 	@Then("the project with a number {int} is contained in the system")
-	public void systemCreatesProjectWithGivenNumberAndCreator() throws ProjectNotFoundException {
+	public void systemCreatesProjectWithGivenNumberAndCreator(int projectNumber) throws ProjectNotFoundException {
 		assertTrue(database.containsProject(projectNumber));
 	}
 
 //# Alternate scenario one     
-//Scenario: A project with the given name already exists
+//Scenario: A project with the the given number already exists
 //	Given there is a user
 //	And the user is an admin
-//	When the user creates a project with name identical to an existing project
+//	When the user creates a project with a number {int} identical to an existing project
 //  Then the system throws ExistingProjectException
 
-	@When("the user creates a project with name identical to an existing project")
-	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject() throws ProjectNotFoundException {
+	@When("the user creates a project with a number {int} identical to an existing project")
+	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException {
+		admin.createProject(projectNumber);
 		try {
 			admin.createProject(projectNumber);
 		}
@@ -72,38 +75,37 @@ public class CreateProjectSteps {
 	
 	@Then("the system throws ExistingProjectException")
 	public void systemThrowsExistingProjectException() {
-		assertEquals("Existing Project", errorMessageHolder.getErrorMessage());
+		assertEquals("Project Already Exists", errorMessageHolder.getErrorMessage());
 		
 		
 	}
-	
-//	# Alternate scenario three
-//	Scenario: User is not and admin
+
+//	# Alternate scenario two
+//	Scenario: User is not an admin
 //		Given there is a user
 //		And the user is not an admin
 //	   	When the user creates a project with name and number
 //	   	Then the system throws InvalidUserException
 	
-	@Given("there is an user with id {String} and database {DataBase}")
-	public void thereIsAnUserWithIDAndDataBase1() {
-		admin = new Admin("Søren", database);
-	}
+
 
 	@Given("the user is not an admin")
 	public void theUserIsAnAdmin1() {
 		assertFalse(admin.isAdmin());
 	}
 
-	@When("the user creates a project with a number {int} and a creator {Admin}")
+	@When("the user tries to create a project with a number {int}")
 	public void theUserCreatesProject1() throws ProjectAlreadyExistsException, ProjectNotFoundException {
-		admin.createProject(projectNumber);
+		developer.createProject(projectNumber);
 	}
 
 	@Then("the system throws AdminNotFoundException")
 	public void systemThrowsAdminNotFoundException() throws AdminNotFoundException {
 		throw new AdminNotFoundException("User not an admin");
-	
-
-}
-}
+	}
 */
+
+	
+}
+
+
