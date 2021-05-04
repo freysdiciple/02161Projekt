@@ -23,10 +23,10 @@ public class FrontEndController {
 		String id = input.next();
 		
 		if(database.containsAdmin(id)) {
-			loginAsAdmin();
+			WelcomePageAdmin();
 		}
 		else if(database.containsDeveloper(id)) {
-			loginAsDeveloper();
+			WelcomePageDeveloper();
 		}
 		else {
 			System.out.println("No employee with the given id. Pleas try again!");
@@ -34,11 +34,11 @@ public class FrontEndController {
 		}
 	}
 	
-	public void loginAsAdmin() {
+	public void WelcomePageAdmin() {
 		System.out.println("You are logged in as admin!");
 	}
 	
-	public void loginAsDeveloper() {
+	public void WelcomePageDeveloper() {
 		System.out.println("You are logged in as admin!");
 	}
 
