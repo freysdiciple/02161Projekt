@@ -8,6 +8,7 @@ public class setEstimatedHoursSteps {
 //		And there is an activity
 //		When the user provides the estimated hours for the activity
 //		Then the estimated hours for the activity is set
+	
 
 	
 	public void testMethod() {
