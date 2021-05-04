@@ -97,8 +97,8 @@ public class setEstimatedHoursSteps {
 		assertEquals("Only project leaders is allowed to set work hours", errorMessageHolder.getErrorMessage());
 	}
 	
-	@Then("the estimated work hours {int} is not set")
-	public void theEstimatedWorkHoursIsNotSet(int time) {
+	@Then("the estimated work hours is not set")
+	public void theEstimatedWorkHoursIsNotSet() {
 		assertFalse(activity.getEstimatedWorkHours() == time);
 	}
 	

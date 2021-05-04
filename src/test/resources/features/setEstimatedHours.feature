@@ -26,4 +26,4 @@ Actor: Project leader
 #	And there is an activity with ID 502
 #	When the user provides the estimated hours 72 for the activity
 #	Then a NotAuthorizedException is thrown
-#	And the estimated work hours 72 is not set
+#	And the estimated work hours is not set
