@@ -86,6 +86,11 @@ public class setEstimatedHoursSteps {
 //	#	Then a NotAuthorizedException is thrown
 //	#	And the estimated work hours is not set
 	
+	@Given("the user {string} is not a project leader")
+	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException {
+		developer = database.getDeveloperById(developerName);
+		assertFalse(project.getProjectLeader().equals(developer));
+	}
 	
 }
 
