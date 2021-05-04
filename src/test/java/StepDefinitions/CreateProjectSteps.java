@@ -16,14 +16,14 @@ import SoftwareAS.Model.*;
 
 public class CreateProjectSteps {
 	private Admin admin;
-	private Project project;
 	private DataBase database = new DataBase();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
-	/*
+	
 	
 	public CreateProjectSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
 		this.errorMessageHolder = errorMessageHolder;
+	}
 	
 
 	// # Main scenario
@@ -103,9 +103,7 @@ public class CreateProjectSteps {
 	public void systemThrowsAdminNotFoundException() throws AdminNotFoundException {
 		throw new AdminNotFoundException("User not an admin");
 	}
-*/
 
 	
 }
-
 
