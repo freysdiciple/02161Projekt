@@ -78,6 +78,34 @@ public class setEstimatedHoursSteps {
 
 	}
 
+	
+	//Scenario: Successfully change estimated work hours
+	@Given("there is an estimated hours {int} set on the activity")
+	public void theUserProvidesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
+		activity.setEstimatedWorkHours(time, projectLeader, project);
+		assertTrue(activity.getEstimatedWorkHours() == time);
+	}
+	
+	@When("the user changes the estimated hours to {int} for the activity")
+	public void theUserChangesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
+		this.time = time;
+		activity.setEstimatedWorkHours(time, projectLeader, project);
+	}
+	
+	@Then("the estimated hours are the new hours")
+	public void theEstimatedHoursAreTheNewHours() {
+		assertTrue(activity.getEstimatedWorkHours() == this.time);
+	}
+		//Scenario: Successfully change estimated work hours
+		//	Given there is an user with ID "Søren"
+		//  And there is a project with ID 101
+		//	And the user "Søren" is a Project leader
+		//	And there is an activity with ID 501
+		//	And there is an estimated hours set on the activity
+		//	When the user changes the estimated hours for the activity
+		//	Then the estimated hours are the new hours
+	
+	
 //	#Scenario: Developer trying to set estimated work hours
 //	#	Given there is a project with Id 
 //	#	And the user is not a project leader
