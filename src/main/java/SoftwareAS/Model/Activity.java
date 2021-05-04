@@ -66,6 +66,7 @@ public class Activity {
 	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
 		if(projectLeader.equals(project.getProjectLeader())) {
 			if (project.isDeveloperOnProject(developer.getId())) {
+					developer.addActivity(this);
 					developers.add(developer);
 			} else {
 				throw new DeveloperNotFoundException("Developer not on project.");
@@ -84,6 +85,12 @@ public class Activity {
 	}
 	public List<Session> getRegisteredSession() {
 		return registeredSessions;
+	}
+	public void deleteSession(Session session) {
+		if(registeredSessions.contains(session)) registeredSessions.remove(session);
+	}
+	public List<Developer> getDevelopers(){
+		return developers;
 	}
 	
 	public boolean endedInInterval(Session session,GregorianCalendar start, GregorianCalendar end) {

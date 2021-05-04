@@ -49,6 +49,10 @@ public class Project {
 		return projectLeader;
 	}
 	
+	public List<Developer> getDevelopers(){
+		return developers;
+	}
+	
 	public boolean isProjectLeader(Developer developer) {
 		if (projectLeader == null) return false;
 		return projectLeader.equals(developer);
@@ -68,7 +72,10 @@ public class Project {
 	}
 	
 	public void assignDeveloperToProject(Developer admin, Developer developer) throws OperationNotAllowedException {
-		if(admin.isAdmin()) developers.add(developer);
+		if(admin.isAdmin()) {
+			developer.addProject(this);
+			developers.add(developer);
+		}
 		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
 	}
 	
@@ -91,8 +98,13 @@ public class Project {
 	
 	public void deleteActivity(int id, Developer developer) throws NotAuthorizedException, ActivityNotFoundException {
 		if (this.isProjectLeader(developer)) {
-			if (!this.containsActivityWithId(id))
-				activities.remove(getActivityById(id));
+			if (!this.containsActivityWithId(id)) {
+				Activity activity = getActivityById(id);
+				for(Developer dev : activity.getDevelopers()) {
+					dev.deleteActivity(activity);
+				}
+				activities.remove(activity);
+			}
 			else
 				throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
 		}

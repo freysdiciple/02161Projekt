@@ -88,7 +88,12 @@ public class DataBase {
 	}
 	public void deleteProject(int projectNumber) {
 		for(Project project : projects) {
-			if(project.getProjectNumber() == projectNumber) projects.remove(project);
+			if(project.getProjectNumber() == projectNumber) {
+				for(Developer dev : project.getDevelopers()) {
+					dev.deleteProject(project);
+				}
+				projects.remove(project);
+			}
 		}
 	}
 	public Project getProjectById(int projectNumber) throws ProjectNotFoundException {

@@ -46,6 +46,10 @@ public class Developer {
 		return registeredSessions;
 	}
 	
+	public void deleteSession(Session session) {
+		if(registeredSessions.contains(session)) registeredSessions.remove(session);
+	}
+	
 	public boolean overlapsWithOtherSession(GregorianCalendar currentStart, GregorianCalendar currentEnd) {
 		
 		for(Session previous : registeredSessions) {

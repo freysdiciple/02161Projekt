@@ -35,4 +35,8 @@ public class Session {
 	public Developer getDeveloper() {
 		return developer;
 	}
+	public void delete() {
+		activity.deleteSession(this);
+		developer.deleteSession(this);
+	}
 }
