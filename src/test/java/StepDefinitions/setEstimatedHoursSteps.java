@@ -92,6 +92,16 @@ public class setEstimatedHoursSteps {
 		assertFalse(project.getProjectLeader().equals(developer));
 	}
 	
+	@Then("a NotAuthorizedException is thrown")
+	public void aNotAuthorizedExceptionIsThrown() {
+		assertEquals("Only project leaders is allowed to set work hours", errorMessageHolder.getErrorMessage());
+	}
+	
+	@Then("the estimated work hours {int} is not set")
+	public void theEstimatedWorkHoursIsNotSet(int time) {
+		assertFalse(activity.getEstimatedWorkHours() == time);
+	}
+	
 }
 
 // TEST TEST
