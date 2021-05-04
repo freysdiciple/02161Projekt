@@ -62,6 +62,14 @@ public class Developer {
 		if(!activities.contains(activity)) activities.add(activity);
 	}
 	
+	public List<Activity> getActivities(){
+		return activities;
+	}
+	
+	public List<Project> getProjects(){
+		return projects;
+	}
+	
 	public void deleteActivity(Activity activity) {
 		if(activities.contains(activity)) activities.remove(activity);
 		
