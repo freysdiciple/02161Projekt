@@ -36,8 +36,15 @@ public class DataBase {
 		
 		throw new DeveloperNotFoundException("No developer with described ID");
 	}
+	public Developer getDeveloperByIdWOE(String id) {
+		for(Developer developer : developers) {
+			if(developer.getId().equals(id)) return developer;
+		}
+		
+		return null;
+	}
 	public boolean containsDeveloper(String id) throws DeveloperNotFoundException {
-		return developers.contains(getDeveloperById(id));
+		return developers.contains(getDeveloperByIdWOE(id));
 	}
 	
 	public List<Admin> getAllAdmins(){
@@ -58,8 +65,17 @@ public class DataBase {
 		
 		throw new AdminNotFoundException("No admin with described ID");
 	}
+	
+	public Admin getAdminByIdWOE(String id) {
+		for(Admin admin : admins) {
+			if(admin.getId().equals(id)) return admin;
+		}
+		
+		return null;
+	}
+	
 	public boolean containsAdmin(String id) throws AdminNotFoundException {
-		return admins.contains(getAdminById(id));
+		return admins.contains(getAdminByIdWOE(id));
 	}
 	
 	public List<Project> getAllProjects(){
