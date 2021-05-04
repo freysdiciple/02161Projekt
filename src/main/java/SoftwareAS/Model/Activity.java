@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import Exceptions.DeveloperNotFoundException;
+import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 
 public class Activity {
@@ -45,7 +46,9 @@ public class Activity {
 	public int getEstimatedWorkHours() {
 		return estimatedWorkHours;
 	}
-	public void setEstimatedWorkHours(int estimatedWorkHours) {
+	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException {
+		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()) )
+			throw new NotAuthorizedException("Only project leaders is allowed to set work hours");
 		this.estimatedWorkHours = estimatedWorkHours;
 		this.timeLeft = estimatedWorkHours;
 	}
