@@ -392,9 +392,32 @@ public class FrontEndController {
 	}
 	
 
-	private void manageProject() {
-		// TODO Auto-generated method stub
+	private void manageProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
 		
+		System.out.println("Welcome to Manage Project!");
+		System.out.println("Here you can manage developers or activities,");
+		System.out.println("on the current project. Choose wisely");
+		System.out.println("0 - Back");
+		System.out.println("1 - Manage Developers");
+		System.out.println("2 - Manage Activities");
+		
+		
+		
+		int choice = input.nextInt();
+		
+		switch(choice) {
+		case 0:
+			projectMenu();
+			break;
+		case 1:
+			manageDevelopers();
+			break;
+		case 2:
+			manageActivities();
+			break;
+		default:
+			manageProject();
+		}
 	}
 	
 	//MANGLER DEFAULT SWITCHER
@@ -432,6 +455,53 @@ public class FrontEndController {
 		switcher.on(choice);
 		
 	}
+	
+	private void manageDevelopers() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		System.out.println("Welcome to Manage Developers on the current project!");
+		System.out.println("Here you can add/remove developers to the project or activities,");
+		System.out.println("or see available developers");
+		System.out.println("0 - Back");
+		System.out.println("1 - Add/remove developer from the project");
+		System.out.println("2 - Add/remove developer from activities");
+		System.out.println("3 - See available developers");
+		
+		int choice = input.nextInt();
+		
+		switch(choice) {
+		case 0:
+			manageProject();
+			break;
+		case 1:
+			addRemoveDevelopersFromProject();
+			break;
+		case 2:
+			addRemoveDevelopersFromActivities();
+			break;
+		case 3:
+			seeAvailableDevelopers();
+			break;
+		default:
+			manageDevelopers();
+		}
+	}
+	
+	public void addRemoveDevelopersFromProject() {
+		
+	}
+	
+	public void addRemoveDevelopersFromActivities() {
+		
+	}
+	
+	public void seeAvailableDevelopers() {
+		
+	}
+	
+	private void manageActivities() {
+		
+	}
+	
+	
 	
 	private void activityMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
 		System.out.println("Welcome to activity " + currentActivity.getId() + "!");
