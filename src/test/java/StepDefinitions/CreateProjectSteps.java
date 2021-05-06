@@ -97,7 +97,6 @@ public class CreateProjectSteps {
 
 	@When("the user tries to create a project with a number {int}")
 	public void theUserCreatesProject1(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
-		admin.createProject(projectNumber);
 		try {
 			admin.createProject(projectNumber);
 		}
