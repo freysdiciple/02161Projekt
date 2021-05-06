@@ -3,6 +3,7 @@ package SoftwareAS.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
 import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
@@ -46,7 +47,7 @@ public class Switcher {
         }
     }
 
-    public void on(Integer caseId) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+    public void on(Integer caseId) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
         Command command = getCaseCommandByCaseId(caseId);
 
         command.execute();
