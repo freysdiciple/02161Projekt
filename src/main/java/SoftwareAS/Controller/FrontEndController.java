@@ -145,21 +145,79 @@ public class FrontEndController {
 		}
 	}
 	
-	//MANGLER AT BLIVE LAVET
-	private void changeEndTime() {
+	//MANGLER KONTROL CHECKS
+	private void changeEndTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
 		System.out.println("Give the new desired end date and time in the form,");
-		System.out.println("DD/MM/YYYY HH-MM:");
+		System.out.println("DD/MM/YYYY HH-MM,");
+		System.out.println("or enter 0 to go back");
 		
 		input.nextLine();
 		String info = input.nextLine();
+		
+		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 1) {
+			modifySession();
+		}
+		else if(info.length() < 16 || info.length() > 16) {
+			changeEndTime();
+		}
+		else {
+			String yearString = info.substring(6,10);
+			String monthString = info.substring(3,5);
+			String dayString = info.substring(0,2);
+			String hourString = info.substring(11,13);
+			String minString = info.substring(14,16);
+			
+			int year = Integer.parseInt(yearString);
+			int month = Integer.parseInt(monthString);
+			int day = Integer.parseInt(dayString);
+			int hour = Integer.parseInt(hourString);
+			int min = Integer.parseInt(minString);
+			
+			GregorianCalendar newEnd = new GregorianCalendar(year,month,day,hour,min);
+			
+			currentSession.setEndTime(newEnd);
+			
+			modifySession();
+		}
 		
 		
 		
 	}
 
-	//MANGLER AT BLIVE LAVET
-	private void changeStartTime() {
-		// TODO Auto-generated method stub
+	//MANGLER KONTROL CHECKS
+	private void changeStartTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		System.out.println("Give the new desired start date and time in the form,");
+		System.out.println("DD/MM/YYYY HH-MM,");
+		System.out.println("or enter 0 to go back");
+		
+		input.nextLine();
+		String info = input.nextLine();
+		
+		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 1) {
+			modifySession();
+		}
+		else if(info.length() < 16 || info.length() > 16) {
+			changeStartTime();
+		}
+		else {
+			String yearString = info.substring(6,10);
+			String monthString = info.substring(3,5);
+			String dayString = info.substring(0,2);
+			String hourString = info.substring(11,13);
+			String minString = info.substring(14,16);
+			
+			int year = Integer.parseInt(yearString);
+			int month = Integer.parseInt(monthString);
+			int day = Integer.parseInt(dayString);
+			int hour = Integer.parseInt(hourString);
+			int min = Integer.parseInt(minString);
+			
+			GregorianCalendar newStart = new GregorianCalendar(year,month,day,hour,min);
+			
+			currentSession.setStartTime(newStart);
+			
+			modifySession();
+		}
 		
 	}
 

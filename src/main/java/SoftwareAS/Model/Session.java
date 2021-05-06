@@ -26,8 +26,14 @@ public class Session {
 	public GregorianCalendar getStartTime() {
 		return startTime;
 	}
+	public void setStartTime(GregorianCalendar startTime) {
+		this.startTime = startTime;
+	}
 	public GregorianCalendar getEndTime() {
 		return endTime;
+	}
+	public void setEndTime(GregorianCalendar endTime) {
+		this.endTime = endTime;
 	}
 	public Activity getActivity() {
 		return activity;
