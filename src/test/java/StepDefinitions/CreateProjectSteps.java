@@ -36,8 +36,8 @@ public class CreateProjectSteps {
 	@Given("there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException {
 		database.createAdmin(userName);
-		admin = database.getAdminById(userName);
-		assertTrue(database.containsAdmin(userName));
+		admin.createDeveloper(userName);
+		assertTrue(database.containsDeveloper(userName));
 	}
 
 	@Given("the user is an admin")
@@ -46,7 +46,7 @@ public class CreateProjectSteps {
 	}
 
 	@When("the user creates a project with a number {int}")
-	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
+	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
 		admin.createProject(projectNumber);
 	}
 
@@ -63,7 +63,7 @@ public class CreateProjectSteps {
 //  Then the system throws ExistingProjectException
 
 	@When("the user creates a project with a number {int} identical to an existing project")
-	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException {
+	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
 		admin.createProject(projectNumber);
 		try {
 			admin.createProject(projectNumber);
@@ -84,24 +84,31 @@ public class CreateProjectSteps {
 //	Scenario: User is not an admin
 //		Given there is a user
 //		And the user is not an admin
-//	   	When the user creates a project with name and number
+//	   	When the user tries to create a project with a number {int}
 //	   	Then the system throws InvalidUserException
 	
 
 
 	@Given("the user is not an admin")
 	public void theUserIsAnAdmin1() {
+		admin.setAdminState(false);
 		assertFalse(admin.isAdmin());
 	}
 
 	@When("the user tries to create a project with a number {int}")
-	public void theUserCreatesProject1() throws ProjectAlreadyExistsException, ProjectNotFoundException {
-		developer.createProject(projectNumber);
+	public void theUserCreatesProject1(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+		admin.createProject(projectNumber);
+		try {
+			admin.createProject(projectNumber);
+		}
+		catch(NotAuthorizedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
 	}
 
-	@Then("the system throws AdminNotFoundException")
-	public void systemThrowsAdminNotFoundException() throws AdminNotFoundException {
-		throw new AdminNotFoundException("User not an admin");
+	@Then("the system throws NotAuthorizedException")
+	public void systemThrowsNotAuthorizedException() throws NotAuthorizedException {
+		assertEquals("Project Already Exists", errorMessageHolder.getErrorMessage());
 	}
 
 	

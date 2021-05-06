@@ -38,7 +38,7 @@ public class SeeAvailableDevelopersSteps {
 	}
 	
 	@Given("there is a project with ID {int}")
-	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
+	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
 		admin.createProject(projectNumber);
 		project=database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
