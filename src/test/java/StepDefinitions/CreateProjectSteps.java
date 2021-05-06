@@ -47,7 +47,7 @@ public class CreateProjectSteps {
 	}
 
 	@When("the user creates a project with a number {int}")
-	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 	}
 

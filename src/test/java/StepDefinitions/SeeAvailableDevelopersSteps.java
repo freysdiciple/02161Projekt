@@ -6,6 +6,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -38,7 +39,7 @@ public class SeeAvailableDevelopersSteps {
 	}
 	
 	@Given("there is a project with ID {int}")
-	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		project=database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
