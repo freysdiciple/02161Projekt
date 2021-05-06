@@ -8,6 +8,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -28,7 +29,7 @@ public class CreateActivitySteps {
 	
 	//Scenario: Successfully create activity
 	@Given("there is a project with project number 234234")
-	public void thereIsAProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException {
+	public void thereIsAProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		errorMessageHolder.setErrorMessage("No Error Message Given (init)");
 //		admin  = new Admin("adminID", database);
 		database.createAdmin(adminID);

@@ -6,6 +6,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -63,7 +64,7 @@ public class CreateProjectSteps {
 //  Then the system throws ExistingProjectException
 
 	@When("the user creates a project with a number {int} identical to an existing project")
-	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		try {
 			admin.createProject(projectNumber);
@@ -96,7 +97,7 @@ public class CreateProjectSteps {
 	}
 
 	@When("the user tries to create a project with a number {int}")
-	public void theUserCreatesProject1(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+	public void theUserCreatesProject1(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		try {
 			admin.createProject(projectNumber);
 		}

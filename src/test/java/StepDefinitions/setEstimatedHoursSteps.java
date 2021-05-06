@@ -37,7 +37,7 @@ public class setEstimatedHoursSteps {
 	}
 
 	@Given("there is a project with ID {int}")
-	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException {
+	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		project = database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));

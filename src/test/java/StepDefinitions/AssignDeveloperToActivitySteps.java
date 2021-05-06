@@ -8,6 +8,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
@@ -30,7 +31,7 @@ public class AssignDeveloperToActivitySteps {
 	
 	//Scenario: Successfully assign developer to activity
 	@Given("there is a project with project number 123123")
-	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException {
+	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 //		admin  = new Admin("adminID", database);
 		//project = new Project(123123, admin);
 		database.createAdmin(adminID);
