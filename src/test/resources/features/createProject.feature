@@ -23,5 +23,5 @@ Feature: Create new project
 #	Given there is an user with ID "Søren"
 #	And the user is not an admin
 #   When the user tries to create a project with a number 12345
-#   Then the system throws InvalidUserException
+#   Then the system throws NotAuthorizedException
  

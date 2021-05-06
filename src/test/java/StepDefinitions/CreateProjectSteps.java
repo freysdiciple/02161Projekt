@@ -85,7 +85,7 @@ public class CreateProjectSteps {
 //		Given there is a user
 //		And the user is not an admin
 //	   	When the user tries to create a project with a number {int}
-//	   	Then the system throws InvalidUserException
+//	   	Then the system throws NotAuthorizedException
 	
 
 
@@ -108,7 +108,7 @@ public class CreateProjectSteps {
 
 	@Then("the system throws NotAuthorizedException")
 	public void systemThrowsNotAuthorizedException() throws NotAuthorizedException {
-		assertEquals("Project Already Exists", errorMessageHolder.getErrorMessage());
+		assertEquals("Only admins can create new project", errorMessageHolder.getErrorMessage());
 	}
 
 	
