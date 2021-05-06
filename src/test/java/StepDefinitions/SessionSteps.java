@@ -41,11 +41,21 @@ public class SessionSteps {
 	    
 	}
 
-	@Given("there is an activity")
-	public void there_is_an_activity() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException {
+	@Given("there is an activity1")
+	public void there_is_an_activity1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException {
 		admin = new Admin("admin", database);
-		admin.createProject(123);
-		project = database.getProjectById(123);
+		admin.createProject(900);
+		project = database.getProjectById(900);
+		project.assignDeveloperToProject(admin, developer);
+		project.setProjectLeader(admin, developer);
+	    project.createActivity(124, developer);
+	}
+	
+	@Given("there is an activity2")
+	public void there_is_an_activity2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException {
+		admin = new Admin("admin", database);
+		admin.createProject(910);
+		project = database.getProjectById(910);
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 	    project.createActivity(124, developer);

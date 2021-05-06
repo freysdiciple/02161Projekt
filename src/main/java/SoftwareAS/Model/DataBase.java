@@ -113,7 +113,10 @@ public class DataBase {
 	
 	
 	public boolean containsProject(int projectNumber) throws ProjectNotFoundException {
-		return projects.contains(getProjectByIdWithoutException(projectNumber));
+		for(Project project : projects) {
+			if(project.getProjectNumber() == projectNumber) return true;
+		}
+		return false;
 	}
 	
 
