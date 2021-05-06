@@ -814,7 +814,33 @@ public class FrontEndController {
 	}
 		
 	private void getSummary() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
+		System.out.println("Enter the number of the activity you would like to get summary of:");
+		int number = input.nextInt();
+		boolean activityFound = false;
+		
+		if(currentProject.containsActivityWithId(number)){			
+			activityFound = true;
+			currentActivity=currentProject.getActivityById(number);
+			int startWeek=currentActivity.getStartWeek();
+			int endWeek=currentActivity.getEndWeek();
+			List<Developer> developers=currentActivity.getDevelopers();
+			
+			System.out.println("The activity starts in week: " + startWeek);
+			System.out.println("The activity ends in week: " + endWeek);
+			System.out.println("The following developers are on the project:");
+			for (Developer d : developers) {
+			System.out.println(d.getId());
+			
+			}
 	
+		if(!activityFound) {
+			System.out.println("Project Not Found");
+			getSummary();
+		}
+		else {
+			manageActivities();
+		}
+	}
 	}
 	
 	
