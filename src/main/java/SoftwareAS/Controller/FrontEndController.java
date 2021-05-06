@@ -458,12 +458,12 @@ public class FrontEndController {
 	
 	private void manageDevelopers() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
 		System.out.println("Welcome to Manage Developers on the current project!");
-		System.out.println("Here you can add/remove developers to the project or activities,");
-		System.out.println("or see available developers");
 		System.out.println("0 - Back");
-		System.out.println("1 - Add/remove developer from the project");
-		System.out.println("2 - Add/remove developer from activities");
-		System.out.println("3 - See available developers");
+		System.out.println("1 - Add developer to the project");
+		System.out.println("2 - Remove developer from the project");
+		System.out.println("3 - Add developer to activities");
+		System.out.println("4 - Remove developer from activities");
+		System.out.println("5 - See available developers");
 		
 		int choice = input.nextInt();
 		
@@ -472,12 +472,18 @@ public class FrontEndController {
 			manageProject();
 			break;
 		case 1:
-			addRemoveDevelopersFromProject();
+			addDevelopersToProject();
 			break;
 		case 2:
-			addRemoveDevelopersFromActivities();
+			removeDevelopersFromProject();
 			break;
 		case 3:
+			addDeveloperToActivity();
+			break;
+		case 4:
+			chooseActivityToRemoveDeveloperFromActivity();
+			break;	
+		case 5:
 			seeAvailableDevelopers();
 			break;
 		default:
@@ -485,12 +491,196 @@ public class FrontEndController {
 		}
 	}
 	
-	public void addRemoveDevelopersFromProject() {
+	public void addDevelopersToProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose a developer to add to the current project!");
+		Switcher switcher = new Switcher();
+		List<Developer> developers = database.getAllDevelopers();
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				manageDevelopers();
+			}
+		});
 		
+		//Create cases
+		for(int i=0; i<developers.size(); i++) {
+			Developer developer = developers.get(i);
+			
+			System.out.println((i+1) + " - " + developer.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentProject.assignDeveloperToProject(currentUser, developer);
+					manageProject();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
 	}
 	
-	public void addRemoveDevelopersFromActivities() {
+	
+	public void removeDevelopersFromProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose which developer from your project you would like to remove:");
+		Switcher switcher = new Switcher();
+		List<Developer> developers = currentProject.getDevelopers();
 		
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				manageDevelopers();
+			}
+		});
+		
+		//Create cases
+		for(int i=0; i<developers.size(); i++) {
+			Developer developer = developers.get(i);
+			
+			System.out.println((i+1) + " - " + developer.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentProject.removeDeveloperFromProject(developer);
+					manageProject();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
+	}
+	
+	public void addDeveloperToActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose which developer from your project you would like to add:");
+		Switcher switcher = new Switcher();
+		List<Developer> developers = currentProject.getDevelopers();
+		
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				chooseActivityToAddDeveloperToActivity();
+			}
+		});
+		
+		//Create cases
+		for(int i=0; i<developers.size(); i++) {
+			Developer developer = developers.get(i);
+			
+			System.out.println((i+1) + " - " + developer.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentActivity.assignDeveloperToActivity(currentUser, developer);
+					manageProject();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
+	}
+	
+	public void removeDeveloperFromActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose which developer from your activity you would like to remove:");
+		Switcher switcher = new Switcher();
+		List<Developer> developers = currentActivity.getDevelopers();
+		
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				chooseActivityToRemoveDeveloperFromActivity();
+			}
+		});
+		
+		//Create cases
+		for(int i=0; i<developers.size(); i++) {
+			Developer developer = developers.get(i);
+			
+			System.out.println((i+1) + " - " + developer.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentActivity.removeDeveloperFromActivity(developer);
+					manageProject();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
+	}
+	
+	public void chooseActivityToRemoveDeveloperFromActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose the activity from your project, where you want to remove a developer:");
+		Switcher switcher = new Switcher();
+		List<Activity> activities = currentProject.getActivities();
+		
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				manageDevelopers();
+			}
+		});
+		
+		//Create cases
+		for(int i=0; i<activities.size(); i++) {
+			Activity activity = activities.get(i);
+			
+			System.out.println((i+1) + " - " + activity.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentActivity = activity;
+					removeDeveloperFromActivity();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
+	}
+	
+	public void chooseActivityToAddDeveloperToActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+		clearScreen();
+		System.out.println("Choose the activity from your project, where you want to add a developer:");
+		Switcher switcher = new Switcher();
+		List<Activity> activities = currentProject.getActivities();
+		
+		System.out.println(0 + " - Back");
+		switcher.addCaseCommand(0, new Command() {
+			@Override
+			public void execute() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException {
+				manageDevelopers();
+			}
+		});
+		
+		//Create cases
+		for(int i=0; i<activities.size(); i++) {
+			Activity activity = activities.get(i);
+			
+			System.out.println((i+1) + " - " + activity.getId());
+			
+			switcher.addCaseCommand(i+1, new Command() {
+				@Override 
+				public void execute() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException {
+					currentActivity = activity;
+					addDeveloperToActivity();
+				}
+			});
+		}
+		int choice = input.nextInt();
+		switcher.on(choice);
 	}
 	
 	public void seeAvailableDevelopers() {
@@ -710,5 +900,4 @@ public class FrontEndController {
 				WelcomePageDeveloper();
 		}
 	}
-
 }
