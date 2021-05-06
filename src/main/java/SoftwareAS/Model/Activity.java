@@ -63,8 +63,8 @@ public class Activity {
 		this.startWeek = startWeek;
 	}
 	
-	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
-		if(projectLeader.equals(project.getProjectLeader())) {
+	public void assignDeveloperToActivity(Developer user,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
+		if(user.equals(project.getProjectLeader()) || user.isAdmin()) {
 			if (project.isDeveloperOnProject(developer.getId())) {
 					developer.addActivity(this);
 					developers.add(developer);
@@ -73,6 +73,13 @@ public class Activity {
 			}
 		} else {
 			throw new OperationNotAllowedException("Only project leaders can assign to activity");
+		}
+	}
+	
+	public void removeDeveloperFromActivity(Developer developer) {
+		if(developers.contains(developer)) {
+			developer.deleteActivity(this);
+			developers.remove(developer);
 		}
 	}
 	

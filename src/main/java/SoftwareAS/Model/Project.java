@@ -52,6 +52,9 @@ public class Project {
 	public List<Developer> getDevelopers(){
 		return developers;
 	}
+	public List<Activity> getActivities(){
+		return activities;
+	}
 	
 	public boolean isProjectLeader(Developer developer) {
 		if (projectLeader == null) return false;
