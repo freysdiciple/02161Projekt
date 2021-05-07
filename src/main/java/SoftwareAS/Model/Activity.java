@@ -67,15 +67,12 @@ public class Activity {
 	}
 	
 	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
-		if(projectLeader.equals(project.getProjectLeaderWithoutNull())) {
-			if (project.isDeveloperOnProject(developer.getId())) {
-					developers.add(developer);
-			} else {
-				throw new DeveloperNotFoundException("Developer not on project.");
-			}
-		} else {
+		if(!projectLeader.equals(project.getProjectLeaderWithoutNull()))
 			throw new OperationNotAllowedException("Only project leaders can assign to activity");
-		}
+		if (!project.isDeveloperOnProject(developer.getId()))
+			throw new DeveloperNotFoundException("Developer not on project.");
+		
+		developers.add(developer);
 	}
 	
 //	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {

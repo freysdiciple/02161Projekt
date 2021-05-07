@@ -38,11 +38,11 @@ public class Project {
 	}
 	
 	public void setProjectLeader(Developer admin, Developer developer) throws DeveloperNotFoundException, NotAuthorizedException {
-		if (isDeveloperOnProject(developer.getId()) == true) {
-			if (admin.isAdmin()  == true) this.projectLeader = developer;
-			else throw new NotAuthorizedException("Project leader can only be assigned by Admin");
-		}
-		else throw new DeveloperNotFoundException("Developer is not on the project");
+		if (isDeveloperOnProject(developer.getId()) == false)
+			throw new DeveloperNotFoundException("Developer is not on the project");
+		if (admin.isAdmin()  == false)
+			throw new NotAuthorizedException("Project leader can only be assigned by Admin");
+		this.projectLeader = developer;
 	}
 	
 	public Developer getProjectLeader() {
@@ -66,19 +66,20 @@ public class Project {
 		return false;
 	}
 	public void assignDeveloperToProject(Developer admin, Developer developer) throws OperationNotAllowedException {
-		if(admin.isAdmin()) developers.add(developer);
-		else throw new OperationNotAllowedException("Only admins can assign developers to projects");
+		if(!admin.isAdmin())
+			throw new OperationNotAllowedException("Only admins can assign developers to projects");
+		developers.add(developer);
 	}
 	
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
-		if (this.isProjectLeader(developer)) {
-			if (!this.containsActivityWithId(id))
-				activities.add(new Activity(id, this));
-			else
-				throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
-		}
-		else throw new NotAuthorizedException("Only the project leader can create activities.");
+		if (!this.isProjectLeader(developer))
+			throw new NotAuthorizedException("Only the project leader can create activities.");
+		if (this.containsActivityWithId(id))
+			throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
+		
+		activities.add(new Activity(id, this));
 	}
+
 	
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
 		for(Activity activity : activities) {
