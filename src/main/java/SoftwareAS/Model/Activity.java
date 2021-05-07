@@ -67,8 +67,8 @@ public class Activity {
 	}
 	
 	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
-		if(!projectLeader.equals(project.getProjectLeaderWithoutNull()))
-			throw new OperationNotAllowedException("Only project leaders can assign to activity");
+		if(!(projectLeader.equals(project.getProjectLeaderWithoutNull()) || projectLeader.isAdmin()))
+			throw new OperationNotAllowedException("Only a project leader or admin can assign developer to activity");
 		if (!project.isDeveloperOnProject(developer.getId()))
 			throw new DeveloperNotFoundException("Developer not on project.");
 		
