@@ -37,8 +37,8 @@ public class ProjectLeaderSteps {
 		admin = new Admin(adminName, database);
 	}
 	
-	@Given("3- there is a project with ID {int}")
-	public void thereIsAProject(int projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@Given("3- there is a project with ID {string}")
+	public void thereIsAProject(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectID);
 		project = database.getProjectById(projectID);
 	}
@@ -94,8 +94,8 @@ public class ProjectLeaderSteps {
 		assertFalse(user.isAdmin());
 	}
 	
-	@Given("3- there is a project with ID {int} created by an admin {string}")
-	public void thereIsAProject(int projectID, String adminName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException, AdminNotFoundException {
+	@Given("3- there is a project with ID {string} created by an admin {string}")
+	public void thereIsAProject(String projectID, String adminName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException, AdminNotFoundException {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createProject(projectID);

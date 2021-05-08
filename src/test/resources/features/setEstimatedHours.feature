@@ -4,7 +4,7 @@ Actor: Project leader
 
 #Scenario: Successfully set estimated work hours
 #	Given 10- there is an user with ID "Søren"
-#   And 10- there is a project with ID 100
+#   And 10- there is a project with ID "100"
 #	And 10- the user "Søren" is a Project leader
 #	And 10- there is an activity with ID 500
 #	When 10- the user provides the estimated hours 72 for the activity
@@ -12,7 +12,7 @@ Actor: Project leader
 
 #Scenario: Successfully change estimated work hours
 #	Given 10- there is an user with ID "Søren"
-#   And 10- there is a project with ID 101
+#   And 10- there is a project with ID "101"
 #	And 10- the user "Søren" is a Project leader
 #	And 10- there is an activity with ID 501
 #	And 10- the estimated hours are set to 72 for the activity
@@ -21,7 +21,7 @@ Actor: Project leader
 
 #Scenario: Developer trying to set estimated work hours
 #   Given 10- there is an user with ID "Søren"
-#   And 10- there is a project with ID 102
+#   And 10- there is a project with ID "102"
 #	And 10- the user is a not Project leader
 #	And 10- there is an activity with ID 502
 #	When 10- the user provides the estimated hours 72 for the activity

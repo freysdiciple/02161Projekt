@@ -36,8 +36,8 @@ public class setEstimatedHoursSteps {
 		assertTrue(database.containsDeveloper(userName));
 	}
 
-	@Given("10- there is a project with ID {int}")
-	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@Given("10- there is a project with ID {string}")
+	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		project = database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
@@ -62,7 +62,7 @@ public class setEstimatedHoursSteps {
 	}
 
 	@When("10- the user provides the estimated hours {int} for the activity")
-	public void theUserProvidesTheEstimatedHours(int time) throws NotAuthorizedException {
+	public void theUserProvidesTheEstimatedHours(int time) throws NotAuthorizedException, OutOfBoundsException {
 		this.time = time;
 		try {
 			activity.setEstimatedWorkHours(time, projectLeader, project);
@@ -80,13 +80,13 @@ public class setEstimatedHoursSteps {
 
 	//Scenario: Successfully change estimated work hours
     @Given("10- the estimated hours are set to {int} for the activity")
-    public void theUserProvidesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
+    public void theUserProvidesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException, OutOfBoundsException {
         activity.setEstimatedWorkHours(time, projectLeader, project);
         assertTrue(activity.getEstimatedWorkHours() == time);
     }
 
     @When("10- the user changes the estimated hours to {int} for the activity")
-    public void theUserChangesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
+    public void theUserChangesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException, OutOfBoundsException {
         this.time = time;
         activity.setEstimatedWorkHours(time, projectLeader, project);
     }
