@@ -169,6 +169,11 @@ public class Project {
 		int hour = Integer.parseInt(hourString);
 		int min = Integer.parseInt(minString);
 		
+		if(month<1 || month>12 || day<1 || day>31 || hour <0 || hour > 23 || min<0 || min > 59) {
+			throw new OutOfBoundsException("The time has to be compatible with GregorianCalendar");
+			
+		}
+		
 		GregorianCalendar newTime = new GregorianCalendar(year,month,day,hour,min);
 		
 		return newTime ;

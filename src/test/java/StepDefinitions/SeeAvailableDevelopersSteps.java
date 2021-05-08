@@ -13,19 +13,19 @@ import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
+import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
 public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;
-	private String adminName="Mogens";
+	private String adminName = "Mogens";
 	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private List<Developer> availableDevelopers;
 	private GregorianCalendar startTime;
 	private GregorianCalendar endTime;
-
-
+	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 //Main scenario
 //Scenario: See available developers
@@ -36,24 +36,26 @@ public class SeeAvailableDevelopersSteps {
 //  Then the system displays a list of available developers at the given time slot
 
 	@Given("9- there is an user with ID {string}")
-	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException {
+	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException,
+			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createDeveloper(userName);
-		developer= database.getDeveloperById(userName);
+		developer = database.getDeveloperById(userName);
 		assertTrue(database.containsDeveloper(userName));
 	}
 
 	@Given("9- there is a project with ID {int}")
-	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
+			NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
-		project=database.getProjectById(projectNumber);
+		project = database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
 	}
 
-
 	@Given("9- the user is a Project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
+	public void theUserIsAProjectLeader()
+			throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 		assertTrue(project.isProjectLeader(developer));
@@ -62,21 +64,81 @@ public class SeeAvailableDevelopersSteps {
 
 	@When("9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers")
 	public void theUserProvidesTimeSlot(String start, String end) throws OutOfBoundsException {
-		startTime=project.stringToGregorianCalendar(start);
-		endTime=project.stringToGregorianCalendar(start);
 		
-			}
-			
-	
+		startTime = project.stringToGregorianCalendar(start);
+		endTime = project.stringToGregorianCalendar(start);
+
+	}
+
 	@Then("9- the system displays a list of available developers at the given time slot")
 	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException {
-		availableDevelopers=project.seeAvailableDevelopers(startTime, endTime, developer);
+		availableDevelopers = project.seeAvailableDevelopers(startTime, endTime, developer);
 		for (Developer developer : availableDevelopers) {
-			
-			
+			List<Session> sessions = developer.getRegisteredSessions();
+			for (Session session : sessions) {
+				assertTrue(session.getStartTime().compareTo(startTime) < 0 && session.getEndTime().compareTo(endTime) > 0);
+			}
+
 		}
+
+	}
+	
+	//# Alternate scenario one
+	//Scenario: Given time not valid length
+	//	Given 9- there is an user with ID "Søren"
+	//	And 9- there is a project with ID "211234"
+	//	And 9- the user is a Project leader
+	//	When 9- the user provides invalid length input of the start time {string} and end time {string} of the activity where he needs developers
+	//	Then 9- the system provides an error message that the time is invalid
+	
+	@When("9- the user provides invalid length input of the start time {string} and end time {string} of the activity where he needs developers")
+	public void theUserProvidesTooLongTimeInput(String start, String end) throws OutOfBoundsException {
+		try {
+			project.stringToGregorianCalendar(start);
+		}
+		catch(OutOfBoundsException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+		try {
+			project.stringToGregorianCalendar(end);
+		}
+		catch(OutOfBoundsException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
 		
+	@Then("9- the system provides an error message that the length of the input time is invalid")
+	public void theSystemProvidesAnErrorMessageThatTheTimeLengthIsInvalid() throws OutOfBoundsException {
+		assertEquals("String must be a length of 16", errorMessageHolder.getErrorMessage());
 		
 	}
-}
- 
+
+		
+	
+	@When("9- the user provides invalid format input of the start time {string} and end time {string} of the activity where he needs developers")
+	public void theUserProvidesInvalidFormatTimeInput(String start, String end) throws OutOfBoundsException {
+		try {
+			project.stringToGregorianCalendar(start);
+		}
+		catch(OutOfBoundsException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+		try {
+			project.stringToGregorianCalendar(end);
+		}
+		catch(OutOfBoundsException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	@Then("9- the system provides an error message that the length of the input time is invalid")
+	public void theSystemProvidesAnErrorMessageThatTheTimeFormatIsInvalid() throws OutOfBoundsException {
+		assertEquals("The time has to be compatible with GregorianCalendar", errorMessageHolder.getErrorMessage());
+		
+	}
+
+
+
+	}
+
+
