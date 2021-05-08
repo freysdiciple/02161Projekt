@@ -110,6 +110,13 @@ public class CreateProjectSteps {
 	public void systemThrowsNotAuthorizedException() throws NotAuthorizedException {
 		assertEquals("Only admins can create new project", errorMessageHolder.getErrorMessage());
 	}
+	
+//	# Alternate scenario three
+//	Scenario: User is an admin
+//		Given there is a user
+//		And the user is an admin
+//	   	When the user tries to create a project with a number {int}
+//	   	Then the system throws NotAuthorizedException
 
 
 }

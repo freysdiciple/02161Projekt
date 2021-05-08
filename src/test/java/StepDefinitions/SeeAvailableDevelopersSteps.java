@@ -30,7 +30,7 @@ public class SeeAvailableDevelopersSteps {
 //	Given there is an user with ID {string}
 //  Given there is a project with ID {int}
 //	Given the user is a Project leader
-//  When the user provides information of the time slot of the activity where he needs developers
+//  When the user provides information of the start time {string} and end time {string} of the activity where he needs developers
 //  Then the system displays a list of available developers at the given time slot
 
 	@Given("9- there is an user with ID {string}")
