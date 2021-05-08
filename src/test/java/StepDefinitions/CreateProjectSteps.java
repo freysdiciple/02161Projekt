@@ -31,7 +31,7 @@ public class CreateProjectSteps {
 	// Scenario: Create new project
 	// Given there is an user with ID {string}
 	// And the user is an admin
-	// When the user creates a project with a number {string}
+	// When the user creates a project with a valid number {string}
 	// Then the project with a number {string} is contained in the system
 
 	@Given("5- there is an user with ID {string}")
@@ -46,7 +46,7 @@ public class CreateProjectSteps {
 		assertTrue(admin.isAdmin());
 	}
 
-	@When("5- the user creates a project with a number {string}")
+	@When("5- the user creates a project with a valid number {string}")
 	public void theUserCreatesProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 	}
@@ -60,10 +60,10 @@ public class CreateProjectSteps {
 //Scenario: A project with the the given number already exists
 //	Given there is a user
 //	And the user is an admin
-//	When the user creates a project with a number {string} identical to an existing project
+//	When the user creates a project with a valid number {string} identical to an existing project
 //  Then the system throws ExistingProjectException
 
-	@When("5- the user creates a project with a number {string} identical to an existing project")
+	@When("5- the user creates a project with a valid number {string} identical to an existing project")
 	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(String projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		try {
@@ -85,7 +85,7 @@ public class CreateProjectSteps {
 //	Scenario: User is not an admin
 //		Given there is a user
 //		And the user is not an admin
-//	   	When the user tries to create a project with a number {int}
+//	   	When the user tries to create a project with a valid number {int}
 //	   	Then the system throws NotAuthorizedException
 
 
@@ -96,7 +96,7 @@ public class CreateProjectSteps {
 		assertFalse(admin.isAdmin());
 	}
 
-	@When("5- the user tries to create a project with a number {string}")
+	@When("5- the user tries to create a project with a valid number {string}")
 	public void theUserCreatesProject1(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		try {
 			admin.createProject(projectNumber);
@@ -112,11 +112,11 @@ public class CreateProjectSteps {
 	}
 	
 //	# Alternate scenario three
-//	Scenario: User is an admin
+//	Scenario: Invalid project number length
 //		Given there is a user
 //		And the user is an admin
-//	   	When the user tries to create a project with a number {int}
-//	   	Then the system throws NotAuthorizedException
+//	   	When the user tries to create a project with a project number {String} with invalid length
+//	   	Then the system throws OutOfBoundsException
 
 
 }

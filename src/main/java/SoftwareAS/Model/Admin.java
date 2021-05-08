@@ -32,7 +32,7 @@ public class Admin extends Developer {
 		try {
 			Integer.parseInt(projectNumber);
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("The project has to consists of integers");
+			throw new NumberFormatException("The project has to only consist of integers");
 
 		}
 
