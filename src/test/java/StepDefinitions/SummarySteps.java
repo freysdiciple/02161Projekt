@@ -33,7 +33,7 @@ public class SummarySteps {
 		this.errorMessageHolder = errorMessageHolder;
 	}
 
-	@Given("the user is a project leader1")
+	@Given("6 - the user is a project leader1")
 	public void theUserIsAProjectLeader1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
 		admin = new Admin("admin", database);
 		admin.createProject(920000);
@@ -55,7 +55,7 @@ public class SummarySteps {
 		
 	}
 	
-	@Given("the user is a project leader2")
+	@Given("6 - the user is a project leader2")
 	public void theUserIsAProjectLeader2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
 		admin = new Admin("admin", database);
 		admin.createProject(930000);
@@ -77,8 +77,8 @@ public class SummarySteps {
 		
 	}
 	
-	@Given("the developers have registered their daily time on the activities")
-	public void theDevelopersHaveRegisteredTheirDailyTimeOnTheActivity() throws OperationNotAllowedException, OverlappingSessionsException {
+	@Given("6 - the developers have registered their daily time on the activities")
+	public void theDevelopersHaveRegisteredTheirDailyTimeOnTheActivity6() throws OperationNotAllowedException, OverlappingSessionsException {
 		GregorianCalendar start1 = new GregorianCalendar(); 
 		GregorianCalendar end1 = new GregorianCalendar(); 
 		start1.add(GregorianCalendar.DAY_OF_YEAR, -3);
@@ -95,26 +95,26 @@ public class SummarySteps {
 		developer.registerSession(activity2, start2, end2);
 	}
 	
-	@When("the project leader request a summary of the activity in the last week")
-	public void theProjectLeaderRequestASummaryOfTheActivityInTheLastWeek() {
+	@When("6 - the project leader request a summary of the activity in the last week")
+	public void theProjectLeaderRequestASummaryOfTheActivityInTheLastWeek6() {
 		aSummary = activity1.createSummary();
 	}
 	
-	@Then("the project leader successfully receives a summary of the activity")
-	public void theProjectLeaderSuccessfullyReceivesASummaryOfTheActivity() {
+	@Then("6 - the project leader successfully receives a summary of the activity")
+	public void theProjectLeaderSuccessfullyReceivesASummaryOfTheActivity6() {
 		assertEquals(aSummary.getTotalWorkLoad(), workedTime1);
 		assertEquals(aSummary.getRemainingTime(), estimatedTime1 - workedTime1);
 		
 	}
 	
-	@When("the project manager requests a summary of the project")
-	public void theProjectManagerRequestsASummaryOfTheProject() {
+	@When("6 - the project manager requests a summary of the project")
+	public void theProjectManagerRequestsASummaryOfTheProject6() {
 		pSummary = project.createSummary();
 		
 	}
 	
-	@Then("the project manager recieves a summary of the project")
-	public void theProjectManagerRecievesASummaryOfTheProject() {
+	@Then("6 - the project manager recieves a summary of the project")
+	public void theProjectManagerRecievesASummaryOfTheProject6s() {
 		assertTrue(pSummary.getActivityProgress()[0] == estimatedTime1 - workedTime1 && pSummary.getActivityProgress()[1] == estimatedTime2 - workedTime2);
 		assertTrue(pSummary.getActivityWorktime()[0] == workedTime1 && pSummary.getActivityWorktime()[1] == workedTime2);
 		
