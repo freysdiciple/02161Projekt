@@ -9,6 +9,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.OverlappingSessionsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
@@ -47,7 +48,7 @@ public class Switcher {
         }
     }
 
-    public void on(Integer caseId) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
+    public void on(Integer caseId) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
         Command command = getCaseCommandByCaseId(caseId);
 
         command.execute();

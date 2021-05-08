@@ -26,6 +26,10 @@ public class Developer {
 		return id;
 	}
 	
+	public DataBase getDatabase() {
+		return database;
+	}
+	
 	public boolean isAdmin() {
 		return isAdmin;
 	}

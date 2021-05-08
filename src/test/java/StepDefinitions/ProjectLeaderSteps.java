@@ -26,7 +26,7 @@ public class ProjectLeaderSteps {
 	private Admin user;
 	private Developer developer;
 	private Project project;
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	
 	
@@ -106,10 +106,10 @@ public class ProjectLeaderSteps {
 	public void theUserAssignsProjectLeaderToADeveloperAlreadyOnTheProject(String developerName) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException {
 		admin.createDeveloper(developerName);
 		developer = database.getDeveloperById(developerName);
-		project.assignDeveloperToProject(user, developer);
+		project.assignDeveloperToProject(admin, developer);
 		
 		try {
-			project.setProjectLeader(admin, developer);
+			project.setProjectLeader(user, developer);
 		} catch (NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}

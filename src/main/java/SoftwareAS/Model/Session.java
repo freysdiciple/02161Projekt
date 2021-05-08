@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 public class Session {
 	
 	private int sessionId;
+	private String sessionId2;
 	private Developer developer;
 	private Activity activity;
 	private GregorianCalendar startTime;
@@ -15,6 +16,12 @@ public class Session {
 		this.activity = activity;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		
+		sessionId2 = "" + developer.getId() + activity.getId() + startTime.YEAR + startTime.MONTH + 
+				startTime.DATE + startTime.HOUR + startTime.MINUTE + endTime.YEAR + endTime.MONTH +
+				endTime.DATE + endTime.HOUR + endTime.MINUTE + endTime.MINUTE;
+		
+		
 	}
 	
 	public int getSessionID() {

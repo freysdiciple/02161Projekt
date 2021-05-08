@@ -10,11 +10,20 @@ import Exceptions.ProjectNotFoundException;
 
 public class DataBase {
 	
+	private static DataBase instance = null;
+	
 	private List<Developer> developers = new ArrayList<>();
 	private List<Admin> admins = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 
-	public DataBase() {}
+	public static DataBase getInstance() {
+		if(instance == null) {
+			instance = new DataBase();
+		}
+		return instance;
+	}
+	
+	private DataBase() {}
 	
 	public List<Developer> getAllDevelopers(){
 		return developers;

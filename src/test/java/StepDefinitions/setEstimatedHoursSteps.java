@@ -13,7 +13,7 @@ public class setEstimatedHoursSteps {
 	private Developer developer;
 	private Admin admin;
 	private String adminName = "Mogens";
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private Activity activity;
 	private int time;
