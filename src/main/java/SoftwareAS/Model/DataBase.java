@@ -86,9 +86,9 @@ public class DataBase {
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		projects.add(project);
 	}
-	public void deleteProject(int projectNumber) {
+	public void deleteProject(String s) {
 		for(Project project : projects) {
-			if(project.getProjectNumber() == projectNumber) {
+			if(project.getProjectNumber() == s) {
 				for(Developer dev : project.getDevelopers()) {
 					dev.deleteProject(project);
 				}
@@ -96,25 +96,25 @@ public class DataBase {
 			}
 		}
 	}
-	public Project getProjectById(int projectNumber) throws ProjectNotFoundException {
+	public Project getProjectById(String projectNumber) throws ProjectNotFoundException {
 		for(Project project : projects) {
 			if(project.getProjectNumber() == projectNumber) return project;
 		}
 		
 		throw new ProjectNotFoundException("No project with described ID");
 	}
-	public Project getProjectByIdWithoutException(int projectNumber) {
+	public Project getProjectByIdWithoutException(String projectNumber) {
 		for(Project project : projects) {
 			if(project.getProjectNumber() == projectNumber) return project;
 		}
 		
-		return new Project(0, new Admin());
+		return new Project("", new Admin());
 	}
 	
 	
-	public boolean containsProject(int projectNumber) throws ProjectNotFoundException {
+	public boolean containsProject(String projectNumber) throws ProjectNotFoundException {
 		for(Project project : projects) {
-			if(project.getProjectNumber() == projectNumber) return true;
+			if(project.getProjectNumber().equals(projectNumber)) return true;
 		}
 		return false;
 	}

@@ -21,14 +21,13 @@ public class Admin extends Developer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void createProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
+	public void createProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException {
 		if (database.containsProject(projectNumber)) // 1
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		if (!isAdmin()) // 2
 			throw new NotAuthorizedException("Only admins can create new projects");
-		String projectID = Integer.toString(projectNumber);
-		if (projectID.length() != 6) // 3
+		if (projectNumber.length() != 6) // 3
 			throw new OutOfBoundsException("Project Number input is out of bounds, please enter 6 digits");
 
 		Project newProject = new Project(projectNumber, this);

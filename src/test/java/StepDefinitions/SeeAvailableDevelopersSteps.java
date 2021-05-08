@@ -43,7 +43,7 @@ public class SeeAvailableDevelopersSteps {
 	}
 
 	@Given("9- there is a project with ID {int}")
-	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		project=database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));

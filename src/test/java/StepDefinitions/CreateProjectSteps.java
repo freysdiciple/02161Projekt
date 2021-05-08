@@ -47,12 +47,12 @@ public class CreateProjectSteps {
 	}
 
 	@When("5- the user creates a project with a number {int}")
-	public void theUserCreatesProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void theUserCreatesProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 	}
 
 	@Then("5- the project with a number {int} is contained in the system")
-	public void systemCreatesProjectWithGivenNumberAndCreator(int projectNumber) throws ProjectNotFoundException {
+	public void systemCreatesProjectWithGivenNumberAndCreator(String projectNumber) throws ProjectNotFoundException {
 		assertTrue(database.containsProject(projectNumber));
 	}
 
@@ -64,7 +64,7 @@ public class CreateProjectSteps {
 //  Then the system throws ExistingProjectException
 
 	@When("5- the user creates a project with a number {int} identical to an existing project")
-	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(int projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
+	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(String projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		try {
 			admin.createProject(projectNumber);
@@ -97,7 +97,7 @@ public class CreateProjectSteps {
 	}
 
 	@When("5- the user tries to create a project with a number {int}")
-	public void theUserCreatesProject1(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void theUserCreatesProject1(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		try {
 			admin.createProject(projectNumber);
 		}

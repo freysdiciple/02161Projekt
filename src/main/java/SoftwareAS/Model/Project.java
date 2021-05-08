@@ -12,7 +12,7 @@ import Exceptions.OperationNotAllowedException;
 
 public class Project {
 	
-	private int projectNumber;
+	private String projectNumber;
 	private GregorianCalendar startDate;
 	private Admin creator;
 	
@@ -23,13 +23,13 @@ public class Project {
 	private DataBase database = new DataBase();
 	private List<Developer> availableDevelopers;
 	
-	public Project(int projectNumber, Admin creator) {
+	public Project(String projectNumber, Admin creator) {
 		this.projectNumber = projectNumber;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
 	}
 	
-	public int getProjectNumber() {
+	public String getProjectNumber() {
 		return projectNumber;
 	}
 	public Admin getCreator() {

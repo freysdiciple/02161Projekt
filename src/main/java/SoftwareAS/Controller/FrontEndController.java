@@ -907,7 +907,7 @@ public class FrontEndController {
 		String numberString = info.substring(0,6);
 		String idString = info.substring(7,11);
 		
-		database.getProjectById(Integer.parseInt(numberString)).setProjectLeader(currentUser, database.getDeveloperById(idString));
+		database.getProjectById(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
 		
 		manageProjects();
 		
@@ -917,12 +917,12 @@ public class FrontEndController {
 		clearScreen();
 		System.out.println("Enter the number of the project you would like to delete:");
 		
-		int number = input.nextInt();
+		String s = input.next();
 		boolean projectFound = false;
 		
 		for(Project project : database.getAllProjects()) {			
-			if(project.getProjectNumber() == number) {
-				database.deleteProject(number);
+			if(project.getProjectNumber().equals(s)) {
+				database.deleteProject(s);
 				projectFound = true;
 			}
 		}
@@ -942,9 +942,9 @@ public class FrontEndController {
 		clearScreen();
 		System.out.println("Enter the number of the project you would like to create:");
 		
-		int number = input.nextInt();
+		String s = input.next();
 		
-		Project project = new Project(number, (Admin) currentUser);
+		Project project = new Project(s, (Admin) currentUser);
 		database.createProject(project);
 		project.assignDeveloperToProject(currentUser, currentUser);
 		
