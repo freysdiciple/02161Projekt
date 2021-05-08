@@ -25,8 +25,8 @@ public class CreateActivitySteps {
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 	//Scenario: Successfully create activity
-	@Given("4- there is a project with project ID {int}")
-	public void thereIsAProject(int projectID) throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@Given("4- there is a project with project ID {string}")
+	public void thereIsAProject(String projectID) throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		errorMessageHolder.setErrorMessage("No Error Message Given (init)");
 		database.createAdmin(adminID);
 		admin = database.getAdminById(adminID);

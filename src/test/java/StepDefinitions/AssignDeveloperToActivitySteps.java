@@ -26,8 +26,8 @@ public class AssignDeveloperToActivitySteps {
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 	//Scenario: Successfully assign developer to activity
-	@Given("1- there is a project with project ID {int}")
-	public void thereIsAProject(int projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@Given("1- there is a project with project ID {string}")
+	public void thereIsAProject(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		database.createAdmin(adminID);
 		admin = database.getAdminById(adminID);
 		admin.createProject(projectID);
