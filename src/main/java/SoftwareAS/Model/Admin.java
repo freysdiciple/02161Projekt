@@ -22,13 +22,19 @@ public class Admin extends Developer {
 	}
 
 	public void createProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
-			NotAuthorizedException, OutOfBoundsException {
+			NotAuthorizedException, OutOfBoundsException, NumberFormatException {
 		if (database.containsProject(projectNumber)) // 1
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		if (!isAdmin()) // 2
 			throw new NotAuthorizedException("Only admins can create new projects");
 		if (projectNumber.length() != 6) // 3
 			throw new OutOfBoundsException("Project Number input is out of bounds, please enter 6 digits");
+		try {
+			Integer.parseInt(projectNumber);
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException("The project has to consists of integers");
+
+		}
 
 		Project newProject = new Project(projectNumber, this);
 		projects.add(newProject);
