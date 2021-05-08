@@ -9,6 +9,7 @@ import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 
 public class Project {
 	
@@ -150,6 +151,28 @@ public class Project {
 }
 	}
 	return developers;
+	}
+	
+	public GregorianCalendar stringToGregorianCalendar(String time) throws OutOfBoundsException {
+		if(time.length() != 16) {
+			throw new OutOfBoundsException("String must be a length of 16");
+		}
+		String yearString = time.substring(6,10);
+		String monthString = time.substring(3,5);
+		String dayString = time.substring(0,2);
+		String hourString = time.substring(11,13);
+		String minString = time.substring(14,16);
+		
+		int year = Integer.parseInt(yearString);
+		int month = Integer.parseInt(monthString);
+		int day = Integer.parseInt(dayString);
+		int hour = Integer.parseInt(hourString);
+		int min = Integer.parseInt(minString);
+		
+		GregorianCalendar newTime = new GregorianCalendar(year,month,day,hour,min);
+		
+		return newTime ;
+		
 	}
 	
 }

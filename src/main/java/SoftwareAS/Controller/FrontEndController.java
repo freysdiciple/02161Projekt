@@ -161,7 +161,7 @@ public class FrontEndController {
 		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 1) {
 			modifySession();
 		}
-		else if(info.length() < 16 || info.length() > 16) {
+		else if(info.length() != 16)  {
 			changeEndTime();
 		}
 		else {
