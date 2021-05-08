@@ -30,9 +30,11 @@ public class Activity {
 	public Activity() {
 		
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -44,20 +46,24 @@ public class Activity {
 	public void setEndWeek(int endWeek) {
 		this.endWeek = endWeek;
 	}
+	
 	public int getEstimatedWorkHours() {
 		return estimatedWorkHours;
 	}
+	
 	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException, OutOfBoundsException {
-		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()) )
-			throw new NotAuthorizedException("Only project leaders is allowed to set work hours");
+		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()))
+			throw new NotAuthorizedException("Only project leaders are allowed to set work hours.");
 		if (estimatedWorkHours < 0)
 			throw new OutOfBoundsException("Estimated work hours cannot be negative.");
 		this.estimatedWorkHours = estimatedWorkHours;
 		this.timeLeft = estimatedWorkHours - timeLeft;
 	}
+	
 	public int getTimeLeft() {
 		return timeLeft;
 	}
+	
 	public void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
 	}
@@ -65,6 +71,7 @@ public class Activity {
 	public int getStartWeek() {
 		return startWeek;
 	}
+	
 	public void setStartWeek(int startWeek) {
 		this.startWeek = startWeek;
 	}

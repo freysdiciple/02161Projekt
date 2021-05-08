@@ -17,7 +17,7 @@ import SoftwareAS.Model.*;
 
 public class CreateProjectSteps {
 	private Admin admin;
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 
@@ -31,8 +31,8 @@ public class CreateProjectSteps {
 	// Scenario: Create new project
 	// Given there is an user with ID {string}
 	// And the user is an admin
-	// When the user creates a project with a number {int}
-	// Then the project with a number {int} is contained in the system
+	// When the user creates a project with a number {string}
+	// Then the project with a number {string} is contained in the system
 
 	@Given("5- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException {
@@ -46,12 +46,12 @@ public class CreateProjectSteps {
 		assertTrue(admin.isAdmin());
 	}
 
-	@When("5- the user creates a project with a number {int}")
+	@When("5- the user creates a project with a number {string}")
 	public void theUserCreatesProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 	}
 
-	@Then("5- the project with a number {int} is contained in the system")
+	@Then("5- the project with a number {string} is contained in the system")
 	public void systemCreatesProjectWithGivenNumberAndCreator(String projectNumber) throws ProjectNotFoundException {
 		assertTrue(database.containsProject(projectNumber));
 	}
@@ -60,10 +60,10 @@ public class CreateProjectSteps {
 //Scenario: A project with the the given number already exists
 //	Given there is a user
 //	And the user is an admin
-//	When the user creates a project with a number {int} identical to an existing project
+//	When the user creates a project with a number {string} identical to an existing project
 //  Then the system throws ExistingProjectException
 
-	@When("5- the user creates a project with a number {int} identical to an existing project")
+	@When("5- the user creates a project with a number {string} identical to an existing project")
 	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(String projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		try {
@@ -96,7 +96,7 @@ public class CreateProjectSteps {
 		assertFalse(admin.isAdmin());
 	}
 
-	@When("5- the user tries to create a project with a number {int}")
+	@When("5- the user tries to create a project with a number {string}")
 	public void theUserCreatesProject1(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		try {
 			admin.createProject(projectNumber);

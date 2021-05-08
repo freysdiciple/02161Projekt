@@ -19,7 +19,7 @@ public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;
 	private String adminName="Mogens";
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private List<Developer> availableDevelopers;
 
@@ -28,7 +28,7 @@ public class SeeAvailableDevelopersSteps {
 //Main scenario
 //Scenario: See available developers
 //	Given there is an user with ID {string}
-//  Given there is a project with ID {int}
+//  Given there is a project with ID {String}
 //	Given the user is a Project leader
 //  When the user provides information of the start time {string} and end time {string} of the activity where he needs developers
 //  Then the system displays a list of available developers at the given time slot
