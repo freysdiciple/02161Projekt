@@ -26,9 +26,9 @@ public class CreateActivitySteps {
 	private String developerID = "createActivityDeveloper1ID";
 	private int activityID = 925;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
-	
+
 	//Scenario: Successfully create activity
-	@Given("there is a project with project number 234234")
+	@Given("4- there is a project with project number 234234")
 	public void thereIsAProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		errorMessageHolder.setErrorMessage("No Error Message Given (init)");
 //		admin  = new Admin("adminID", database);
@@ -38,23 +38,23 @@ public class CreateActivitySteps {
 		project = database.getProjectById(projectID);
 		assertTrue(database.containsProject(projectID));
 	}
-	
-	@Given("there is a user with ID createActivityDeveloper1ID and database")
+
+	@Given("4- there is a user with ID createActivityDeveloper1ID and database")
 	public void thereIsAUserWithIDAndDataBase() throws DeveloperNotFoundException {
 		//developer = new Developer("developerID", database);
 		admin.createDeveloper(developerID);
 		developer = database.getDeveloperById(developerID);
 		assertTrue(database.containsDeveloper(developerID));
 	}
-	
-	@Given("the user with ID createActivityDeveloper1ID is a project leader")
+
+	@Given("4- the user with ID createActivityDeveloper1ID is a project leader")
 	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException {
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 		assertTrue(project.isProjectLeader(developer));
 	}
 
-	@When("the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project")
+	@When("4- the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project")
 	public void theUserCreatesAnActivityInThatProject() throws ActivityAlreadyExistsException, ProjectNotFoundException {
 		try {
 			project.createActivity(activityID, developer);
@@ -63,7 +63,7 @@ public class CreateActivitySteps {
 		}
 	}
 
-	@Then("the activity with ID 925 is listed under the project")
+	@Then("4- the activity with ID 925 is listed under the project")
 	public void activityIsListedUnderTheProject() {
 		assertTrue(project.containsActivityWithId(activityID));
 	}
@@ -74,14 +74,14 @@ public class CreateActivitySteps {
 		//	When the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project
 		//	Then the activity with ID 925 is listed under the project
 
-	//Scenario: Duplicate name	
-	@Given("there is an activity with ID 925")
+	//Scenario: Duplicate name
+	@Given("4- there is an activity with ID 925")
 	public void thereIsActivityWithName() throws NotAuthorizedException, ActivityAlreadyExistsException, ProjectNotFoundException {
 		project.createActivity(activityID, developer);
 		assertTrue(project.containsActivityWithId(activityID));
 	}
-	
-	@Then("an ActivityAlreadyExistsException is thrown, createActivity")
+
+	@Then("4- an ActivityAlreadyExistsException is thrown, createActivity")
 	public void anActivityAlreadyExistsExceptionIsThrown() {
 		assertEquals("An activity with that ID already exists.", errorMessageHolder.getErrorMessage());
 	}
@@ -92,10 +92,10 @@ public class CreateActivitySteps {
 		//	And there is an activity with ID 925
 		//	When the user with ID createActivityDeveloper1ID creates an activity with ID 925 in that project
 		//	Then an ActivityAlreadyExistsException is thrown, createActivity
-	
-	
+
+
 	//Scenario: Developer trying to create activity
-	@Given("the user with ID createActivityDeveloper1ID is not a project leader")
+	@Given("4- the user with ID createActivityDeveloper1ID is not a project leader")
 	public void theUserIsNotAProjectLeader() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException {
 		String developer2ID = "developer2ID";
 		admin.createDeveloper(developer2ID);
@@ -105,13 +105,13 @@ public class CreateActivitySteps {
 		project.setProjectLeader(admin, developer2);
 		assertFalse(project.isProjectLeader(developer));
 	}
-	
-	@Then("a NotAuthorizedException is thrown, createActivity")
+
+	@Then("4- a NotAuthorizedException is thrown, createActivity")
 	public void aNotAuthorizedExceptionIsThrown() {
 		assertEquals("Only the project leader can create activities.", errorMessageHolder.getErrorMessage());
 	}
-	
-	@Then("an activity with ID 925 is not created")
+
+	@Then("4- an activity with ID 925 is not created")
 	public void theActivityIsNotCreated() throws ActivityNotFoundException {
 		assertFalse(project.containsActivityWithId(activityID));
 	}

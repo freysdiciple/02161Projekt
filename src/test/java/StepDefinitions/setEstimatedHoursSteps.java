@@ -27,7 +27,7 @@ public class setEstimatedHoursSteps {
 //		When the user provides the estimated hours for the activity
 //		Then the estimated hours for the activity is set
 
-	@Given("there is an user with ID {string}")
+	@Given("10- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException,
 			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException {
 		database.createAdmin(adminName);
@@ -36,14 +36,14 @@ public class setEstimatedHoursSteps {
 		assertTrue(database.containsDeveloper(userName));
 	}
 
-	@Given("there is a project with ID {int}")
+	@Given("10- there is a project with ID {int}")
 	public void thereIsAProject(int projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
 		project = database.getProjectById(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
 	}
 
-	@Given("the user {string} is a Project leader")
+	@Given("10- the user {string} is a Project leader")
 	public void theUserIsAProjectLeader(String userName)
 			throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
 		projectLeader = database.getDeveloperById(userName);
@@ -52,7 +52,7 @@ public class setEstimatedHoursSteps {
 		assertTrue(project.isProjectLeader(projectLeader));
 	}
 
-	@Given("there is an activity with ID {int}")
+	@Given("10- there is an activity with ID {int}")
 	public void thereIsAnActivityWithID(int activityID)
 			throws NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
 		project.createActivity(activityID, projectLeader);
@@ -61,7 +61,7 @@ public class setEstimatedHoursSteps {
 
 	}
 
-	@When("the user provides the estimated hours {int} for the activity")
+	@When("10- the user provides the estimated hours {int} for the activity")
 	public void theUserProvidesTheEstimatedHours(int time) throws NotAuthorizedException {
 		this.time = time;
 		try {
@@ -72,26 +72,26 @@ public class setEstimatedHoursSteps {
 
 	}
 
-	@Then("the estimated hours for the activity is set")
+	@Then("10- the estimated hours for the activity is set")
 	public void theEstimatedHoursForTheActivityIsSet() {
 		assertEquals(activity.getEstimatedWorkHours(), time);
 
 	}
 
 	//Scenario: Successfully change estimated work hours
-    @Given("the estimated hours are set to {int} for the activity")
+    @Given("10- the estimated hours are set to {int} for the activity")
     public void theUserProvidesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
         activity.setEstimatedWorkHours(time, projectLeader, project);
         assertTrue(activity.getEstimatedWorkHours() == time);
     }
 
-    @When("the user changes the estimated hours to {int} for the activity")
+    @When("10- the user changes the estimated hours to {int} for the activity")
     public void theUserChangesTheEstimatedHoursForTheActivity(int time) throws NotAuthorizedException {
         this.time = time;
         activity.setEstimatedWorkHours(time, projectLeader, project);
     }
 
-    @Then("the estimated hours are the new hours")
+    @Then("10- the estimated hours are the new hours")
     public void theEstimatedHoursAreTheNewHours() {
         assertTrue(activity.getEstimatedWorkHours() == this.time);
     }
@@ -103,31 +103,31 @@ public class setEstimatedHoursSteps {
 		//	And the estimated hours are set to 72 for the activity
 		//    When the user changes the estimated hours to 80 for the activity
 		//    Then the estimated hours are the new hours
-	
+
 //	#Scenario: Developer trying to set estimated work hours
-//	#	Given there is a project with Id 
+//	#	Given there is a project with Id
 //	#	And the user is not a project leader
 //	#	And there is an activity
 //	#	When the user provides the estimated hours for the activity
 //	#	Then a NotAuthorizedException is thrown
 //	#	And the estimated work hours is not set
-	
-	@Given("the user {string} is not a project leader")
+
+	@Given("10- the user {string} is not a project leader")
 	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException {
 		developer = database.getDeveloperById(developerName);
 		assertFalse(project.getProjectLeader().equals(developer));
 	}
-	
-	@Then("a NotAuthorizedException is thrown")
+
+	@Then("10- a NotAuthorizedException is thrown")
 	public void aNotAuthorizedExceptionIsThrown() {
 		assertEquals("Only project leaders is allowed to set work hours", errorMessageHolder.getErrorMessage());
 	}
-	
-	@Then("the estimated work hours is not set")
+
+	@Then("10- the estimated work hours is not set")
 	public void theEstimatedWorkHoursIsNotSet() {
 		assertFalse(activity.getEstimatedWorkHours() == time);
 	}
-	
+
 }
 
 // TEST TEST
