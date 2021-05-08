@@ -6,6 +6,7 @@ import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.OverlappingSessionsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
@@ -16,7 +17,7 @@ public class SoftwareAS {
 	static DataBase database = new DataBase();
 	static FrontEndController frontEnd;
 	
-	public static void main(String[] args) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
+	public static void main(String[] args) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		database = new DataBase();
 		database.createAdmin("ADM1");
 		
@@ -27,7 +28,7 @@ public class SoftwareAS {
 		return database;
 	}
 	
-	public static void initiateFrontEnd() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
+	public static void initiateFrontEnd() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		frontEnd = new FrontEndController(database);
 	}
 
