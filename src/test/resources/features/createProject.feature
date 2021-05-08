@@ -31,3 +31,10 @@ Feature: Create new project
 #	And 5- the user is an admin
 #	When 5- the user tries to create a project with a project number "211234567" with invalid length
 #	Then 5- the system throws OutOfBoundsException
+
+#Alternate scenario four
+#Scenario: Project number not integers
+#	Given 5- there is a user
+#	And 5- the user is an admin
+#	When 5- the user tries to create a project with a project number "21ABCD" that only consists of integers
+#	Then 5- the system throws OutOfBoundsException

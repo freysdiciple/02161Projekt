@@ -132,7 +132,28 @@ public class CreateProjectSteps {
 	public void systemThrowsOutOfBoundsException() throws OutOfBoundsException {
 		assertEquals("Project Number input is out of bounds", errorMessageHolder.getErrorMessage());
 	}
-		
+	
+//# Alternate scenario four
+//  Scenario: Project number not integers
+//		Given 5- there is a user
+//		And 5- the user is an admin
+//		When 5- the user tries to create a project with a project number {string} that only consists of integers
+//		Then 5- the system throws OutOfBoundsException
+	
+	@When("5- the user tries to create a project with a project number {string} that does not only consists of integers")
+	public void theUserTriesToCreateAProjectWithAProjectNumberWithoutIntegers(String projectNumber) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+		try {
+			admin.createProject(projectNumber);
+		}
+		catch(NumberFormatException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	
+	@Then("5- the system throws OutOfBoundsException")
+	public void systemThrowsNumberFormatException() throws NumberFormatException {
+		assertEquals("The project has to only consist of integers", errorMessageHolder.getErrorMessage());
+	}
 		
 	}
 
