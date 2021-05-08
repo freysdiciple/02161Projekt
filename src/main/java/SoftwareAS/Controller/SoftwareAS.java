@@ -13,11 +13,10 @@ import SoftwareAS.Model.DataBase;
 
 public class SoftwareAS {
 	
-	static DataBase database;
+	static DataBase database = DataBase.getInstance();
 	static FrontEndController frontEnd;
 	
 	public static void main(String[] args) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException {
-		database = DataBase.getInstance();
 		database.createAdmin("ADM1");
 		
 		initiateFrontEnd();

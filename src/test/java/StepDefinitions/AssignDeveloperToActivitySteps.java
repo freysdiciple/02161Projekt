@@ -16,7 +16,7 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
 public class AssignDeveloperToActivitySteps {
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private Admin admin;
 	private Project project;
 	private Developer developer;

@@ -26,7 +26,7 @@ public class ProjectLeaderSteps {
 	private Admin user;
 	private Developer developer;
 	private Project project;
-	private DataBase database = new DataBase();
+	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	
 	
