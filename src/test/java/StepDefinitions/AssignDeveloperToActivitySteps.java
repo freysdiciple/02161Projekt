@@ -22,7 +22,6 @@ public class AssignDeveloperToActivitySteps {
 	private Developer developer;
 	private Developer developer2;
 	private String adminID = "adminID";
-	private int projectID = 123123;
 	private String developerID = "assignDeveloperToActivityDeveloper1ID";
 	private String developer2ID = "assignDeveloperToActivityDeveloper2ID";
 	private int activityID = 924;
@@ -30,8 +29,8 @@ public class AssignDeveloperToActivitySteps {
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 	//Scenario: Successfully assign developer to activity
-	@Given("1- there is a project with project number 123123")
-	public void thereIsAProject() throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@Given("1- there is a project with project number {int}")
+	public void thereIsAProject(int projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
 //		admin  = new Admin("adminID", database);
 		//project = new Project(123123, admin);
 		database.createAdmin(adminID);
