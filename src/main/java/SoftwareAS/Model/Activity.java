@@ -67,12 +67,19 @@ public class Activity {
 	}
 	
 	public void assignDeveloperToActivity(Developer projectLeader,Developer developer) throws OperationNotAllowedException, DeveloperNotFoundException {
-		if(!projectLeader.equals(project.getProjectLeaderWithoutNull()))
+		if(!project.isProjectLeader(projectLeader))
 			throw new OperationNotAllowedException("Only project leaders can assign to activity");
 		if (!project.isDeveloperOnProject(developer.getId()))
 			throw new DeveloperNotFoundException("Developer not on project.");
 		
 		developers.add(developer);
+	}
+	
+	public void removeDeveloperFromActivity(Developer developer) {
+		if(developers.contains(developer)) {
+			developer.deleteActivity(this);
+			developers.remove(developer);
+		}
 	}
 	
 //	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {
@@ -84,6 +91,12 @@ public class Activity {
 	}
 	public List<Session> getRegisteredSession() {
 		return registeredSessions;
+	}
+	public void deleteSession(Session session) {
+		if(registeredSessions.contains(session)) registeredSessions.remove(session);
+	}
+	public List<Developer> getDevelopers(){
+		return developers;
 	}
 	
 	public boolean endedInInterval(Session session,GregorianCalendar start, GregorianCalendar end) {

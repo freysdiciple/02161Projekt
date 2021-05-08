@@ -42,19 +42,29 @@ public class SessionSteps {
 	    
 	}
 
-	@Given("there is an activity")
-	public void there_is_an_activity() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+	@Given("there is an activity1")
+	public void there_is_an_activity1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject(123);
-		project = database.getProjectById(123);
+		admin.createProject(900000);
+		project = database.getProjectById(900000);
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
-	    project.createActivity(124, developer);
+	    project.createActivity(120000, developer);
+	}
+	
+	@Given("there is an activity2")
+	public void there_is_an_activity2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		admin = new Admin("admin", database);
+		admin.createProject(910000);
+		project = database.getProjectById(910000);
+		project.assignDeveloperToProject(admin, developer);
+		project.setProjectLeader(admin, developer);
+	    project.createActivity(120000, developer);
 	}
 	
 	@Given("the developer is assigned to the activity")
 	public void the_developer_is_assigned_to_the_activity() throws OperationNotAllowedException, DeveloperNotFoundException, ActivityNotFoundException {
-		activity = project.getActivityById(124);
+		activity = project.getActivityById(120000);
 	    activity.assignDeveloperToActivity(developer, developer);
 	}
 	

@@ -33,11 +33,11 @@ public class SummarySteps {
 		this.errorMessageHolder = errorMessageHolder;
 	}
 
-	@Given("the user is a project leader")
-	public void theUserIsAProjectLeader() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
+	@Given("the user is a project leader1")
+	public void theUserIsAProjectLeader1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject(123);
-		project = database.getProjectById(123);
+		admin.createProject(920000);
+		project = database.getProjectById(920000);
 		
 		developer = new Developer("developers", database);
 		projectLeader = new Developer("project leader", database);
@@ -50,8 +50,30 @@ public class SummarySteps {
 		activity1 = project.getActivityById(1);
 		activity2 = project.getActivityById(2);
 		
-		activity1.setEstimatedWorkHours(estimatedTime1);
-		activity2.setEstimatedWorkHours(estimatedTime2);
+		activity1.setEstimatedWorkHours(estimatedTime1, projectLeader, project);
+		activity2.setEstimatedWorkHours(estimatedTime2, projectLeader, project);
+		
+	}
+	
+	@Given("the user is a project leader2")
+	public void theUserIsAProjectLeader2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
+		admin = new Admin("admin", database);
+		admin.createProject(930000);
+		project = database.getProjectById(930000);
+		
+		developer = new Developer("developers", database);
+		projectLeader = new Developer("project leader", database);
+		project.assignDeveloperToProject(admin, developer);
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		
+		project.createActivity(100000, projectLeader);
+		project.createActivity(200000, projectLeader);
+		activity1 = project.getActivityById(100000);
+		activity2 = project.getActivityById(200000);
+		
+		activity1.setEstimatedWorkHours(estimatedTime1, projectLeader, project);
+		activity2.setEstimatedWorkHours(estimatedTime2, projectLeader, project);
 		
 	}
 	

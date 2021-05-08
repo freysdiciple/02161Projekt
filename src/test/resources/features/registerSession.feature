@@ -4,7 +4,7 @@ Actors: Developer
 
 Scenario: The developer successfully registers a session
 	Given there is a developer
-	And there is an activity
+	And there is an activity1
 	And the developer is assigned to the activity
 	When the developer registers a session
 	Then the session is registered under the activity
@@ -12,7 +12,7 @@ Scenario: The developer successfully registers a session
 
 Scenario: The developer registers hours that overlap
 	Given there is a developer
-	And there is an activity
+	And there is an activity2
 	And the developer is assigned to the activity
 	And the developer registers a session
 	When the developer registers another overlapping session
