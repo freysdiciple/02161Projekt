@@ -6,7 +6,7 @@ import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Model.*;
 
-public class SetStartEndTime {
+public class SetStartEndTimeSteps {
 
     @Given ("11- there is a project")
     public void thereIsAProject() throws Throwable{
@@ -56,8 +56,22 @@ public class SetStartEndTime {
     }
 
 
-    @Given ("And 11- the user is not a project leader")
+    @Given ("11- the user is not a project leader")
     public void theUserIsNotAProjectLeader() throws Throwable{
+
+        throw new PendingException();
+    }
+
+    @Then ("11- a NotAuthorizedException is thrown")
+    public void aNotAuthorizedExceptionIsThrown() throws Throwable{
+
+        throw new PendingException();
+    }
+
+
+
+    @Then ("11- the start/deadline for the activity is not set")
+    public void theTimeForTheActivityIsNotSet() throws Throwable{
 
         throw new PendingException();
     }
@@ -65,6 +79,4 @@ public class SetStartEndTime {
 
 
 
-
-    
 }
