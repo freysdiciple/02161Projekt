@@ -20,6 +20,8 @@ public class Project {
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
 	private List<ProjectSummary> summaries = new ArrayList<>();
+	private DataBase database = new DataBase();
+	private List<Developer> availableDevelopers;
 	
 	public Project(int projectNumber, Admin creator) {
 		this.projectNumber = projectNumber;
@@ -132,6 +134,23 @@ public class Project {
 		ProjectSummary summary = new ProjectSummary(activities);
 		summaries.add(summary);
 		return summary;
+	}
+	
+	public List<Developer> seeAvailableDevelopers(GregorianCalendar startTime, GregorianCalendar endTime, Developer user) throws NotAuthorizedException{
+		if (!isProjectLeader(user) || user.isAdmin()) {
+			throw new NotAuthorizedException("Only project leaders or admins can request to see avaible developers");
+			
+		}
+		List<Developer> developers=database .getAllDevelopers();
+		for(Developer developer : developers) {
+			List <Session> sessions=developer.getRegisteredSessions();
+			for (Session session: sessions) {
+				if(session.getStartTime().compareTo(startTime)<0 && session.getEndTime().compareTo(endTime)>0) {
+					availableDevelopers.add(developer);				}
+	
+}
+	}
+	return developers;
 	}
 	
 }
