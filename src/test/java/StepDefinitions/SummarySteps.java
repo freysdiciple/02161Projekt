@@ -36,8 +36,8 @@ public class SummarySteps {
 	@Given("the user is a project leader1")
 	public void theUserIsAProjectLeader1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
 		admin = new Admin("admin", database);
-		admin.createProject(920);
-		project = database.getProjectById(920);
+		admin.createProject(920000);
+		project = database.getProjectById(920000);
 		
 		developer = new Developer("developers", database);
 		projectLeader = new Developer("project leader", database);
@@ -58,8 +58,8 @@ public class SummarySteps {
 	@Given("the user is a project leader2")
 	public void theUserIsAProjectLeader2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
 		admin = new Admin("admin", database);
-		admin.createProject(930);
-		project = database.getProjectById(930);
+		admin.createProject(930000);
+		project = database.getProjectById(930000);
 		
 		developer = new Developer("developers", database);
 		projectLeader = new Developer("project leader", database);
@@ -67,10 +67,10 @@ public class SummarySteps {
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		
-		project.createActivity(1, projectLeader);
-		project.createActivity(2, projectLeader);
-		activity1 = project.getActivityById(1);
-		activity2 = project.getActivityById(2);
+		project.createActivity(100000, projectLeader);
+		project.createActivity(200000, projectLeader);
+		activity1 = project.getActivityById(100000);
+		activity2 = project.getActivityById(200000);
 		
 		activity1.setEstimatedWorkHours(estimatedTime1);
 		activity2.setEstimatedWorkHours(estimatedTime2);
