@@ -2,6 +2,9 @@ package StepDefinitions;
 
 import static org.junit.Assert.*;
 
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
@@ -18,6 +21,9 @@ public class SeeAvailableDevelopersSteps {
 	private String adminName="Mogens";
 	private DataBase database = new DataBase();
 	private Project project;
+	private GregorianCalendar endTime;
+	private GregorianCalendar startTime;
+	private List<Developer> availableDevelopers;
 
 
 
@@ -54,12 +60,21 @@ public class SeeAvailableDevelopersSteps {
 
 	}
 
-	@When("9- the user provides information of the time slot of the activity where he needs developers")
-	public void theUserProvidesTimeSlot() {
-
+	@When("9- the user provides information of the start time {gregoriancalendar} and end time {gregoriancalendar} of the activity where he needs developers")
+	public void theUserProvidesTimeSlot(GregorianCalendar start, GregorianCalendar end) {
+		startTime=start;
+		endTime=end;
+			}
+			
+	
+	@Then("9- the system displays a list of available developers at the given time slot")
+	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException {
+		availableDevelopers=project.seeAvailableDevelopers(startTime, endTime, developer);
+		for (Developer developer : availableDevelopers) {
+			
+		}
+		
+		
 	}
-
-
-
-
 }
+ 
