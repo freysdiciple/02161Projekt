@@ -21,8 +21,6 @@ public class SeeAvailableDevelopersSteps {
 	private String adminName="Mogens";
 	private DataBase database = new DataBase();
 	private Project project;
-	private GregorianCalendar endTime;
-	private GregorianCalendar startTime;
 	private List<Developer> availableDevelopers;
 
 
@@ -60,10 +58,12 @@ public class SeeAvailableDevelopersSteps {
 
 	}
 
-	@When("9- the user provides information of the start time {gregoriancalendar} and end time {gregoriancalendar} of the activity where he needs developers")
-	public void theUserProvidesTimeSlot(GregorianCalendar start, GregorianCalendar end) {
-		startTime=start;
-		endTime=end;
+	@When("9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers")
+	public void theUserProvidesTimeSlot(String start, String end) {
+		
+		
+		GregorianCalendar startTime = new GregorianCalendar(year,month,day,hour,min);
+
 			}
 			
 	
@@ -71,6 +71,7 @@ public class SeeAvailableDevelopersSteps {
 	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException {
 		availableDevelopers=project.seeAvailableDevelopers(startTime, endTime, developer);
 		for (Developer developer : availableDevelopers) {
+			
 			
 		}
 		

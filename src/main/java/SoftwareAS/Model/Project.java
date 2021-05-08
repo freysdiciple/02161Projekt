@@ -138,7 +138,7 @@ public class Project {
 	
 	public List<Developer> seeAvailableDevelopers(GregorianCalendar startTime, GregorianCalendar endTime, Developer user) throws NotAuthorizedException{
 		if (!isProjectLeader(user) || user.isAdmin()) {
-			throw new NotAuthorizedException("Only project leaders or admins can request to see avaible developers");
+			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 			
 		}
 		List<Developer> developers=database .getAllDevelopers();

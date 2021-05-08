@@ -194,10 +194,10 @@ public class FrontEndController {
 		input.nextLine();
 		String info = input.nextLine();
 		
-		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 1) {
+		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 1) { // Skal der ikke stå 0 til sidst?
 			modifySession();
 		}
-		else if(info.length() < 16 || info.length() > 16) {
+		else if(info.length() < 16 || info.length() > 16) { // Kan der ikke bare stå info.length()!=16
 			changeStartTime();
 		}
 		else {
