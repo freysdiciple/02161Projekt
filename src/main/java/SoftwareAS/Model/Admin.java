@@ -28,7 +28,7 @@ public class Admin extends Developer {
 		if (!isAdmin()) // 2
 			throw new NotAuthorizedException("Only admins can create new projects");
 		if (projectNumber.length() != 6) // 3
-			throw new OutOfBoundsException("Project Number input is out of bounds, please enter 6 digits");
+			throw new OutOfBoundsException("Project Number input is out of bounds");
 		try {
 			Integer.parseInt(projectNumber);
 		} catch (NumberFormatException e) {

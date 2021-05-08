@@ -115,8 +115,24 @@ public class CreateProjectSteps {
 //	Scenario: Invalid project number length
 //		Given there is a user
 //		And the user is an admin
-//	   	When the user tries to create a project with a project number {String} with invalid length
+//	   	When the user tries to create a project with a project number {string} with invalid length
 //	   	Then the system throws OutOfBoundsException
 
+	@When("5- the user tries to create a project with a project number {string} with invalid length")
+	public void theUserTriesToCreateAProjectWithInvalidLengthOfProjectNumber(String projectNumber) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+		try {
+			admin.createProject(projectNumber);
+		}
+		catch(OutOfBoundsException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	
+	@Then("5- the system throws OutOfBoundsException")
+	public void systemThrowsOutOfBoundsException() throws OutOfBoundsException {
+		assertEquals("Project Number input is out of bounds", errorMessageHolder.getErrorMessage());
+	}
+		
+		
+	}
 
-}

@@ -22,6 +22,8 @@ public class SeeAvailableDevelopersSteps {
 	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private List<Developer> availableDevelopers;
+	private GregorianCalendar startTime;
+	private GregorianCalendar endTime;
 
 
 
@@ -60,9 +62,32 @@ public class SeeAvailableDevelopersSteps {
 
 	@When("9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers")
 	public void theUserProvidesTimeSlot(String start, String end) {
+		String startYearString = start.substring(6,10);
+		String startMonthString = start.substring(3,5);
+		String startDayString = start.substring(0,2);
+		String startHourString = start.substring(11,13);
+		String startMinString = start.substring(14,16);
 		
+		int startYear = Integer.parseInt(startYearString);
+		int startMonth = Integer.parseInt(startMonthString);
+		int startDay = Integer.parseInt(startDayString);
+		int startHour = Integer.parseInt(startHourString);
+		int startMin = Integer.parseInt(startMinString);
 		
-		GregorianCalendar startTime = new GregorianCalendar(year,month,day,hour,min);
+		String endYearString = end.substring(6,10);
+		String endMonthString = end.substring(3,5);
+		String endDayString = end.substring(0,2);
+		String endHourString = end.substring(11,13);
+		String endMinString = end.substring(14,16);
+		
+		int endYear = Integer.parseInt(endYearString);
+		int endMonth = Integer.parseInt(endMonthString);
+		int endDay = Integer.parseInt(endDayString);
+		int endHour = Integer.parseInt(endHourString);
+		int endMin = Integer.parseInt(endMinString);
+		
+		startTime = new GregorianCalendar(startYear,startMonth,startDay,startHour,startMin);
+		endTime = new GregorianCalendar(endYear,endMonth,endDay,endHour,endMin);
 
 			}
 			
