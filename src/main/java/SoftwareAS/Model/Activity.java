@@ -7,6 +7,7 @@ import java.util.List;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 
 public class Activity {
 	
@@ -15,7 +16,7 @@ public class Activity {
 	private int startWeek;
 	private int endWeek;
 	private int estimatedWorkHours;
-	private int timeLeft;
+	private int timeLeft = 0;
 	
 	private List<Developer> developers = new ArrayList<>();
 	private List<Session> registeredSessions = new ArrayList<>();
@@ -46,11 +47,13 @@ public class Activity {
 	public int getEstimatedWorkHours() {
 		return estimatedWorkHours;
 	}
-	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException {
+	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException, OutOfBoundsException {
 		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()) )
 			throw new NotAuthorizedException("Only project leaders is allowed to set work hours");
+		if (estimatedWorkHours < 0)
+			throw new OutOfBoundsException("Estimated work hours cannot be negative.");
 		this.estimatedWorkHours = estimatedWorkHours;
-		this.timeLeft = estimatedWorkHours;
+		this.timeLeft = estimatedWorkHours - timeLeft;
 	}
 	public int getTimeLeft() {
 		return timeLeft;
