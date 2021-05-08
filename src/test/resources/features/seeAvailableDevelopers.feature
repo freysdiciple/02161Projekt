@@ -5,7 +5,7 @@ Feature: See available developers
 # Main scenario
 	Scenario: See available developers
 	Given 9- there is an user with ID "Søren"
-	Given 9- there is a project with ID 12345
+	Given 9- there is a project with ID "211234"
 	Given 9- the user is a Project leader
 	When 9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers
 	Then 9- the system displays a list of available developers at the given time slot
