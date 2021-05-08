@@ -20,7 +20,6 @@ public class Project {
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
 	private List<ProjectSummary> summaries = new ArrayList<>();
-	private DataBase database = new DataBase();
 	private List<Developer> availableDevelopers;
 	
 	public Project(String projectNumber, Admin creator) {
@@ -141,9 +140,9 @@ public class Project {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 			
 		}
-		List<Developer> developers=database .getAllDevelopers();
+		List<Developer> developers = user.getDatabase().getAllDevelopers();
 		for(Developer developer : developers) {
-			List <Session> sessions=developer.getRegisteredSessions();
+			List <Session> sessions = developer.getRegisteredSessions();
 			for (Session session: sessions) {
 				if(session.getStartTime().compareTo(startTime)<0 && session.getEndTime().compareTo(endTime)>0) {
 					availableDevelopers.add(developer);				}
