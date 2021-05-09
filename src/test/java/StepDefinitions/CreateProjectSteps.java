@@ -35,7 +35,7 @@ public class CreateProjectSteps {
 	//  Then 5- the project with a name "Project123" is contained in the system
 
 	@Given("5- there is an user with ID {string}")
-	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException {
+	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException, OutOfBoundsException {
 		database.createAdmin(userName);
 		admin=database.getAdminById(userName);
 		admin.createDeveloper(userName);

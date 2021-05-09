@@ -35,7 +35,7 @@ public class SeeAvailableDevelopersSteps {
 
 	@Given("9- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException,
-			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException {
+			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException, OutOfBoundsException {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createDeveloper(userName);
