@@ -123,7 +123,7 @@ public class DataBase {
 			if(project.getProjectName().equals(projectName)) return project;
 		}
 		
-		return new Project("", new Admin());
+		return null;
 	}
 
 

@@ -31,7 +31,7 @@ public class SetStartEndTimeSteps {
             admin.createProject(projectID);
         } catch (ProjectAlreadyExistsException e){}
 
-        project = database.getProjectById(projectID);
+        project = database.getProjectByName(projectID);
         assertTrue(database.containsProject(projectID));
     }
 

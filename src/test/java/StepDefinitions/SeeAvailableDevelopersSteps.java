@@ -49,7 +49,7 @@ public class SeeAvailableDevelopersSteps {
 	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectNumber);
-		project = database.getProjectById(projectNumber);
+		project = database.getProjectByName(projectNumber);
 		assertTrue(database.containsProject(projectNumber));
 	}
 

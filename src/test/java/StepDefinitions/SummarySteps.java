@@ -36,8 +36,8 @@ public class SummarySteps {
 	@Given("6 - the user is a project leader1")
 	public void theUserIsAProjectLeader1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject("920000");
-		project = database.getProjectById("920000");
+		admin.createProject("project3");
+		project = database.getProjectByName("project3");
 
 		developer = new Developer("developers", database);
 		projectLeader = new Developer("project leader", database);
@@ -58,8 +58,8 @@ public class SummarySteps {
 	@Given("6 - the user is a project leader2")
 	public void theUserIsAProjectLeader2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject("930000");
-		project = database.getProjectById("930000");
+		admin.createProject("project4");
+		project = database.getProjectByName("project4");
 
 		developer = new Developer("developers", database);
 		projectLeader = new Developer("project leader", database);

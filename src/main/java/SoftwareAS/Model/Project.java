@@ -11,8 +11,6 @@ import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
-import Exceptions.OperationNotAllowedException;
-import Exceptions.OutOfBoundsException;
 
 public class Project {
 
@@ -157,18 +155,19 @@ public class Project {
 	public List<Developer> seeAvailableDevelopers(GregorianCalendar startTime, GregorianCalendar endTime, Developer user) throws NotAuthorizedException{
 		if (!isProjectLeader(user) || user.isAdmin()) {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
-
 		}
+		
 		List<Developer> developers = user.getDatabase().getAllDevelopers();
 		for(Developer developer : developers) {
 			List <Session> sessions = developer.getRegisteredSessions();
 			for (Session session: sessions) {
 				if(session.getStartTime().compareTo(startTime)<0 && session.getEndTime().compareTo(endTime)>0) {
-					availableDevelopers.add(developer);				}
+					availableDevelopers.add(developer);				
+				}
 
-}
-	}
-	return developers;
+			}
+		}
+		return developers;
 	}
 
 }
