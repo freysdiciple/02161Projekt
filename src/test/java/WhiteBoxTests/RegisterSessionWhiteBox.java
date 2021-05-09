@@ -18,6 +18,12 @@ public class RegisterSessionWhiteBox {
 	GregorianCalendar start;
 	GregorianCalendar end;
 	
+	public void Test() throws OperationNotAllowedException, OverlappingSessionsException {
+		TestA();
+		TestB();
+		TestC();
+		TestD();
+	}
 	
 	public void PathA() throws OperationNotAllowedException, OverlappingSessionsException {
 		activity = new Activity();
