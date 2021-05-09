@@ -15,14 +15,14 @@ Scenario: Create new project
 Scenario: A project with the given name already exists
 	Given 5- there is an user with ID "Søren"
 	And 5- the user is an admin
-	When 5- the user creates a project with a valid name "Project123" identical to an existing project
+	When 5- the user creates a project with a valid name "Project321" identical to an existing project
     Then 5- the system throws ExistingProjectException
 
 #Alternate scenario two
 Scenario: User is not an admin
 	Given 5- there is an user with ID "Søren"
 	And 5- the user is not an admin
-    When 5- the user tries to create a project with a valid name "Project123"
+    When 5- the user tries to create a project with a valid name "Project999"
     Then 5- the system throws NotAuthorizedException
 
 #Alternate scenario three
