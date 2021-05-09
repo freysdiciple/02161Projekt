@@ -1,65 +1,110 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
-
+import Exceptions.*;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
+import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
+
+
 
 public class SetStartEndTimeSteps {
 
-    @Given ("11- there is a project")
-    public void thereIsAProject() throws Throwable{
 
-        throw new PendingException();
+    private String developerAndleaderName = "Konrad";
+    private String justDeveloperName = "Christian";
+    private String projectID = "210001";
+    private int activityID = 102;
+
+    private DataBase database = DataBase.getInstance();
+    private Admin admin = new Admin("mogens",database);
+    private Developer developerAndLeader;
+    private Developer justDeveloper;
+    Project project;
+
+    @Given ("11- there is a project")
+    public void thereIsAProject() throws Throwable {
+
+        try {
+            admin.createProject(projectID);
+        } catch (ProjectAlreadyExistsException e){}
+
+        project = database.getProjectById(projectID);
+        assertTrue(database.containsProject(projectID));
     }
 
     @Given ("11- the user is a project leader")
     public void theUserIsAProjectLeader() throws Throwable{
 
-        throw new PendingException();
+        admin.createDeveloper(developerAndleaderName);
+        developerAndLeader = database.getDeveloperById(developerAndleaderName);
+        project.assignDeveloperToProject(admin, developerAndLeader);
+        project.setProjectLeader(admin, developerAndLeader);
+
+        assertEquals(developerAndLeader, project.getProjectLeader());
     }
 
 
     @Given ("11- there is an activity")
     public void thereIsAnActivity() throws Throwable{
 
-        throw new PendingException();
+        try {
+            project.createActivity(activityID, developerAndLeader);
+        }catch (ActivityAlreadyExistsException e) {}
+
+        assertTrue(project.containsActivityWithId(activityID));
     }
 
 
-    @When ("11- the user provides the start/deadline for the activity")
-    public void userProvidesTimeForTheActivity() throws Throwable{
+    @When ("11- the user sets the activity to begin week {int} and end week {int}")
+    public void userProvidesTimeForTheActivity(int activityStart, int activityEnd) throws Throwable{
 
-        throw new PendingException();
+        project.getActivityById(activityID).setStartWeek(activityStart);
+        project.getActivityById(activityID).setEndWeek(activityEnd);
     }
 
 
-    @Then("11- the start/deadline for the activity is set")
-    public void theTimeForTheActivityIsSet() throws Throwable{
+    @Then("11- the the activity is registered to begin week {int} and end week {int}")
+    public void theTimeForTheActivityIsSet(int activityStart, int activityEnd) throws Throwable{
+        assertEquals(activityStart, project.getActivityById(activityID).getStartWeek());
+        assertEquals(activityEnd, project.getActivityById(activityID).getEndWeek());
 
-        throw new PendingException();
+        System.out.println("The start variable is " + activityStart + " and the registered start week is " + project.getActivityById(activityID).getStartWeek());
+        System.out.println("The end variable is " + activityEnd + " and the registered end week is " + project.getActivityById(activityID).getEndWeek());
     }
 
 
-    @Given ("11- the activity already has a start/deadline time")
-    public void theActivityAlreadyHasTime() throws Throwable{
+    @Given ("11- the activity is already registered to begin week {int} and end week {int}")
+    public void theActivityAlreadyHasTime(int existingActivityStart, int existingActivityEnd) throws Throwable{
+        project.getActivityById(activityID).setStartWeek(existingActivityStart);
+        project.getActivityById(activityID).setEndWeek(existingActivityEnd);
 
-        throw new PendingException();
+        assertEquals(existingActivityStart, project.getActivityById(activityID).getStartWeek());
+        assertEquals(existingActivityEnd, project.getActivityById(activityID).getEndWeek());
+
     }
 
-
-    @Then("11- the start/deadline for the activity is changed")
-    public void theTimeForTheActivityIsChanged() throws Throwable{
-
-        throw new PendingException();
-    }
 
 
     @Given ("11- the user is not a project leader")
     public void theUserIsNotAProjectLeader() throws Throwable{
 
-        throw new PendingException();
+        // This user is just a Developer
+        admin.createDeveloper(justDeveloperName);
+        justDeveloper = database.getDeveloperById(justDeveloperName);
+        project.assignDeveloperToProject(admin, justDeveloper);
+
+        // This Leader is made to create activities only.
+        admin.createDeveloper(developerAndleaderName);
+        developerAndLeader = database.getDeveloperById(developerAndleaderName);
+        project.assignDeveloperToProject(admin, developerAndLeader);
+        project.setProjectLeader(admin, developerAndLeader);
+
+        assertTrue(!project.isProjectLeader(justDeveloper));
+        System.out.println("Are the developer a project leader? " + project.isProjectLeader(justDeveloper));
+
     }
 
     @Then ("11- a NotAuthorizedException is thrown")
@@ -70,7 +115,7 @@ public class SetStartEndTimeSteps {
 
 
 
-    @Then ("11- the start/deadline for the activity is not set")
+    @Then ("11- the start\\/deadline for the activity is not set")
     public void theTimeForTheActivityIsNotSet() throws Throwable{
 
         throw new PendingException();
