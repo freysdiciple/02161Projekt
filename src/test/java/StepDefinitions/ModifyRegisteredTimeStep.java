@@ -75,7 +75,7 @@ public class ModifyRegisteredTimeStep {
 	public void theDeveloperHaveRegisteredTimeOnThatActivity() throws OperationNotAllowedException, DeveloperNotFoundException, OverlappingSessionsException, SessionNotFoundException {
 		activity.assignDeveloperToActivity(projectLeader, developer);
 		developer.registerSession(activity, startTime, endTime);
-		sessionId = "ludwig70120206231602021628160";
+		sessionId = "ludw70120206231602021628160";
 		session = activity.getSessionById(sessionId);
 		assertTrue(activity.containsSession(session));
 		
