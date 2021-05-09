@@ -151,7 +151,7 @@ public class CreateProjectSteps {
 	}
 	
 	@Then("5- the system throws OutOfBoundsException")
-	public void systemThrowsNumberFormatException() throws NumberFormatException {
+	public void systemThrowsOutOfBoundsException1() throws NumberFormatException {
 		assertEquals("The project has to only consist of integers", errorMessageHolder.getErrorMessage());
 	}
 		
