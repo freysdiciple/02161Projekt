@@ -38,10 +38,10 @@ public class setEstimatedHoursSteps {
 	}
 
 	@Given("10- there is a project with ID {string}")
-	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectNumber);
-		project = database.getProjectById(projectNumber);
-		assertTrue(database.containsProject(projectNumber));
+	public void thereIsAProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
+		project = database.getProjectByName(projectName);
+		assertTrue(database.containsProject(projectName));
 	}
 
 	@Given("10- the user {string} is a Project leader")
