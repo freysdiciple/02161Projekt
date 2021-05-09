@@ -10,10 +10,10 @@ Scenario: Add developer to project
   	Then 2- the developer "Hans" is added to the list of developers on the project "210005"
 
 # Alternate scenario one
-#Scenario: The developer doesn't exist
-#	Given 2- the user is an admin
-#	When 2- the user adds a non-existing developer to the project
-#  	Then 2- the system provides an error message that the developer doesn't exist
+Scenario: The developer doesn't exist
+	Given 2- the user "Karl" is an admin
+	When 2- the user "Karl" adds a non-existing developer "Lise" to the project "210006"
+ 	Then 2- the system provides an error message that the developer doesn't exist
 
 # Alternate scenario two
 #Scenario: The project doesn't exist

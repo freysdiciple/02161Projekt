@@ -13,6 +13,7 @@ public class assignDeveloperToProjectSteps {
 
 
     private DataBase database = DataBase.getInstance();
+    private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
     @Given ("2- the user {string} is an admin")
     public void theUserIsAnAdmin(String adminName) throws Throwable{
@@ -44,6 +45,25 @@ public class assignDeveloperToProjectSteps {
         assertTrue(database.getProjectById(projectName).isDeveloperOnProject(developerName));
     }
 
+
+    @When ("2- the user {string} adds a non-existing developer {string} to the project {string}")
+    public void theUserAddsTheNonDeveloperToTheProject(String adminName, String developerName, String projectName) throws Throwable{
+
+        database.getAdminById(adminName).createProject(projectName);
+        try {
+            database.getProjectById(projectName).assignDeveloperToProject(database.getAdminById(adminName), database.getDeveloperById(developerName));
+        } catch(DeveloperNotFoundException e){
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then ("2- the system provides an error message that the developer doesn't exist")
+    public void developerDoesntExist() throws Throwable {
+
+        assertEquals("No developer with described ID",errorMessageHolder.getErrorMessage());
+
+
+    }
 
 
 }
