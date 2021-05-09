@@ -13,6 +13,7 @@ import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 import io.cucumber.java.en.*;
@@ -30,6 +31,13 @@ public class ProjectLeaderSteps {
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	
 	
+	public ProjectLeaderSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
+	
+	
+	
 //	Scenario: Assign the role project leader to a developer on an existing project successfully 
 	
 	@Given("3- the user {string} is an admin")
@@ -38,9 +46,9 @@ public class ProjectLeaderSteps {
 	}
 	
 	@Given("3- there is a project with ID {string}")
-	public void thereIsAProject(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectID);
-		project = database.getProjectById(projectID);
+	public void thereIsAProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
+		project = database.getProjectByName(projectName);
 	}
 	
 	@Given("3- the admin assigns the developer {string} to the project")
@@ -95,11 +103,11 @@ public class ProjectLeaderSteps {
 	}
 	
 	@Given("3- there is a project with ID {string} created by an admin {string}")
-	public void thereIsAProject(String projectID, String adminName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException, AdminNotFoundException {
+	public void thereIsAProject(String projectName, String adminName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException, AdminNotFoundException {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
-		admin.createProject(projectID);
-		project = database.getProjectById(projectID);
+		admin.createProject(projectName);
+		project = database.getProjectByName(projectName);
 	}
 	
 	@When("3- the user assigns the role project leader to a developer {string} already on the project")

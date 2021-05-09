@@ -1,6 +1,9 @@
 package SoftwareAS.Model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -8,14 +11,14 @@ import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
-import Exceptions.OperationNotAllowedException;
-import Exceptions.OutOfBoundsException;
 
 public class Project {
 
-	private String projectNumber;
+	private String projectName;
 	private GregorianCalendar startDate;
 	private Admin creator;
+	private String projectId = "";
+
 
 	private Developer projectLeader = null;
 	private List<Activity> activities = new ArrayList<>();
@@ -23,15 +26,36 @@ public class Project {
 	private List<ProjectSummary> summaries = new ArrayList<>();
 	private List<Developer> availableDevelopers;
 
-	public Project(String projectNumber, Admin creator) {
-		this.projectNumber = projectNumber;
+	public Project(String projectName, Admin creator) {
+		this.projectName = projectName;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
+		
+		setProjectID();
+	}
+	
+	public void setProjectID() {
+		DateFormat df = new SimpleDateFormat("yy"); 
+		String year = df.format(Calendar.getInstance().getTime());
+		
+		projectId = projectId + year;
+		
+		String amountOfProjects = String.valueOf(DataBase.getInstance().getAllProjects().size() + 1);
+		
+		for (int i=4; i > amountOfProjects.length(); i--) 
+			projectId = projectId + "0";
+		
+		projectId = projectId + amountOfProjects;
 	}
 
-	public String getProjectNumber() {
-		return projectNumber;
+	public String getProjectName() {
+		return projectName;
 	}
+	
+	public String getProjectId() {
+		return projectId;
+	}
+	
 	public Admin getCreator() {
 		return creator;
 	}
@@ -131,45 +155,19 @@ public class Project {
 	public List<Developer> seeAvailableDevelopers(GregorianCalendar startTime, GregorianCalendar endTime, Developer user) throws NotAuthorizedException{
 		if (!isProjectLeader(user) || user.isAdmin()) {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
-
 		}
+		
 		List<Developer> developers = user.getDatabase().getAllDevelopers();
 		for(Developer developer : developers) {
 			List <Session> sessions = developer.getRegisteredSessions();
 			for (Session session: sessions) {
 				if(session.getStartTime().compareTo(startTime)<0 && session.getEndTime().compareTo(endTime)>0) {
-					availableDevelopers.add(developer);				}
+					availableDevelopers.add(developer);				
+				}
 
-}
-	}
-	return developers;
-	}
-
-	public GregorianCalendar stringToGregorianCalendar(String time) throws OutOfBoundsException {
-		if(time.length() != 16) {
-			throw new OutOfBoundsException("String must be a length of 16");
+			}
 		}
-		String yearString = time.substring(6,10);
-		String monthString = time.substring(3,5);
-		String dayString = time.substring(0,2);
-		String hourString = time.substring(11,13);
-		String minString = time.substring(14,16);
-
-		int year = Integer.parseInt(yearString);
-		int month = Integer.parseInt(monthString);
-		int day = Integer.parseInt(dayString);
-		int hour = Integer.parseInt(hourString);
-		int min = Integer.parseInt(minString);
-
-		if(month<1 || month>12 || day<1 || day>31 || hour <0 || hour > 23 || min<0 || min > 59) {
-			throw new OutOfBoundsException("The time has to be compatible with GregorianCalendar");
-
-		}
-
-		GregorianCalendar newTime = new GregorianCalendar(year,month,day,hour,min);
-
-		return newTime ;
-
+		return developers;
 	}
 
 }

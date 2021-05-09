@@ -10,6 +10,7 @@ import java.util.List;
 
 import Exceptions.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 import io.cucumber.java.en.*;
@@ -32,6 +33,13 @@ public class ModifyRegisteredTimeStep {
 	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
+	
+	public ModifyRegisteredTimeStep(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
+	
+	
 //	Main scenario:
 //	#Scenario: The developer removes the registered time on an activity the developer has registered
 //	#   Given the user {string} is a developer
@@ -51,11 +59,11 @@ public class ModifyRegisteredTimeStep {
 	}
 
 	@Given("7- there is a project with id {string} created by Bob")
-	public void thereIsAProjectWithId(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, NumberFormatException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectID);
-		project = database.getProjectById(projectID);
+	public void thereIsAProjectWithId(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, NumberFormatException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
+		project = database.getProjectByName(projectName);
 		project.assignDeveloperToProject(admin, developer);
-		assertTrue(database.containsProject(projectID));
+		assertTrue(database.containsProject(projectName));
 	}
 
 	@Given("7- there is an activity with Id {int} created by the project leader {string}")
@@ -101,7 +109,7 @@ public class ModifyRegisteredTimeStep {
 	
 	
 	@When("7- the developer changes start and end time of the session on that activity")
-	public void theDeveloperChangesStartAndEndTimeOfTheRegisteredTimeOnThatActivity() throws SessionNotFoundException {
+	public void theDeveloperChangesStartAndEndTimeOfTheRegisteredTimeOnThatActivity() throws SessionNotFoundException, OutOfBoundsException {
 		session.changeStartTime(newStartTime);
 		session.changeEndTime(newEndTime);
 		newCalendarStartTime = session.getStartTime();

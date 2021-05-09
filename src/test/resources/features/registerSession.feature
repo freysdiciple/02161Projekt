@@ -11,7 +11,7 @@ Scenario: The developer successfully registers a session
 	And 8 - the session is registered under the developer
 
 Scenario: The developer registers hours that overlap
-	Given there is a developer
+	Given 8 - there is a developer
 	And 8 - there is an activity2
 	And 8 - the developer is assigned to the activity
 	And 8 - the developer registers a session

@@ -65,8 +65,8 @@ public class SeeAvailableDevelopersSteps {
 	@When("9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers")
 	public void theUserProvidesTimeSlot(String start, String end) throws OutOfBoundsException {
 		
-		startTime = project.stringToGregorianCalendar(start);
-		endTime = project.stringToGregorianCalendar(start);
+		startTime = InputHelper.stringToGregorianCalendar(start);
+		endTime = InputHelper.stringToGregorianCalendar(start);
 
 	}
 
@@ -94,13 +94,13 @@ public class SeeAvailableDevelopersSteps {
 	@When("9- the user provides invalid length input of the start time {string} and end time {string} of the activity where he needs developers")
 	public void theUserProvidesTooLongTimeInput(String start, String end) throws OutOfBoundsException {
 		try {
-			project.stringToGregorianCalendar(start);
+			InputHelper.stringToGregorianCalendar(start);
 		}
 		catch(OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 		try {
-			project.stringToGregorianCalendar(end);
+			InputHelper.stringToGregorianCalendar(end);
 		}
 		catch(OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
@@ -119,13 +119,13 @@ public class SeeAvailableDevelopersSteps {
 	@When("9- the user provides invalid format input of the start time {string} and end time {string} of the activity where he needs developers")
 	public void theUserProvidesInvalidFormatTimeInput(String start, String end) throws OutOfBoundsException {
 		try {
-			project.stringToGregorianCalendar(start);
+			InputHelper.stringToGregorianCalendar(start);
 		}
 		catch(OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 		try {
-			project.stringToGregorianCalendar(end);
+			InputHelper.stringToGregorianCalendar(end);
 		}
 		catch(OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());

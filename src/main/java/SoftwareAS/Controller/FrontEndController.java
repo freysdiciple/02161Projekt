@@ -165,11 +165,15 @@ public class FrontEndController {
 			changeEndTime();
 		}
 		else {
-			GregorianCalendar newEnd=currentProject.stringToGregorianCalendar(info);
-			
-			currentSession.setEndTime(newEnd);
-			
-			modifySession();
+			try {
+				GregorianCalendar newEnd = InputHelper.stringToGregorianCalendar(info);
+				
+				currentSession.setEndTime(newEnd);
+				
+				modifySession();
+			}catch(Exception e) {
+				changeEndTime();
+			}
 		}
 		
 		
@@ -192,11 +196,15 @@ public class FrontEndController {
 			changeStartTime();
 		}
 		else {
-			GregorianCalendar newStart=currentProject.stringToGregorianCalendar(info);
-			
-			currentSession.setStartTime(newStart);
-			
-			modifySession();
+			try {
+				GregorianCalendar newStart = InputHelper.stringToGregorianCalendar(info);
+				
+				currentSession.setStartTime(newStart);
+				
+				modifySession();
+			}catch(Exception e) {
+				changeStartTime();
+			}
 		}
 		
 	}
@@ -255,110 +263,13 @@ public class FrontEndController {
 		input.nextLine();
 		String sessionInfo = input.nextLine();
 		
-		//Check if input is correct
-		if(sessionInfo.length() != 40 && sessionInfo.length() != 35 && sessionInfo.length() != 30) {registerSession(underActivity);}
-		
-		//Continue
-		String activityidString;
-		String startdateString;
-		String starttimeString;
-		String enddateString;
-		String endtimeString;
-		
-		//Get activity id if not under activity
-		if(!underActivity) {
-			activityidString = sessionInfo.substring(0,6);
-			sessionInfo = sessionInfo.substring(7, sessionInfo.length());
-		}
-		else activityidString = currentActivity.getId() + "";
-		
-		//Get dates and times with the ability to use 'today' as parameter
-		if(sessionInfo.substring(0,5).equals("today")) {
-			startdateString = "today";
-			starttimeString = sessionInfo.substring(6,11);
-			
-			if(sessionInfo.substring(12,17).equals("today")) {
-				enddateString = "today";
-				endtimeString = sessionInfo.substring(18,23);
-			}
-			else {
-				enddateString = sessionInfo.substring(12, 22);
-				endtimeString = sessionInfo.substring(23, 28);
-			}
-		}
-		else {
-			startdateString = sessionInfo.substring(0, 10);
-			starttimeString = sessionInfo.substring(11, 16);
-			
-			if(sessionInfo.substring(17,22).equals("today")) {
-				enddateString = "today";
-				endtimeString = sessionInfo.substring(23,28);
-			}
-			else {
-				enddateString = sessionInfo.substring(17, 27);
-				endtimeString = sessionInfo.substring(28, 33);
-			}
-		}
-		//Check if input is correnct
-		
-		
-		//Convert strings to numbers
-		int activityId = Integer.parseInt(activityidString);
-		
-		int startYear; int startMonth; int startDay;
-		
-		if(startdateString.equals("today")) {
-			GregorianCalendar today = new GregorianCalendar();
-			startYear = today.get(GregorianCalendar.YEAR);
-			startMonth = today.get(GregorianCalendar.MONTH);
-			startDay = today.get(GregorianCalendar.DAY_OF_MONTH);
-		}
-		else {			
-			startYear = Integer.parseInt(startdateString.substring(6,10));
-			startMonth = Integer.parseInt(startdateString.substring(3,5));
-			startDay = Integer.parseInt(startdateString.substring(0,2));
+		try {
+			Object[] properties = InputHelper.stringToSessionProperties(sessionInfo, currentUser, underActivity? currentActivity : null);
+			currentUser.registerSession((Activity) properties[2], (GregorianCalendar)properties[0], (GregorianCalendar)properties[1]);
+		}catch(Exception e) {
+			registerSession(underActivity);
 		}
 		
-		int startHour = Integer.parseInt(starttimeString.substring(0,2));
-		int startMin = Integer.parseInt(starttimeString.substring(3,5));
-		
-		int endYear; int endMonth; int endDay;
-		
-		if(enddateString.equals("today")) {
-			GregorianCalendar today = new GregorianCalendar();
-			endYear = today.get(GregorianCalendar.YEAR);
-			endMonth = today.get(GregorianCalendar.MONTH);
-			endDay = today.get(GregorianCalendar.DAY_OF_MONTH);
-		}
-		else {
-			endYear = Integer.parseInt(enddateString.substring(6,10));
-			endMonth = Integer.parseInt(enddateString.substring(3,5));
-			endDay = Integer.parseInt(enddateString.substring(0,2));			
-		}
-		
-		int endHour = Integer.parseInt(endtimeString.substring(0,2));
-		int endMin = Integer.parseInt(endtimeString.substring(3,5));
-		
-		
-		//Convert to dates and register session
-		GregorianCalendar start = new GregorianCalendar(startYear, startMonth, startDay, startHour, startMin);
-		GregorianCalendar end = new GregorianCalendar(endYear, endMonth, endDay, endHour, endMin);
-		
-		Activity activity = null;
-		List<Activity> userActivities = currentUser.getActivities();
-		
-		for(Activity act : userActivities) {
-			if(act.getId() == activityId) activity = act;
-		}
-		
-		if(activity == null) registerSession(underActivity);
-		else {
-			currentUser.registerSession(activity, start, end);
-			if(underActivity) {
-				activityMenu();
-			}
-			else mySessions();
-		}
 		
 	}
 	
@@ -382,7 +293,7 @@ public class FrontEndController {
 		for(int i=0; i<projects.size(); i++) {
 			Project project = projects.get(i);
 			
-			System.out.println((i+1) + " - " + project.getProjectNumber());
+			System.out.println((i+1) + " - " + project.getProjectName());
 			
 			switcher.addCaseCommand(i+1, new Command() {
 				@Override 
@@ -402,7 +313,7 @@ public class FrontEndController {
 	//MANGLER AT BLIVE LAVET
 	public void projectMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		
-		System.out.println("Welcome to project " + currentProject.getProjectNumber() + "!");
+		System.out.println("Welcome to project " + currentProject.getProjectName() + "!");
 		System.out.println("0 - Back");
 		System.out.println("1 - My Activities");
 		
@@ -721,6 +632,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//MANGLER AT BLIVE LAVET
 	public void seeAvailableDevelopers() {
 		
 	}
@@ -886,7 +798,7 @@ public class FrontEndController {
 		String numberString = info.substring(0,6);
 		String idString = info.substring(7,11);
 		
-		database.getProjectById(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
+		database.getProjectByName(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
 		
 		manageProjects();
 		
@@ -894,13 +806,13 @@ public class FrontEndController {
 
 	private void deleteProject() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
-		System.out.println("Enter the number of the project you would like to delete:");
+		System.out.println("Enter the name of the project you would like to delete:");
 		
 		String s = input.next();
 		boolean projectFound = false;
 		
 		for(Project project : database.getAllProjects()) {			
-			if(project.getProjectNumber().equals(s)) {
+			if(project.getProjectName().equals(s)) {
 				database.deleteProject(s);
 				projectFound = true;
 			}
@@ -919,13 +831,13 @@ public class FrontEndController {
 	//MANGLER KONTROL CHECKS
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
-		System.out.println("Enter the number of the project you would like to create");
+		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("The format of the number is YYNNNN");
 		System.out.println("YY - Year, NNNN - 4 Digit unique number:");
 		String s = input.next();
 		
 		currentAdmin.createProject(s);
-		Project project = database.getProjectById(s);
+		Project project = database.getProjectByName(s);
 		project.assignDeveloperToProject(currentAdmin, currentUser);
 		
 		manageProjects();

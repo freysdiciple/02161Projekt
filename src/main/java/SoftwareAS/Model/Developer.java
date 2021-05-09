@@ -39,12 +39,12 @@ public class Developer {
 	}
 	
 	public void registerSession(Activity activity, GregorianCalendar startTime, GregorianCalendar endTime) throws OperationNotAllowedException, OverlappingSessionsException {
-		if(startTime.compareTo(endTime) >= 0) throw new OperationNotAllowedException("A session cannot end before it starts..."); 
-		if(overlapsWithOtherSession(startTime, endTime)) throw new OverlappingSessionsException("Overlapping Sessions"); 
+		if(startTime.compareTo(endTime) >= 0) throw new OperationNotAllowedException("A session cannot end before it starts...");    //1
+		if(overlapsWithOtherSession(startTime, endTime)) throw new OverlappingSessionsException("Overlapping Sessions");             //2
 		Session newSession = new Session(startTime, endTime, this, activity);
 		
 		registeredSessions.add(newSession);
-		if(activity != null) activity.registerSession(newSession); 
+		if(activity != null) activity.registerSession(newSession);                                                                   //3
 	}
 	
 	public List<Session> getRegisteredSessions(){

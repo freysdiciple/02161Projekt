@@ -36,7 +36,7 @@ public class SessionSteps {
 		this.errorMessageHolder = errorMessageHolder;
 	}
 
-	@Given("there is a developer")
+	@Given("8 - there is a developer")
 	public void there_is_a_developer() {
 	    developer = new Developer();
 
@@ -45,8 +45,8 @@ public class SessionSteps {
 	@Given("8 - there is an activity1")
 	public void there_is_an_activity1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject("900000");
-		project = database.getProjectById("900000");
+		admin.createProject("project1");
+		project = database.getProjectByName("project1");
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 	    project.createActivity(120000, developer);
@@ -55,8 +55,8 @@ public class SessionSteps {
 	@Given("8 - there is an activity2")
 	public void there_is_an_activity2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		admin = new Admin("admin", database);
-		admin.createProject("910000");
-		project = database.getProjectById("910000");
+		admin.createProject("project2");
+		project = database.getProjectByName("project2");
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 	    project.createActivity(120000, developer);
