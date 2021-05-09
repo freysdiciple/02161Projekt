@@ -125,63 +125,10 @@ public class Activity {
 	public List<Developer> getDevelopers(){
 		return developers;
 	}
-	
-	public boolean endedInInterval(Session session,GregorianCalendar start, GregorianCalendar end) {
-		GregorianCalendar sessionEnd = session.getEndTime();
-		
-		if(sessionEnd.compareTo(start) > 0 && sessionEnd.compareTo(end) < 0) return true;
-		else return false;
-	}
-	
-	public Session[] getSessionsFromPastWeek(){
-		List<Session> list = new ArrayList<>();
-		
-		GregorianCalendar now = new GregorianCalendar();
-		GregorianCalendar start = getLastMonday(now);
-		
-		//We make a second now, as the first one is for
-		//some reason corrupted while getting last monday
-		GregorianCalendar end = new GregorianCalendar();
-		
-		
-		for(Session session : registeredSessions) {
-			if(endedInInterval(session, start, end)) list.add(session);
-		}
-		
-		
-		Session[] array = new Session[list.size()];
-		list.toArray(array);
-		return array;
-	}
-	
-
-	private GregorianCalendar getLastMonday(GregorianCalendar now) {
-		int currentDayOfWeek = now.get(GregorianCalendar.DAY_OF_WEEK);
-		
-		//Puts sunday at end of daylist insted of in front
-		if(currentDayOfWeek == 1) currentDayOfWeek += 7;
-		currentDayOfWeek --;
-		
-		int daysFromMonday = 0;
-		while(currentDayOfWeek > 1) {
-			daysFromMonday ++;
-			currentDayOfWeek --;
-		}
-		
-		//Returns last monday at 00:00
-		GregorianCalendar lastMonday = now;
-		lastMonday.add(GregorianCalendar.DAY_OF_YEAR, -daysFromMonday);
-		lastMonday.add(GregorianCalendar.HOUR, 0);
-		lastMonday.set(GregorianCalendar.HOUR_OF_DAY, 0);
-		lastMonday.set(GregorianCalendar.MINUTE, 0);
-		lastMonday.set(GregorianCalendar.SECOND, 0);
-		lastMonday.set(GregorianCalendar.MILLISECOND, 0);
-		return lastMonday;
-	}
 
 	public ActivitySummary createSummary() {
 		
-		Session[] sessionsFromPastWeek = getSessionsFromPastWeek();
+		Session[] sessionsFromPastWeek = SummaryHelper.getSessionsFromPastWeek(registeredSessions);
 
 		ActivitySummary summary = new ActivitySummary(this, sessionsFromPastWeek);
 		
