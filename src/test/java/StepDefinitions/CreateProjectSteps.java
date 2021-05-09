@@ -17,7 +17,7 @@ import SoftwareAS.Model.*;
 
 public class CreateProjectSteps {
 	private Admin admin = new Admin();
-	private DataBase database = DataBase.getInstance();
+	private DataBase database;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 
