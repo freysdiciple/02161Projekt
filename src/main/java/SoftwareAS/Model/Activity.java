@@ -55,8 +55,8 @@ public class Activity {
 	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException, OutOfBoundsException {
 		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()))
 			throw new NotAuthorizedException("Only project leaders are allowed to set work hours.");
-		if (estimatedWorkHours < 0 || estimatedWorkHours > 2147483647)
-			throw new OutOfBoundsException("Estimated work hours can neither be negative nor larger than 2147483647.");
+		if (estimatedWorkHours < 0 || estimatedWorkHours > Integer.MAX_VALUE)
+			throw new OutOfBoundsException("Estimated work hours can neither be negative nor larger than Java's max value for integers.");
 		this.estimatedWorkHours = estimatedWorkHours;
 		this.timeLeft = estimatedWorkHours - timeLeft;
 	}
@@ -143,14 +143,11 @@ public class Activity {
 		//some reason corrupted while getting last monday
 		GregorianCalendar end = new GregorianCalendar();
 		
-		System.out.println("start day: " + start.get(GregorianCalendar.DAY_OF_MONTH));
-		System.out.println("end day: " + end.get(GregorianCalendar.DAY_OF_MONTH));
 		
 		for(Session session : registeredSessions) {
 			if(endedInInterval(session, start, end)) list.add(session);
 		}
 		
-		System.out.println(list.size());
 		
 		Session[] array = new Session[list.size()];
 		list.toArray(array);
