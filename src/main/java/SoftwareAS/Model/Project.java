@@ -71,14 +71,9 @@ public class Project {
 		return false;
 	}
 	
-	public void assignDeveloperToProjectPL(Developer pl, Developer developer) throws OperationNotAllowedException {
-		if(isProjectLeader(pl)) developers.add(developer);
-		else throw new OperationNotAllowedException("Only PL's can assign developers to projects");
-	}
-	
-	public void assignDeveloperToProject(Developer admin, Developer developer) throws OperationNotAllowedException {
-		if(!admin.isAdmin())
-			throw new OperationNotAllowedException("Only admins can assign developers to projects");
+	public void assignDeveloperToProject(Developer admin, Developer developer) throws NotAuthorizedException {
+		if(!(admin.isAdmin() || isProjectLeader(admin)))
+			throw new NotAuthorizedException("Not authorized to assign developers to projects");
 		developers.add(developer);
 	}
 	

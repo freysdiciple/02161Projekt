@@ -44,7 +44,7 @@ public class ProjectLeaderSteps {
 	}
 	
 	@Given("3- the admin assigns the developer {string} to the project")
-	public void thereIsADeveloperListedOnTheProject(String developerName) throws OperationNotAllowedException, ProjectNotFoundException, DeveloperNotFoundException {
+	public void thereIsADeveloperListedOnTheProject(String developerName) throws OperationNotAllowedException, ProjectNotFoundException, DeveloperNotFoundException, NotAuthorizedException {
 		developer = new Developer(developerName, database);
 		project.assignDeveloperToProject(admin, developer);
 	}
@@ -103,7 +103,7 @@ public class ProjectLeaderSteps {
 	}
 	
 	@When("3- the user assigns the role project leader to a developer {string} already on the project")
-	public void theUserAssignsProjectLeaderToADeveloperAlreadyOnTheProject(String developerName) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException {
+	public void theUserAssignsProjectLeaderToADeveloperAlreadyOnTheProject(String developerName) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException {
 		admin.createDeveloper(developerName);
 		developer = database.getDeveloperById(developerName);
 		project.assignDeveloperToProject(admin, developer);
