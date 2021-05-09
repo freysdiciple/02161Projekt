@@ -59,11 +59,11 @@ public class ModifyRegisteredTimeStep {
 	}
 
 	@Given("7- there is a project with id {string} created by Bob")
-	public void thereIsAProjectWithId(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, NumberFormatException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectID);
-		project = database.getProjectById(projectID);
+	public void thereIsAProjectWithId(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, NumberFormatException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
+		project = database.getProjectByName(projectName);
 		project.assignDeveloperToProject(admin, developer);
-		assertTrue(database.containsProject(projectID));
+		assertTrue(database.containsProject(projectName));
 	}
 
 	@Given("7- there is an activity with Id {int} created by the project leader {string}")

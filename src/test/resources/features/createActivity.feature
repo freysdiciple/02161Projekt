@@ -3,14 +3,14 @@ Description: the project leader creates a new activity
 Actor: Project leader
 
 Scenario: Successfully create activity
-	Given 4- there is a project with project ID "400001"
+	Given 4- there is a project with project name "Scenario 1"
 	And 4- there is a user with ID "John" and database
 	And 4- the user is a project leader
 	When 4- the user creates an activity with ID 925 in that project
 	Then 4- the activity is listed under the project
 
 Scenario: Duplicate name
-	Given 4- there is a project with project ID "400002"
+	Given 4- there is a project with project name "Scenario 2"
 	And 4- there is a user with ID "John" and database
 	And 4- the user is a project leader
 	And 4- there is an activity with ID 925
@@ -18,7 +18,7 @@ Scenario: Duplicate name
 	Then 4- an ActivityAlreadyExistsException is thrown
 
 Scenario: Developer trying to create activity
-	Given 4- there is a project with project ID "400003"
+	Given 4- there is a project with project name "Scenario 3"
 	And 4- there is a user with ID "John" and database
 	And 4- the user is not a project leader
 	When 4- the user creates an activity with ID 925 in that project

@@ -293,7 +293,7 @@ public class FrontEndController {
 		for(int i=0; i<projects.size(); i++) {
 			Project project = projects.get(i);
 			
-			System.out.println((i+1) + " - " + project.getProjectNumber());
+			System.out.println((i+1) + " - " + project.getProjectName());
 			
 			switcher.addCaseCommand(i+1, new Command() {
 				@Override 
@@ -313,7 +313,7 @@ public class FrontEndController {
 	//MANGLER AT BLIVE LAVET
 	public void projectMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		
-		System.out.println("Welcome to project " + currentProject.getProjectNumber() + "!");
+		System.out.println("Welcome to project " + currentProject.getProjectName() + "!");
 		System.out.println("0 - Back");
 		System.out.println("1 - My Activities");
 		
@@ -798,7 +798,7 @@ public class FrontEndController {
 		String numberString = info.substring(0,6);
 		String idString = info.substring(7,11);
 		
-		database.getProjectById(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
+		database.getProjectByName(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
 		
 		manageProjects();
 		
@@ -806,13 +806,13 @@ public class FrontEndController {
 
 	private void deleteProject() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
-		System.out.println("Enter the number of the project you would like to delete:");
+		System.out.println("Enter the name of the project you would like to delete:");
 		
 		String s = input.next();
 		boolean projectFound = false;
 		
 		for(Project project : database.getAllProjects()) {			
-			if(project.getProjectNumber().equals(s)) {
+			if(project.getProjectName().equals(s)) {
 				database.deleteProject(s);
 				projectFound = true;
 			}
@@ -831,13 +831,13 @@ public class FrontEndController {
 	//MANGLER KONTROL CHECKS
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
-		System.out.println("Enter the number of the project you would like to create");
+		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("The format of the number is YYNNNN");
 		System.out.println("YY - Year, NNNN - 4 Digit unique number:");
 		String s = input.next();
 		
 		currentAdmin.createProject(s);
-		Project project = database.getProjectById(s);
+		Project project = database.getProjectByName(s);
 		project.assignDeveloperToProject(currentAdmin, currentUser);
 		
 		manageProjects();

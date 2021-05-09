@@ -14,10 +14,10 @@ import Exceptions.NotAuthorizedException;
 
 public class Project {
 
-	private String projectNumber;
+	private String projectName;
 	private GregorianCalendar startDate;
 	private Admin creator;
-	private String runningNumber = "";
+	private String projectId = "";
 
 
 	private Developer projectLeader = null;
@@ -26,31 +26,36 @@ public class Project {
 	private List<ProjectSummary> summaries = new ArrayList<>();
 	private List<Developer> availableDevelopers;
 
-	public Project(String projectNumber, Admin creator) {
-		this.projectNumber = projectNumber;
+	public Project(String projectName, Admin creator) {
+		this.projectName = projectName;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
 		
-		setRunningNumber();
+		setProjectID();
 	}
 	
-	public void setRunningNumber() {
+	public void setProjectID() {
 		DateFormat df = new SimpleDateFormat("yy"); 
 		String year = df.format(Calendar.getInstance().getTime());
 		
-		runningNumber = runningNumber + year;
+		projectId = projectId + year;
 		
 		String amountOfProjects = String.valueOf(DataBase.getInstance().getAllProjects().size() + 1);
 		
-		for (int i=4; i > amountOfProjects.length(); i--) {
-			runningNumber = runningNumber + "0";
-		}
-		runningNumber = runningNumber + amountOfProjects;
+		for (int i=4; i > amountOfProjects.length(); i--) 
+			projectId = projectId + "0";
+		
+		projectId = projectId + amountOfProjects;
 	}
 
-	public String getProjectNumber() {
-		return projectNumber;
+	public String getProjectName() {
+		return projectName;
 	}
+	
+	public String getProjectId() {
+		return projectId;
+	}
+	
 	public Admin getCreator() {
 		return creator;
 	}
