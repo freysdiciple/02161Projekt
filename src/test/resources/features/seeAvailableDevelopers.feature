@@ -27,5 +27,3 @@ Scenario: Given time not valid format
 	And 9- the user is a Project leader
 	When 9- the user provides invalid format input of the start time {string} and end time {string} of the activity where he needs developers
   	Then 9- the system provides an error message that the format of the input time is invalid
-
-  	//Not ProjectLeader
