@@ -95,18 +95,15 @@ public class Project {
 
 	
 	public void deleteActivity(int id, Developer developer) throws NotAuthorizedException, ActivityNotFoundException {
-		if (this.isProjectLeader(developer)) {
-			if (!this.containsActivityWithId(id)) {
-				Activity activity = getActivityById(id);
-				for(Developer dev : activity.getDevelopers()) {
-					dev.deleteActivity(activity);
-				}
-				activities.remove(activity);
-			}
-			else
-				throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
-		}
-		else throw new NotAuthorizedException("Only the project leader can delete activities.");
+		if (!(this.isProjectLeader(developer) || developer.isAdmin()))
+			throw new NotAuthorizedException("Not authorized to delete activities.");
+		if (!this.containsActivityWithId(id))
+			throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
+		Activity activity = getActivityById(id);
+		for(Developer dev : activity.getDevelopers()) 
+			dev.deleteActivity(activity);
+		
+		activities.remove(getActivityById(id));
 	}
 	
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
