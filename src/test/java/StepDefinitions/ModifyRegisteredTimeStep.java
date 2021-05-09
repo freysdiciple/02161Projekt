@@ -10,6 +10,7 @@ import java.util.List;
 
 import Exceptions.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 import io.cucumber.java.en.*;
@@ -32,6 +33,13 @@ public class ModifyRegisteredTimeStep {
 	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
+	
+	public ModifyRegisteredTimeStep(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
+	
+	
 //	Main scenario:
 //	#Scenario: The developer removes the registered time on an activity the developer has registered
 //	#   Given the user {string} is a developer

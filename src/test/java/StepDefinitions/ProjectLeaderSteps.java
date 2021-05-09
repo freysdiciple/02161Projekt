@@ -13,6 +13,7 @@ import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 import io.cucumber.java.en.*;
@@ -28,6 +29,13 @@ public class ProjectLeaderSteps {
 	private Project project;
 	private DataBase database = DataBase.getInstance();
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	
+	
+	public ProjectLeaderSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
+	
 	
 	
 //	Scenario: Assign the role project leader to a developer on an existing project successfully 
