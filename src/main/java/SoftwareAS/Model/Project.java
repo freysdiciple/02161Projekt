@@ -90,7 +90,6 @@ public class Project {
 
 	public boolean isDeveloperOnProject(String name) {
 		for (Developer developer : developers) {
-			System.out.println(developer.getId());
 			if (developer.getId().equals(name))
 				return true;
 		}
