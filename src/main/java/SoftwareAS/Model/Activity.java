@@ -55,8 +55,8 @@ public class Activity {
 	public void setEstimatedWorkHours(int estimatedWorkHours, Developer projectLeader, Project project) throws NotAuthorizedException, OutOfBoundsException {
 		if (!(project.isProjectLeader(projectLeader) || projectLeader.isAdmin()))
 			throw new NotAuthorizedException("Only project leaders are allowed to set work hours.");
-		if (estimatedWorkHours < 0)
-			throw new OutOfBoundsException("Estimated work hours cannot be negative.");
+		if (estimatedWorkHours < 0 || estimatedWorkHours > 2147483647)
+			throw new OutOfBoundsException("Estimated work hours can neither be negative nor larger than 2147483647.");
 		this.estimatedWorkHours = estimatedWorkHours;
 		this.timeLeft = estimatedWorkHours - timeLeft;
 	}
