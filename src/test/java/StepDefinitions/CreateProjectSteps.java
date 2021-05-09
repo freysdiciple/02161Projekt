@@ -86,7 +86,7 @@ public class CreateProjectSteps {
 //	Scenario: User is not an admin
 //		Given there is a user
 //		And the user is not an admin
-//	   	When the user tries to create a project with a valid number {int}
+//	   	When the user tries to create a project with a valid name {int}
 //	   	Then the system throws NotAuthorizedException
 
 
@@ -109,7 +109,7 @@ public class CreateProjectSteps {
 
 	@Then("5- the system throws NotAuthorizedException")
 	public void systemThrowsNotAuthorizedException() throws NotAuthorizedException {
-		assertEquals("Only admins can create new project", errorMessageHolder.getErrorMessage());
+		assertEquals("Only admins can create new projects", errorMessageHolder.getErrorMessage());
 	}
 	
 //	# Alternate scenario three
@@ -120,7 +120,7 @@ public class CreateProjectSteps {
 //	   	Then the system throws OutOfBoundsException
 
 	@When("5- the user tries to create a project with a project name {string} with invalid length")
-	public void theUserTriesToCreateAProjectWithInvalidLengthOfProjectNumber(String projectName) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+	public void theUserTriesToCreateAProjectWithInvalidLengthOfProjectName(String projectName) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
 		try {
 			admin.createProject(projectName);
 		}
