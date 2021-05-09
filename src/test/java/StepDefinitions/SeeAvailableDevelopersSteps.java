@@ -24,9 +24,6 @@ public class SeeAvailableDevelopersSteps {
 	private int startTime;
 	private int endTime;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
-	private Developer developer1;
-	private Developer developer2;
-	private Developer developer3;
 
 //Main scenario
 //Scenario: See available developers
@@ -68,10 +65,6 @@ public class SeeAvailableDevelopersSteps {
 		admin.createDeveloper("1111");
 		admin.createDeveloper("2222");
 		admin.createDeveloper("3333");
-		
-		developer1=database.getDeveloperById("1111");
-		developer2=database.getDeveloperById("2222");
-		developer3=database.getDeveloperById("3333");
 	}
 	
 	
