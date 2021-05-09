@@ -165,11 +165,15 @@ public class FrontEndController {
 			changeEndTime();
 		}
 		else {
-			GregorianCalendar newEnd = InputHelper.stringToGregorianCalendar(info);
-			
-			currentSession.setEndTime(newEnd);
-			
-			modifySession();
+			try {
+				GregorianCalendar newEnd = InputHelper.stringToGregorianCalendar(info);
+				
+				currentSession.setEndTime(newEnd);
+				
+				modifySession();
+			}catch(Exception e) {
+				changeEndTime();
+			}
 		}
 		
 		
@@ -192,11 +196,15 @@ public class FrontEndController {
 			changeStartTime();
 		}
 		else {
-			GregorianCalendar newStart = InputHelper.stringToGregorianCalendar(info);
-			
-			currentSession.setStartTime(newStart);
-			
-			modifySession();
+			try {
+				GregorianCalendar newStart = InputHelper.stringToGregorianCalendar(info);
+				
+				currentSession.setStartTime(newStart);
+				
+				modifySession();
+			}catch(Exception e) {
+				changeStartTime();
+			}
 		}
 		
 	}
@@ -624,6 +632,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//MANGLER AT BLIVE LAVET
 	public void seeAvailableDevelopers() {
 		
 	}
