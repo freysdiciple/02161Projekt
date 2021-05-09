@@ -24,7 +24,7 @@ public class SetStartEndTimeSteps {
     private Developer justDeveloper;
     private Project project;
     
-    public SetStartEndTimeSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+    public SetStartEndTimeSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) throws OutOfBoundsException {
 		this.database = softwareAS.getDataBase();
 	}
 

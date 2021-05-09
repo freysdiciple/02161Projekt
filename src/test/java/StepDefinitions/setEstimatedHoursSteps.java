@@ -35,7 +35,7 @@ public class setEstimatedHoursSteps {
 
 	@Given("10- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException,
-			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException {
+			OperationNotAllowedException, AdminNotFoundException, DeveloperNotFoundException, OutOfBoundsException {
 		database.createAdmin(adminName);
 		admin = database.getAdminById(adminName);
 		admin.createDeveloper(userName);
@@ -120,7 +120,7 @@ public class setEstimatedHoursSteps {
 //	#	And the estimated work hours is not set
 
 	@Given("10- the user {string} is not a project leader")
-	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException {
+	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, OutOfBoundsException {
 		admin.createDeveloper("tempProjectLeader");
 		projectLeader = database.getDeveloperById("tempProjectLeader");
 		project.assignDeveloperToProject(admin, projectLeader);
