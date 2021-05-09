@@ -26,7 +26,10 @@ public class Admin extends Developer {
 		if (database.containsProject(projectName)) // 1
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		if (!isAdmin()) {
-			throw new NotAuthorizedException("Only admins can create new projects");
+			throw new NotAuthorizedException("Only admins can create new projects");	
+		}
+		if (projectName.length()>32) {
+			throw new OutOfBoundsException("Project name has to consist of 4-32 characters");
 		}
 		
 		Project newProject = new Project(projectName, this);

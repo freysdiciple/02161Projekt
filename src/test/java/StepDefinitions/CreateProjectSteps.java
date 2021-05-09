@@ -46,14 +46,14 @@ public class CreateProjectSteps {
 		assertTrue(admin.isAdmin());
 	}
 
-	@When("5- the user creates a project with a valid number {string}")
-	public void theUserCreatesProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectNumber);
+	@When("5- the user creates a project with a valid name {string}")
+	public void theUserCreatesProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
 	}
 
-	@Then("5- the project with a number {string} is contained in the system")
-	public void systemCreatesProjectWithGivenNumberAndCreator(String projectNumber) throws ProjectNotFoundException {
-		assertTrue(database.containsProject(projectNumber));
+	@Then("5- the project with a name {string} is contained in the system")
+	public void systemCreatesProjectWithGivenNumberAndCreator(String projectName) throws ProjectNotFoundException {
+		assertTrue(database.containsProject(projectName));
 	}
 
 //# Alternate scenario one
@@ -63,11 +63,11 @@ public class CreateProjectSteps {
 //	When the user creates a project with a valid number {string} identical to an existing project
 //  Then the system throws ExistingProjectException
 
-	@When("5- the user creates a project with a valid number {string} identical to an existing project")
-	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(String projectNumber) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectNumber);
+	@When("5- the user creates a project with a valid name {string} identical to an existing project")
+	public void theUserCreatesAProjectWithNameIdenticalToAnExistisngProject(String projectName) throws ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, OutOfBoundsException {
+		admin.createProject(projectName);
 		try {
-			admin.createProject(projectNumber);
+			admin.createProject(projectName);
 		}
 		catch(ProjectAlreadyExistsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
@@ -96,10 +96,10 @@ public class CreateProjectSteps {
 		assertFalse(admin.isAdmin());
 	}
 
-	@When("5- the user tries to create a project with a valid number {string}")
-	public void theUserCreatesProject1(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	@When("5- the user tries to create a project with a valid name {string}")
+	public void theUserCreatesProject1(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		try {
-			admin.createProject(projectNumber);
+			admin.createProject(projectName);
 		}
 		catch(NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
@@ -118,10 +118,10 @@ public class CreateProjectSteps {
 //	   	When the user tries to create a project with a project number {string} with invalid length
 //	   	Then the system throws OutOfBoundsException
 
-	@When("5- the user tries to create a project with a project number {string} with invalid length")
-	public void theUserTriesToCreateAProjectWithInvalidLengthOfProjectNumber(String projectNumber) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
+	@When("5- the user tries to create a project with a project name {string} with invalid length")
+	public void theUserTriesToCreateAProjectWithInvalidLengthOfProjectNumber(String projectName) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException {
 		try {
-			admin.createProject(projectNumber);
+			admin.createProject(projectName);
 		}
 		catch(OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
@@ -130,30 +130,9 @@ public class CreateProjectSteps {
 	
 	@Then("5- the system throws OutOfBoundsException")
 	public void systemThrowsOutOfBoundsException() throws OutOfBoundsException {
-		assertEquals("Project Number input is out of bounds", errorMessageHolder.getErrorMessage());
+		assertEquals("Project name has to consist of 4-32 characters", errorMessageHolder.getErrorMessage());
 	}
+}
 	
-//# Alternate scenario four
-//  Scenario: Project number not integers
-//		Given 5- there is a user
-//		And 5- the user is an admin
-//		When 5- the user tries to create a project with a project number {string} that only consists of integers
-//		Then 5- the system throws OutOfBoundsException
-	
-	@When("5- the user tries to create a project with a project number {string} that does not only consists of integers")
-	public void theUserTriesToCreateAProjectWithAProjectNumberWithoutIntegers(String projectNumber) throws NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
-		try {
-			admin.createProject(projectNumber);
-		}
-		catch(NumberFormatException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-	}
-	
-	@Then("5- the system throws NumberFormatException")
-	public void systemThrowsNumberFormat() throws NumberFormatException {
-		assertEquals("The project has to only consist of integers", errorMessageHolder.getErrorMessage());
-	}
-		
-	}
+
 
