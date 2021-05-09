@@ -19,7 +19,7 @@ public class SetStartEndTimeSteps {
     private int activityID = 102;
 
     private DataBase database;
-    private Admin admin = new Admin("mogens",database);
+   // private Admin admin = new Admin("mogens",database);
     private Developer developerAndLeader;
     private Developer justDeveloper;
     private Project project;
