@@ -11,6 +11,7 @@ import Exceptions.ActivityAlreadyExistsException;
 import Exceptions.ActivityNotFoundException;
 import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
+import Exceptions.OutOfBoundsException;
 
 public class Project {
 
@@ -151,23 +152,31 @@ public class Project {
 		summaries.add(summary);
 		return summary;
 	}
-
-	public List<Developer> seeAvailableDevelopers(GregorianCalendar startTime, GregorianCalendar endTime, Developer user) throws NotAuthorizedException{
+	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
+			throws NotAuthorizedException, OutOfBoundsException {
 		if (!isProjectLeader(user) || user.isAdmin()) {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 		}
-		
+
+		if (startWeek > 52 || endWeek > 52) {
+			throw new OutOfBoundsException("The start week and end week has to be an integer under 52");
+		}
+
+
 		List<Developer> developers = user.getDatabase().getAllDevelopers();
-		for(Developer developer : developers) {
-			List <Session> sessions = developer.getRegisteredSessions();
-			for (Session session: sessions) {
-				if(session.getStartTime().compareTo(startTime)<0 && session.getEndTime().compareTo(endTime)>0) {
-					availableDevelopers.add(developer);				
+		for (Developer developer : developers) {
+			List<Activity> activities = developer.getActivities();
+			int k = 0;
+			for (Activity activity : activities) {
+				if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+					k++;
 				}
 
 			}
+			if (k < 21) {
+				availableDevelopers.add(developer);
+			}
 		}
-		return developers;
+		return availableDevelopers;
+			}
 	}
-
-}

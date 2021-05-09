@@ -1,8 +1,6 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import Exceptions.AdminNotFoundException;
@@ -23,8 +21,8 @@ public class SeeAvailableDevelopersSteps {
 	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private List<Developer> availableDevelopers;
-	private GregorianCalendar startTime;
-	private GregorianCalendar endTime;
+	private int startTime;
+	private int endTime;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
 //Main scenario
@@ -46,11 +44,11 @@ public class SeeAvailableDevelopersSteps {
 	}
 
 	@Given("9- there is a project with ID {int}")
-	public void thereIsAProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
+	public void thereIsAProject(String projectname) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException {
-		admin.createProject(projectNumber);
-		project = database.getProjectByName(projectNumber);
-		assertTrue(database.containsProject(projectNumber));
+		admin.createProject(projectname);
+		project = database.getProjectByName(projectname);
+		assertTrue(database.containsProject(projectname));
 	}
 
 	@Given("9- the user is a Project leader")
@@ -62,21 +60,25 @@ public class SeeAvailableDevelopersSteps {
 
 	}
 
-	@When("9- the user provides information of the start time {string} and end time {string} of the activity where he needs developers")
-	public void theUserProvidesTimeSlot(String start, String end) throws OutOfBoundsException {
+	@When("9- the user provides information of the start week {int} and end week {int} of the activity where he needs developers")
+	public void theUserProvidesTimeSlot(int start, int end) throws OutOfBoundsException {
 		
-		startTime = InputHelper.stringToGregorianCalendar(start);
-		endTime = InputHelper.stringToGregorianCalendar(start);
+		startTime = start;
+		endTime = end;
 
 	}
 
 	@Then("9- the system displays a list of available developers at the given time slot")
-	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException {
+	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException, OutOfBoundsException {
 		availableDevelopers = project.seeAvailableDevelopers(startTime, endTime, developer);
 		for (Developer developer : availableDevelopers) {
-			List<Session> sessions = developer.getRegisteredSessions();
-			for (Session session : sessions) {
-				assertTrue(session.getStartTime().compareTo(startTime) < 0 && session.getEndTime().compareTo(endTime) > 0);
+			List<Activity> activities = developer.getActivities();
+			int k=0;
+			for (Activity activity : activities) {
+				if (activity.getStartWeek() < startTime && activity.getEndWeek() > endTime) {
+					k++;
+				}
+			assertTrue(k<21);
 			}
 
 		}
@@ -88,57 +90,28 @@ public class SeeAvailableDevelopersSteps {
 	//	Given 9- there is an user with ID "Søren"
 	//	And 9- there is a project with ID "211234"
 	//	And 9- the user is a Project leader
-	//	When 9- the user provides invalid length input of the start time {string} and end time {string} of the activity where he needs developers
-	//	Then 9- the system provides an error message that the time is invalid
+	//	When 9- the user provides invalid length input of the start week {int} and end week {int} of the activity where he needs developers
+	//	Then 9- the system provides an error message that the start week and/or end week is invalid
 	
-	@When("9- the user provides invalid length input of the start time {string} and end time {string} of the activity where he needs developers")
-	public void theUserProvidesTooLongTimeInput(String start, String end) throws OutOfBoundsException {
+	@When("9- the user provides invalid input of the start week {int} and end week {int} of the activity where he needs developers")
+	public void theUserProvidesTooLongTimeInput(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
 		try {
-			InputHelper.stringToGregorianCalendar(start);
+			project.seeAvailableDevelopers(start, end, developer);
 		}
 		catch(OutOfBoundsException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-		try {
-			InputHelper.stringToGregorianCalendar(end);
-		}
-		catch(OutOfBoundsException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
+		errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 	}
+		
 
 		
-	@Then("9- the system provides an error message that the length of the input time is invalid")
+	@Then("9- the system provides an error message that the start week and/or end week is invalid")
 	public void theSystemProvidesAnErrorMessageThatTheTimeLengthIsInvalid() throws OutOfBoundsException {
-		assertEquals("String must be a length of 16", errorMessageHolder.getErrorMessage());
+		assertEquals("The start week and end week has to be an integer under 52", errorMessageHolder.getErrorMessage());
 		
 	}
-
-		
-	
-	@When("9- the user provides invalid format input of the start time {string} and end time {string} of the activity where he needs developers")
-	public void theUserProvidesInvalidFormatTimeInput(String start, String end) throws OutOfBoundsException {
-		try {
-			InputHelper.stringToGregorianCalendar(start);
-		}
-		catch(OutOfBoundsException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-		try {
-			InputHelper.stringToGregorianCalendar(end);
-		}
-		catch(OutOfBoundsException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-	}
-	@Then("9- the system provides an error message that the format of the input time is invalid")
-	public void theSystemProvidesAnErrorMessageThatTheTimeFormatIsInvalid() throws OutOfBoundsException {
-		assertEquals("The time has to be compatible with GregorianCalendar", errorMessageHolder.getErrorMessage());
-		
-	}
+}
 
 
-
-	}
 
 
