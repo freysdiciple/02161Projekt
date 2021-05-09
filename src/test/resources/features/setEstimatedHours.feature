@@ -3,9 +3,9 @@ Description: The project leader assigns estimated work hours for an activity
 Actor: Project leader
 
 Scenario: Successfully set estimated work hours
-	Given 10- there is an user with ID "Sort"
+	Given 10- there is an user with ID "Kvak"
    And 10- there is a project with ID "Bellow"
-	And 10- the user "Sort" is a Project leader
+	And 10- the user "Kvak" is a Project leader
 	And 10- there is an activity with ID 500
 	When 10- the user provides the estimated hours 72 for the activity
 	Then 10- the estimated hours for the activity is set
