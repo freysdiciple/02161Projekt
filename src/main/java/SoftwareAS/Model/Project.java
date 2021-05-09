@@ -53,7 +53,7 @@ public class Project {
 		return projectName;
 	}
 	
-	public String getProjectId() {
+	public String getProjectID() {
 		return projectId;
 	}
 	

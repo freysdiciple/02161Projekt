@@ -21,22 +21,15 @@ public class Admin extends Developer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void createProject(String projectNumber) throws ProjectAlreadyExistsException, ProjectNotFoundException,
+	public void createProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException, NumberFormatException {
-		if (database.containsProject(projectNumber)) // 1
+		if (database.containsProject(projectName)) // 1
 			throw new ProjectAlreadyExistsException("Project Already Exists");
-		if (!isAdmin()) // 2
+		if (!isAdmin()) {
 			throw new NotAuthorizedException("Only admins can create new projects");
-		if (projectNumber.length() != 6) // 3
-			throw new OutOfBoundsException("Project Number input is out of bounds");
-		try {
-			Integer.parseInt(projectNumber);
-		} catch (NumberFormatException e) {
-			throw new NumberFormatException("The project has to only consist of integers");
-
 		}
-
-		Project newProject = new Project(projectNumber, this);
+		
+		Project newProject = new Project(projectName, this);
 		projects.add(newProject);
 		database.createProject(newProject);
 	}

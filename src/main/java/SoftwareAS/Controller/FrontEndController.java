@@ -832,8 +832,7 @@ public class FrontEndController {
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the name of the project you would like to create");
-		System.out.println("The format of the number is YYNNNN");
-		System.out.println("YY - Year, NNNN - 4 Digit unique number:");
+		System.out.println("Minimum characters: 4 and Maximum characters: 32");
 		String s = input.next();
 		
 		currentAdmin.createProject(s);
