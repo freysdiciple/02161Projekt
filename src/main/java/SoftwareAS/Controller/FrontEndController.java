@@ -1,6 +1,7 @@
 package SoftwareAS.Controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
@@ -890,32 +891,62 @@ public class FrontEndController {
 		
 		input.nextLine();
 		String info = input.nextLine();
-		
-		String id = info.substring(0,4);
-		boolean isAdmin = false;
-		
-		if(info.length() > 4) {
-			if(info.length() == 10) {
-				if(info.substring(5,10).equals("admin")) {
-					isAdmin = true;
+		try {
+			if (info.length() > 10 || info.length() < 1) {
+				System.out.println("ID has to consist of 1 to 4 characters.");
+				throw new Exception();
+			}
+			else if (info.length() <= 4) {
+				database.createDeveloper(new Developer(info, database));
+			}
+			else {
+				char[] infoAsCharArray = info.toCharArray();
+				int indexOfSpace = Arrays.asList(infoAsCharArray).indexOf(' ');
+				if (indexOfSpace == -1) {
+					System.out.println("ID has to consist of 1 to 4 characters (if creating an admin, add admin after the id seperated by space)");
+					throw new Exception();
 				}
-				else createEmployee();
+				else {
+					String id = info.substring(0, indexOfSpace);
+					if (info.substring(indexOfSpace, info.length()).equals(" admin")) {
+						database.createAdmin(id);
+					}
+				}
 			}
-			else createEmployee();
 		}
-		if(info.length() < 4) {
-			createEmployee();
+		catch (OutOfBoundsException e) {
+			System.out.println(e.getMessage());
 		}
-		else {			
-			if(isAdmin) {
-				database.createAdmin(id);
-			}
-			else database.createDeveloper(new Developer(id, database));
-			
+		catch (Exception e) {}
+		finally {
 			manageEmployees();
 		}
 		
 		
+//		String id = info.substring(0,4);
+//
+//		boolean isAdmin = false;
+//
+//		if(info.length() > 4) {
+//			if(info.length() == 10) {
+//				if(info.substring(5,10).equals("admin")) {
+//					isAdmin = true;
+//				}
+//				else createEmployee();
+//			}
+//			else createEmployee();
+//		}
+//		if(info.length() < 4) {
+//			createEmployee();
+//		}
+//		else {			
+//			if(isAdmin) {
+//				database.createAdmin(id);
+//			}
+//			else database.createDeveloper(new Developer(id, database));
+//
+//			manageEmployees();
+//		}
 	}
 
 	public void WelcomePageDeveloper() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {

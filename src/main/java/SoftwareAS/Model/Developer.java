@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import Exceptions.OperationNotAllowedException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.OverlappingSessionsException;
 import Exceptions.SessionNotFoundException;
 
@@ -17,7 +18,9 @@ public class Developer {
 	private List<Activity> activities = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 	
-	public Developer(String id, DataBase database) {
+	public Developer(String id, DataBase database) throws OutOfBoundsException {
+		if (id.length() < 1 || id.length() > 4)
+			throw new OutOfBoundsException("Developer ID has to consist of 1 to 4 characters.");
 		this.id = id;
 		this.database = database;
 	}
