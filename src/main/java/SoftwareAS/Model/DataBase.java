@@ -15,6 +15,7 @@ public class DataBase {
 	private List<Developer> developers = new ArrayList<>();
 	private List<Admin> admins = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
+	private int projectsMade = 0;
 
 	public static DataBase getInstance() {
 		if(instance == null) {
@@ -94,10 +95,15 @@ public class DataBase {
 		if(containsProject(project.getProjectName()))
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		projects.add(project);
+		projectsMade++;
 	}
+	public int getProjectsMade() {
+		return projectsMade;
+	}
+
 	public void deleteProject(String projectName) {
 		for(Project project : projects) {
-			if(project.getProjectName() == projectName) {
+			if(project.getProjectName().equals(projectName)) {
 				for(Developer dev : project.getDevelopers()) {
 					dev.deleteProject(project);
 				}
@@ -107,7 +113,7 @@ public class DataBase {
 	}
 	public Project getProjectByName(String projectName) throws ProjectNotFoundException {
 		for(Project project : projects) {
-			if(project.getProjectName() == projectName) return project;
+			if(project.getProjectName().equals(projectName)) return project;
 		}
 
 		throw new ProjectNotFoundException("No project with described ID");
@@ -116,7 +122,7 @@ public class DataBase {
 		for(Project project : projects) {
 			if(project.getProjectName().equals(projectName)) return project;
 		}
-		
+
 		return null;
 	}
 

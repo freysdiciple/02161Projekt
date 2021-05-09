@@ -40,7 +40,7 @@ public class Project {
 		
 		projectId = projectId + year;
 		
-		String amountOfProjects = String.valueOf(DataBase.getInstance().getAllProjects().size() + 1);
+		String amountOfProjects = String.valueOf(DataBase.getInstance().getProjectsMade() + 1);
 		
 		for (int i=4; i > amountOfProjects.length(); i--) 
 			projectId = projectId + "0";
