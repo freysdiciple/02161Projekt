@@ -109,6 +109,7 @@ public class ProjectLeaderSteps {
 		admin = database.getAdminById(adminName);
 		admin.createProject(projectName);
 		project = database.getProjectByName(projectName);
+		assertTrue(database.containsProject(projectName));
 	}
 	
 	@When("3- the user assigns the role project leader to a developer {string} already on the project")

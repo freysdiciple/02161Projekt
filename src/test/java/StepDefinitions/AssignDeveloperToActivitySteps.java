@@ -22,7 +22,7 @@ public class AssignDeveloperToActivitySteps {
 	private Project project;
 	private Developer developer;
 	private Developer developer2;
-	private String adminID = "ADM1";
+	private String adminID = "adminID";
 	private int activityID;
 	private ErrorMessageHolder errorMessageHolder;
 	
@@ -69,12 +69,12 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- there is an activity with ID {int}")
-	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException, OutOfBoundsException {
+	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException, OutOfBoundsException  {
 		this.activityID = activityID;
 		if (project.isProjectLeader(developer)) {
 			project.createActivity(activityID, developer);
 		} else {
-			String developer3ID = "DEV3";
+			String developer3ID = "developer3ID";
 			admin.createDeveloper(developer3ID);
 			Developer developer3 = database.getDeveloperById(developer3ID);
 			project.assignDeveloperToProject(admin, developer3);

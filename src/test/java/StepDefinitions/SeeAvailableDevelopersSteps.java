@@ -17,7 +17,7 @@ import SoftwareAS.Model.*;
 public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;
-	private String adminName = "MOG2";
+	private String adminName = "Mogens";
 	private DataBase database = DataBase.getInstance();
 	private Project project;
 	private List<Developer> availableDevelopers;
