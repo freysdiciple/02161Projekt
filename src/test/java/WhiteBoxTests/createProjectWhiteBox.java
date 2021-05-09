@@ -1,5 +1,5 @@
 package WhiteBoxTests;
-
+/*
 public class createProjectWhiteBox {
 	
 	public void createProject(int projectNumber) {
@@ -8,3 +8,4 @@ public class createProjectWhiteBox {
 	}
 
 }
+*/
