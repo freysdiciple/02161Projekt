@@ -8,6 +8,7 @@ import Exceptions.DeveloperNotFoundException;
 import Exceptions.NotAuthorizedException;
 import Exceptions.OperationNotAllowedException;
 import Exceptions.OutOfBoundsException;
+import Exceptions.SessionNotFoundException;
 
 public class Activity {
 	
@@ -102,6 +103,22 @@ public class Activity {
 	public List<Session> getRegisteredSession() {
 		return registeredSessions;
 	}
+	public Session getSessionById(String sessionId) throws SessionNotFoundException {
+		for (Session session: registeredSessions) {
+			if (sessionId.equals(session.getSessionID2())) 
+				return session;
+		}
+		throw new SessionNotFoundException("Session not found");
+		
+	}
+	
+	public boolean containsSession(Session session) {
+		if (registeredSessions.contains(session)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void deleteSession(Session session) {
 		if(registeredSessions.contains(session)) registeredSessions.remove(session);
 	}

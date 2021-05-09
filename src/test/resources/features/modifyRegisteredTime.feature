@@ -4,22 +4,22 @@ Feature: Modify registered time
 
 
 #Main scenario
-#Scenario: The developer removes the registered time on an activity the developer has registered
-#   Given 7- the user is a developer
-#	And 7- there is a project
-#	And 7- there is an activity
-#	And 7- the developer have registered time on that activity
-#	When 7- the developer removes the registered time on that activity
-#	Then 7- the registered time is removed successfully
+Scenario: The developer removes the registered time on an activity the developer has registered
+   Given 7- the user "ludwig" is a developer
+	And 7- there is a project with id "210001" created by Bob
+	And 7- there is an activity with Id 701 created by the project leader "Kenneth"
+	And 7- the developer have registered time on that activity
+	When 7- the developer removes the registered time on that activity
+	Then 7- the registered time is removed successfully
 
-# Alternate scenario one
-#Scenario: The developer changes the registered time on an activity the developer has registered
-#	Given 7- the user is a developer
-#	And 7- there is a project
-#	And 7- there is an activity
-#	And 7- another developer have registered time on that activity
-#	When 7- the developer changes the registered time on that activity
-#	Then 7- the registered time is changed successfully
+#Alternate scenario one
+Scenario: The developer changes the registered time on an activity the developer has registered
+	Given 7- the user "ludwig" is a developer 
+	And 7- there is a project with id "790123" created by Bob
+	And 7- there is an activity with Id 701 created by the project leader "Kenneth"
+	And 7- the developer have registered time on that activity
+	When 7- the developer changes start and end time of the session on that activity
+	Then 7- the registered time is changed successfully
 
 # Alternate scenario two
 #Scenario: The developer changes the registered time on an activity another developer has registered

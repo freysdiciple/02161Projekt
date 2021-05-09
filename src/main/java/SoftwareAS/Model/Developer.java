@@ -6,6 +6,7 @@ import java.util.List;
 
 import Exceptions.OperationNotAllowedException;
 import Exceptions.OverlappingSessionsException;
+import Exceptions.SessionNotFoundException;
 
 public class Developer {
 	
@@ -48,6 +49,22 @@ public class Developer {
 	
 	public List<Session> getRegisteredSessions(){
 		return registeredSessions;
+	}
+	
+	public Session getSessionById(String sessionId) throws SessionNotFoundException {
+		for (Session session: registeredSessions) {
+			if (sessionId.equals(session.getSessionID2())) return session;
+		}
+		throw new SessionNotFoundException("Session not found");
+	}
+	
+	public boolean containsSession(String sessionId) {
+		for (Session session: registeredSessions) {
+			if (sessionId.equals(session.getSessionID2())) return true;
+		}
+		
+		
+		return false;
 	}
 	
 	public void deleteSession(Session session) {
