@@ -101,7 +101,7 @@ public class ModifyRegisteredTimeStep {
 	
 	
 	@When("7- the developer changes start and end time of the session on that activity")
-	public void theDeveloperChangesStartAndEndTimeOfTheRegisteredTimeOnThatActivity() throws SessionNotFoundException {
+	public void theDeveloperChangesStartAndEndTimeOfTheRegisteredTimeOnThatActivity() throws SessionNotFoundException, OutOfBoundsException {
 		session.changeStartTime(newStartTime);
 		session.changeEndTime(newEndTime);
 		newCalendarStartTime = session.getStartTime();
