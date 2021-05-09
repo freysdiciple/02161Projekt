@@ -143,14 +143,11 @@ public class Activity {
 		//some reason corrupted while getting last monday
 		GregorianCalendar end = new GregorianCalendar();
 		
-		System.out.println("start day: " + start.get(GregorianCalendar.DAY_OF_MONTH));
-		System.out.println("end day: " + end.get(GregorianCalendar.DAY_OF_MONTH));
 		
 		for(Session session : registeredSessions) {
 			if(endedInInterval(session, start, end)) list.add(session);
 		}
 		
-		System.out.println(list.size());
 		
 		Session[] array = new Session[list.size()];
 		list.toArray(array);
