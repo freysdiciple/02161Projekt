@@ -121,7 +121,7 @@ public class SeeAvailableDevelopersSteps {
 		
 
 		
-	@Then("9- the system provides an error message that the start week and/or end week is invalid")
+	@Then("9- the system provides an error message that the start week and\\/or end week is invalid")
 	public void theSystemProvidesAnErrorMessageThatTheTimeInputIsInvalid() throws OutOfBoundsException {
 		assertEquals("The start week and end week has to be an integer between 1 and 52", errorMessageHolder.getErrorMessage());
 		
