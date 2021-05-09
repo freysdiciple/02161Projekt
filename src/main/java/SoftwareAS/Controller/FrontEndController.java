@@ -165,7 +165,7 @@ public class FrontEndController {
 			changeEndTime();
 		}
 		else {
-			GregorianCalendar newEnd=currentProject.stringToGregorianCalendar(info);
+			GregorianCalendar newEnd = InputHelper.stringToGregorianCalendar(info);
 			
 			currentSession.setEndTime(newEnd);
 			
@@ -192,7 +192,7 @@ public class FrontEndController {
 			changeStartTime();
 		}
 		else {
-			GregorianCalendar newStart=currentProject.stringToGregorianCalendar(info);
+			GregorianCalendar newStart = InputHelper.stringToGregorianCalendar(info);
 			
 			currentSession.setStartTime(newStart);
 			
@@ -255,110 +255,13 @@ public class FrontEndController {
 		input.nextLine();
 		String sessionInfo = input.nextLine();
 		
-		//Check if input is correct
-		if(sessionInfo.length() != 40 && sessionInfo.length() != 35 && sessionInfo.length() != 30) {registerSession(underActivity);}
-		
-		//Continue
-		String activityidString;
-		String startdateString;
-		String starttimeString;
-		String enddateString;
-		String endtimeString;
-		
-		//Get activity id if not under activity
-		if(!underActivity) {
-			activityidString = sessionInfo.substring(0,6);
-			sessionInfo = sessionInfo.substring(7, sessionInfo.length());
-		}
-		else activityidString = currentActivity.getId() + "";
-		
-		//Get dates and times with the ability to use 'today' as parameter
-		if(sessionInfo.substring(0,5).equals("today")) {
-			startdateString = "today";
-			starttimeString = sessionInfo.substring(6,11);
-			
-			if(sessionInfo.substring(12,17).equals("today")) {
-				enddateString = "today";
-				endtimeString = sessionInfo.substring(18,23);
-			}
-			else {
-				enddateString = sessionInfo.substring(12, 22);
-				endtimeString = sessionInfo.substring(23, 28);
-			}
-		}
-		else {
-			startdateString = sessionInfo.substring(0, 10);
-			starttimeString = sessionInfo.substring(11, 16);
-			
-			if(sessionInfo.substring(17,22).equals("today")) {
-				enddateString = "today";
-				endtimeString = sessionInfo.substring(23,28);
-			}
-			else {
-				enddateString = sessionInfo.substring(17, 27);
-				endtimeString = sessionInfo.substring(28, 33);
-			}
-		}
-		//Check if input is correnct
-		
-		
-		//Convert strings to numbers
-		int activityId = Integer.parseInt(activityidString);
-		
-		int startYear; int startMonth; int startDay;
-		
-		if(startdateString.equals("today")) {
-			GregorianCalendar today = new GregorianCalendar();
-			startYear = today.get(GregorianCalendar.YEAR);
-			startMonth = today.get(GregorianCalendar.MONTH);
-			startDay = today.get(GregorianCalendar.DAY_OF_MONTH);
-		}
-		else {			
-			startYear = Integer.parseInt(startdateString.substring(6,10));
-			startMonth = Integer.parseInt(startdateString.substring(3,5));
-			startDay = Integer.parseInt(startdateString.substring(0,2));
+		try {
+			Object[] properties = InputHelper.stringToSessionProperties(sessionInfo, currentUser, underActivity? currentActivity : null);
+			currentUser.registerSession((Activity) properties[2], (GregorianCalendar)properties[0], (GregorianCalendar)properties[1]);
+		}catch(Exception e) {
+			registerSession(underActivity);
 		}
 		
-		int startHour = Integer.parseInt(starttimeString.substring(0,2));
-		int startMin = Integer.parseInt(starttimeString.substring(3,5));
-		
-		int endYear; int endMonth; int endDay;
-		
-		if(enddateString.equals("today")) {
-			GregorianCalendar today = new GregorianCalendar();
-			endYear = today.get(GregorianCalendar.YEAR);
-			endMonth = today.get(GregorianCalendar.MONTH);
-			endDay = today.get(GregorianCalendar.DAY_OF_MONTH);
-		}
-		else {
-			endYear = Integer.parseInt(enddateString.substring(6,10));
-			endMonth = Integer.parseInt(enddateString.substring(3,5));
-			endDay = Integer.parseInt(enddateString.substring(0,2));			
-		}
-		
-		int endHour = Integer.parseInt(endtimeString.substring(0,2));
-		int endMin = Integer.parseInt(endtimeString.substring(3,5));
-		
-		
-		//Convert to dates and register session
-		GregorianCalendar start = new GregorianCalendar(startYear, startMonth, startDay, startHour, startMin);
-		GregorianCalendar end = new GregorianCalendar(endYear, endMonth, endDay, endHour, endMin);
-		
-		Activity activity = null;
-		List<Activity> userActivities = currentUser.getActivities();
-		
-		for(Activity act : userActivities) {
-			if(act.getId() == activityId) activity = act;
-		}
-		
-		if(activity == null) registerSession(underActivity);
-		else {
-			currentUser.registerSession(activity, start, end);
-			if(underActivity) {
-				activityMenu();
-			}
-			else mySessions();
-		}
 		
 	}
 	

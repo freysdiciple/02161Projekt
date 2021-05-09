@@ -57,7 +57,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- the second developer is part of the project")
-	public void theSecondDeveloperIsPartOfTheProject() throws OperationNotAllowedException, ProjectNotFoundException {
+	public void theSecondDeveloperIsPartOfTheProject() throws OperationNotAllowedException, ProjectNotFoundException, NotAuthorizedException {
 		project.assignDeveloperToProject(admin, developer2);
 		assertTrue(project.isDeveloperOnProject(developer2.getId()));
 	}

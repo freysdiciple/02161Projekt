@@ -148,31 +148,4 @@ public class Project {
 	return developers;
 	}
 	
-	public GregorianCalendar stringToGregorianCalendar(String time) throws OutOfBoundsException {
-		if(time.length() != 16) {
-			throw new OutOfBoundsException("String must be a length of 16");
-		}
-		String yearString = time.substring(6,10);
-		String monthString = time.substring(3,5);
-		String dayString = time.substring(0,2);
-		String hourString = time.substring(11,13);
-		String minString = time.substring(14,16);
-		
-		int year = Integer.parseInt(yearString);
-		int month = Integer.parseInt(monthString);
-		int day = Integer.parseInt(dayString);
-		int hour = Integer.parseInt(hourString);
-		int min = Integer.parseInt(minString);
-		
-		if(month<1 || month>12 || day<1 || day>31 || hour <0 || hour > 23 || min<0 || min > 59) {
-			throw new OutOfBoundsException("The time has to be compatible with GregorianCalendar");
-			
-		}
-		
-		GregorianCalendar newTime = new GregorianCalendar(year,month,day,hour,min);
-		
-		return newTime ;
-		
-	}
-	
 }

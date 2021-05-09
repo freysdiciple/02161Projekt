@@ -2,6 +2,7 @@ package SoftwareAS.Model;
 
 import java.util.GregorianCalendar;
 
+import Exceptions.OutOfBoundsException;
 import Exceptions.SessionNotFoundException;
 
 public class Session {
@@ -19,7 +20,6 @@ public class Session {
 		this.startTime = startTime;
 		this.endTime = endTime;		
 		setSessionId2();
-		
 	}
 	
 	public void setSessionId2() {
@@ -63,39 +63,16 @@ public class Session {
 		developer.deleteSession(this);
 	}
 	
-	public void changeEndTime(String info) {
-		String yearString = info.substring(6,10);
-		String monthString = info.substring(3,5);
-		String dayString = info.substring(0,2);
-		String hourString = info.substring(11,13);
-		String minString = info.substring(14,16);
-		
-		int year = Integer.parseInt(yearString);
-		int month = Integer.parseInt(monthString);
-		int day = Integer.parseInt(dayString);
-		int hour = Integer.parseInt(hourString);
-		int min = Integer.parseInt(minString);
-		
-		GregorianCalendar newEnd = new GregorianCalendar(year,month,day,hour,min);
+	public void changeEndTime(String info) throws OutOfBoundsException {
+		GregorianCalendar newEnd = InputHelper.stringToGregorianCalendar(info);
 		
 		setEndTime(newEnd);
 		setSessionId2();
 	}
 	
-	public void changeStartTime(String info) {
-		String yearString = info.substring(6,10);
-		String monthString = info.substring(3,5);
-		String dayString = info.substring(0,2);
-		String hourString = info.substring(11,13);
-		String minString = info.substring(14,16);
-		
-		int year = Integer.parseInt(yearString);
-		int month = Integer.parseInt(monthString);
-		int day = Integer.parseInt(dayString);
-		int hour = Integer.parseInt(hourString);
-		int min = Integer.parseInt(minString);
-		
-		GregorianCalendar newStart = new GregorianCalendar(year,month,day,hour,min);
+	public void changeStartTime(String info) throws OutOfBoundsException {
+	
+		GregorianCalendar newStart = InputHelper.stringToGregorianCalendar(info);
 		
 		setStartTime(newStart);
 		setSessionId2();
