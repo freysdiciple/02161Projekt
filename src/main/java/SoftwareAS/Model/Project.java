@@ -25,7 +25,7 @@ public class Project {
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
 	private List<ProjectSummary> summaries = new ArrayList<>();
-	private List<Developer> availableDevelopers;
+	private List<Developer> availableDevelopers = new ArrayList<>();
 
 	public Project(String projectName, Admin creator) {
 		this.projectName = projectName;
