@@ -22,7 +22,7 @@ public class AssignDeveloperToActivitySteps {
 	private Project project;
 	private Developer developer;
 	private Developer developer2;
-	private String adminID = "adminID";
+	private String adminID = "adID";
 	private int activityID;
 	private ErrorMessageHolder errorMessageHolder;
 	

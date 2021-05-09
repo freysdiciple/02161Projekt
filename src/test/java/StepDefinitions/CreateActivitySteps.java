@@ -12,7 +12,7 @@ public class CreateActivitySteps {
 	private Admin admin;
 	private Project project;
 	private Developer developer;
-	private String adminID = "adminID";
+	private String adminID = "adID";
 	private int activityID;
 	private ErrorMessageHolder errorMessageHolder;
 	
