@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
+import org.junit.jupiter.api.Test;
+
 import Exceptions.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
@@ -18,13 +20,7 @@ public class RegisterSessionWhiteBox {
 	GregorianCalendar start;
 	GregorianCalendar end;
 	
-	public void Test() throws OperationNotAllowedException, OverlappingSessionsException {
-		TestA();
-		TestB();
-		TestC();
-		TestD();
-	}
-	
+	@Test
 	public void PathA() throws OperationNotAllowedException, OverlappingSessionsException {
 		activity = new Activity();
 		GregorianCalendar start = new GregorianCalendar();
@@ -32,9 +28,18 @@ public class RegisterSessionWhiteBox {
 		start.add(GregorianCalendar.DAY_OF_YEAR, 2);
 		
 		developer = new Developer();
-		developer.registerSession(activity, start, end);
+		
+		try {
+			developer.registerSession(activity, start, end);
+			
+		}catch(OperationNotAllowedException e) {
+			emh.setErrorMessage(e.getMessage());
+		}
+		
+		assertEquals(emh.getErrorMessage(), "A session cannot end before it starts...");
 	}
 	
+	@Test
 	public void PathB() throws OperationNotAllowedException, OverlappingSessionsException {
 		activity = new Activity();
 		start = new GregorianCalendar();
@@ -49,9 +54,16 @@ public class RegisterSessionWhiteBox {
 		start2.add(GregorianCalendar.DAY_OF_YEAR, 1);
 		end2.add(GregorianCalendar.DAY_OF_YEAR, 1);
 		
-		developer.registerSession(activity, start2, end2);
+		try {
+			developer.registerSession(activity, start2, end2);
+		}catch(OverlappingSessionsException e) {
+			emh.setErrorMessage(e.getMessage());
+		}
+		
+		assertEquals(emh.getErrorMessage(),"Overlapping Sessions");
 	}
 	
+	@Test
 	public void PathC() throws OperationNotAllowedException, OverlappingSessionsException {
 		activity = null;
 		start = new GregorianCalendar();
@@ -60,8 +72,12 @@ public class RegisterSessionWhiteBox {
 		
 		developer = new Developer();
 		developer.registerSession(activity, start, end);
+		
+		assertEquals(developer.getRegisteredSessions().get(0).getStartTime(), start);
+		assertEquals(developer.getRegisteredSessions().get(0).getEndTime(), end);
 	}
 	
+	@Test
 	public void PathD() throws OperationNotAllowedException, OverlappingSessionsException {
 		activity = new Activity();
 		start = new GregorianCalendar();
@@ -70,46 +86,11 @@ public class RegisterSessionWhiteBox {
 		
 		developer = new Developer();
 		developer.registerSession(activity, start, end);
-	}
-	
-	public void TestA() throws OverlappingSessionsException {
-		try {
-			PathA();
-		}catch(OperationNotAllowedException e) {
-			emh.setErrorMessage(e.getMessage());
-		}
-		
-		assertEquals(emh.getErrorMessage(), "A session cannot end before it starts...");
-	}
-	
-	public void TestB() throws OperationNotAllowedException {
-		try {
-			PathB();
-		}catch(OverlappingSessionsException e) {
-			emh.setErrorMessage(e.getMessage());
-		}
-		
-		assertEquals(emh.getErrorMessage(), "Overlapping Sessions");
-	}
-	
-	public void TestC() throws OperationNotAllowedException, OverlappingSessionsException {
-		PathC();
-		
-		assertEquals(developer.getRegisteredSessions().get(0).getStartTime(), start);
-		assertEquals(developer.getRegisteredSessions().get(0).getEndTime(), end);
-	}
-	
-	public void TestD() throws OperationNotAllowedException, OverlappingSessionsException {
-		PathD();
 		
 		assertEquals(developer.getRegisteredSessions().get(0).getStartTime(), start);
 		assertEquals(developer.getRegisteredSessions().get(0).getEndTime(), end);
 		assertEquals(activity.getRegisteredSession().get(0).getStartTime(), start);
 		assertEquals(activity.getRegisteredSession().get(0).getEndTime(), end);
 	}
-	
-	
-	
-	
 	
 }
