@@ -80,6 +80,7 @@ public class SeeAvailableDevelopersSteps {
 	@Then("9- the system displays a list of available developers at the given time slot")
 	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException, OutOfBoundsException {
 		availableDevelopers = project.seeAvailableDevelopers(startTime, endTime, developer);
+		assertTrue(availableDevelopers.size()==3);
 		for (Developer developer : availableDevelopers) {
 			List<Activity> activities = developer.getActivities();
 			int k=0;
