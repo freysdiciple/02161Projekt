@@ -5,6 +5,7 @@ import java.util.List;
 
 import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
+import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 
@@ -60,7 +61,7 @@ public class DataBase {
 	public List<Admin> getAllAdmins(){
 		return admins;
 	}
-	public void createAdmin(String id) {
+	public void createAdmin(String id) throws OutOfBoundsException {
 		admins.add(new Admin(id, this));
 	}
 	public void deleteAdmin(String id) {
