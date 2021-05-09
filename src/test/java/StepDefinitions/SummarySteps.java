@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 public class SummarySteps {
 
 	private DataBase database;
-	private ErrorMessageHolder errorMessageHolder;
 
 	private ActivitySummary aSummary;
 	private ProjectSummary pSummary;
@@ -28,9 +27,8 @@ public class SummarySteps {
 	private int estimatedTime1 = 10;
 	private int estimatedTime2 = 10;
 
-	public SummarySteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+	public SummarySteps(SoftwareAS softwareAS) {
 		this.database = softwareAS.getDataBase();
-		this.errorMessageHolder = errorMessageHolder;
 	}
 
 	@Given("6 - the user is a project leader1")

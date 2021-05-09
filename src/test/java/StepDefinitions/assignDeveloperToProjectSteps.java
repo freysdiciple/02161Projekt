@@ -3,17 +3,20 @@ package StepDefinitions;
 import static org.junit.Assert.*;
 
 import Exceptions.*;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
-import SoftwareAS.Controller.ErrorMessageHolder;
-import SoftwareAS.Controller.SoftwareAS;
+import SoftwareAS.Controller.*;
 import SoftwareAS.Model.*;
 
 public class assignDeveloperToProjectSteps {
 
 
-    private DataBase database = DataBase.getInstance();
-    private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+    private DataBase database;
+    private ErrorMessageHolder errorMessageHolder;
+    
+    public assignDeveloperToProjectSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+    	this.database = softwareAS.getDataBase();
+    	this.errorMessageHolder = errorMessageHolder;
+    }
 
     @Given ("2- the user {string} is an admin")
     public void theUserIsAnAdmin(String adminName) throws Throwable{

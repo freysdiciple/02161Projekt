@@ -2,11 +2,7 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import Exceptions.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
@@ -30,13 +26,11 @@ public class ModifyRegisteredTimeStep {
 	private String newEndTime = "27/08/2021 17-00";
 	private GregorianCalendar newCalendarStartTime;
 	private GregorianCalendar newCalendarEndTime;
-	private DataBase database = DataBase.getInstance();
-	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	private DataBase database;
 
 	
 	public ModifyRegisteredTimeStep(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
-		this.errorMessageHolder = errorMessageHolder;
 	}
 	
 	
@@ -119,14 +113,14 @@ public class ModifyRegisteredTimeStep {
 	@Then("7- the registered time is changed successfully")
 	public void theRegisteredTimeIsChangedSuccessfully() {
 		
-		assertEquals(2021, newCalendarStartTime.get(newCalendarStartTime.YEAR));
-		assertEquals(7, newCalendarStartTime.get(newCalendarStartTime.MONTH));
-		assertEquals(24, newCalendarStartTime.get(newCalendarStartTime.DATE));
-		assertEquals(17, newCalendarStartTime.get(newCalendarStartTime.HOUR_OF_DAY));
-		assertEquals(2021, newCalendarEndTime.get(newCalendarEndTime.YEAR));
-		assertEquals(8, newCalendarEndTime.get(newCalendarEndTime.MONTH));
-		assertEquals(27, newCalendarEndTime.get(newCalendarEndTime.DATE));
-		assertEquals(17, newCalendarEndTime.get(newCalendarEndTime.HOUR_OF_DAY));
+		assertEquals(2021, newCalendarStartTime.get(GregorianCalendar.YEAR));
+		assertEquals(7, newCalendarStartTime.get(GregorianCalendar.MONTH));
+		assertEquals(24, newCalendarStartTime.get(GregorianCalendar.DATE));
+		assertEquals(17, newCalendarStartTime.get(GregorianCalendar.HOUR_OF_DAY));
+		assertEquals(2021, newCalendarEndTime.get(GregorianCalendar.YEAR));
+		assertEquals(8, newCalendarEndTime.get(GregorianCalendar.MONTH));
+		assertEquals(27, newCalendarEndTime.get(GregorianCalendar.DATE));
+		assertEquals(17, newCalendarEndTime.get(GregorianCalendar.HOUR_OF_DAY));
 	}
 	
 }

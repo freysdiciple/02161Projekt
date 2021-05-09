@@ -1,9 +1,6 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import Exceptions.AdminNotFoundException;
 import Exceptions.DeveloperNotFoundException;
@@ -35,8 +32,6 @@ public class ProjectLeaderSteps {
 		this.database = softwareAS.getDataBase();
 		this.errorMessageHolder = errorMessageHolder;
 	}
-	
-	
 	
 //	Scenario: Assign the role project leader to a developer on an existing project successfully 
 	
