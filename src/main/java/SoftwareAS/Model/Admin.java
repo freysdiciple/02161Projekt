@@ -23,15 +23,16 @@ public class Admin extends Developer {
 
 	public void createProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException, NumberFormatException {
-		if (database.containsProject(projectName)) // 1
+		if (database.containsProject(projectName)) {       // 1
 			throw new ProjectAlreadyExistsException("Project Already Exists");
-		if (!isAdmin()) {
-			throw new NotAuthorizedException("Only admins can create new projects");	
 		}
-		if (projectName.length()>32 || projectName.length()<4 ) {
+		if (!isAdmin()) {        //2
+			throw new NotAuthorizedException("Only admins can create new projects");
+		}
+		if (projectName.length() > 32 || projectName.length() < 4) {     //3
 			throw new OutOfBoundsException("Project name has to consist of 4-32 characters");
 		}
-		
+
 		Project newProject = new Project(projectName, this);
 		projects.add(newProject);
 		database.createProject(newProject);
