@@ -11,6 +11,7 @@ import SoftwareAS.Model.*;
 
 
 public class SetStartEndTimeSteps {
+	/*
 
 
     private String developerAndleaderName = "Konrad";
@@ -125,7 +126,7 @@ public class SetStartEndTimeSteps {
         throw new PendingException();
     }
 
-
+*/
 
 
 }
