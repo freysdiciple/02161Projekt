@@ -28,7 +28,7 @@ public class Admin extends Developer {
 		if (!isAdmin()) {
 			throw new NotAuthorizedException("Only admins can create new projects");	
 		}
-		if (projectName.length()>32) {
+		if (projectName.length()>32 || projectName.length()<4 ) {
 			throw new OutOfBoundsException("Project name has to consist of 4-32 characters");
 		}
 		
