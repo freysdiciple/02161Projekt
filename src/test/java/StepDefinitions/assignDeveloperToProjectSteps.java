@@ -34,14 +34,14 @@ public class assignDeveloperToProjectSteps {
     public void theUserAddsTheDeveloperToTheProject(String adminName, String developerName, String projectName) throws Throwable{
 
         database.getAdminById(adminName).createDeveloper(developerName);
-        database.getProjectById(projectName).assignDeveloperToProject(database.getAdminById(adminName), database.getDeveloperById(developerName));
+        database.getProjectByName(projectName).assignDeveloperToProject(database.getAdminById(adminName), database.getDeveloperById(developerName));
 
     }
 
     @Then("2- the developer {string} is added to the list of developers on the project {string}")
     public void theDeveloperIsAddedToTheListOfDevelopersOnTheProject(String developerName, String projectName) throws Throwable{
 
-        assertTrue(database.getProjectById(projectName).isDeveloperOnProject(developerName));
+        assertTrue(database.getProjectByName(projectName).isDeveloperOnProject(developerName));
     }
 
 
