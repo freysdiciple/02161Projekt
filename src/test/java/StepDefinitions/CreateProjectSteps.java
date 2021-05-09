@@ -16,7 +16,7 @@ import SoftwareAS.Model.*;
 
 
 public class CreateProjectSteps {
-	private Admin admin = new Admin();
+	private Admin admin;
 	private DataBase database;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
@@ -37,6 +37,7 @@ public class CreateProjectSteps {
 	@Given("5- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws DeveloperNotFoundException, NotAuthorizedException, OperationNotAllowedException, AdminNotFoundException {
 		database.createAdmin(userName);
+		admin=database.getAdminById(userName);
 		admin.createDeveloper(userName);
 		assertTrue(database.containsDeveloper(userName));
 	}
