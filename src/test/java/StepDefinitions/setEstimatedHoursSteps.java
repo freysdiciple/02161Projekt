@@ -14,11 +14,16 @@ public class setEstimatedHoursSteps {
 	private Developer developer;
 	private Admin admin;
 	private String adminName = "Mogens";
-	private DataBase database = DataBase.getInstance();
+	private DataBase database;
 	private Project project;
 	private Activity activity;
 	private int time;
-	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	private ErrorMessageHolder errorMessageHolder;
+	
+	public setEstimatedHoursSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
 
 //	Scenario: Successfully set estimated work hours
 //		Given there is an user with ID "Søren"

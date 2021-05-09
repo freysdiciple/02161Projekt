@@ -18,11 +18,15 @@ public class SetStartEndTimeSteps {
     private String projectID = "210001";
     private int activityID = 102;
 
-    private DataBase database = DataBase.getInstance();
+    private DataBase database;
     private Admin admin = new Admin("mogens",database);
     private Developer developerAndLeader;
     private Developer justDeveloper;
-    Project project;
+    private Project project;
+    
+    public SetStartEndTimeSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+	}
 
     @Given ("11- there is a project")
     public void thereIsAProject() throws Throwable {

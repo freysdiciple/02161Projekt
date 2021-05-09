@@ -60,10 +60,6 @@ public class InputHelper {
 		
 		//Continue
 		int activityid;
-		String startdateString;
-		String starttimeString;
-		String enddateString;
-		String endtimeString;
 				
 		//Get activity id if not under activity
 		if(activity == null) {

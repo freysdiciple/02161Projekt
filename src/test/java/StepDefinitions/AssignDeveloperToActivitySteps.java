@@ -13,17 +13,23 @@ import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
 public class AssignDeveloperToActivitySteps {
-	private DataBase database = DataBase.getInstance();
+	private DataBase database;
 	private Admin admin;
 	private Project project;
 	private Developer developer;
 	private Developer developer2;
 	private String adminID = "adminID";
 	private int activityID;
-	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	private ErrorMessageHolder errorMessageHolder;
+	
+	public AssignDeveloperToActivitySteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+    	this.database = softwareAS.getDataBase();
+    	this.errorMessageHolder = errorMessageHolder;
+    }
 
 	//Scenario: Successfully assign developer to activity
 	@Given("1- there is a project with project name {string}")

@@ -3,7 +3,6 @@ package SoftwareAS.Model;
 import java.util.GregorianCalendar;
 
 import Exceptions.OutOfBoundsException;
-import Exceptions.SessionNotFoundException;
 
 public class Session {
 	
@@ -23,10 +22,10 @@ public class Session {
 	}
 	
 	public void setSessionId2() {
-		sessionId2 = "" + developer.getId() + activity.getId() + startTime.get(startTime.YEAR) + startTime.get(startTime.MONTH) + 
-				startTime.get(startTime.DATE) + startTime.get(startTime.HOUR_OF_DAY) + startTime.get(startTime.MINUTE) + 
-				endTime.get(endTime.YEAR) + endTime.get(endTime.MONTH) + endTime.get(endTime.DATE) + endTime.get(endTime.HOUR_OF_DAY) +
-				endTime.get(endTime.MINUTE);
+		sessionId2 = "" + developer.getId() + activity.getId() + startTime.get(GregorianCalendar.YEAR) + startTime.get(GregorianCalendar.MONTH) + 
+				startTime.get(GregorianCalendar.DATE) + startTime.get(GregorianCalendar.HOUR_OF_DAY) + startTime.get(GregorianCalendar.MINUTE) + 
+				endTime.get(GregorianCalendar.YEAR) + endTime.get(GregorianCalendar.MONTH) + endTime.get(GregorianCalendar.DATE) + endTime.get(GregorianCalendar.HOUR_OF_DAY) +
+				endTime.get(GregorianCalendar.MINUTE);
 		
 	}
 	

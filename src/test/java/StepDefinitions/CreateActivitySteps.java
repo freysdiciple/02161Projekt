@@ -2,28 +2,25 @@ package StepDefinitions;
 
 import static org.junit.Assert.*;
 
-import Exceptions.ActivityAlreadyExistsException;
-import Exceptions.ActivityNotFoundException;
-import Exceptions.AdminNotFoundException;
-import Exceptions.DeveloperNotFoundException;
-import Exceptions.NotAuthorizedException;
-import Exceptions.OperationNotAllowedException;
-import Exceptions.OutOfBoundsException;
-import Exceptions.ProjectAlreadyExistsException;
-import Exceptions.ProjectNotFoundException;
+import Exceptions.*;
 import io.cucumber.java.en.*;
-import SoftwareAS.Controller.ErrorMessageHolder;
+import SoftwareAS.Controller.*;
 import SoftwareAS.Model.*;
 
 public class CreateActivitySteps {
-	private DataBase database = DataBase.getInstance();
+	private DataBase database;
 	private Admin admin;
 	private Project project;
 	private Developer developer;
 	private String adminID = "adminID";
 	private int activityID;
-	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
-
+	private ErrorMessageHolder errorMessageHolder;
+	
+	public CreateActivitySteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
+	
 	//Scenario: Successfully create activity
 	@Given("4- there is a project with project name {string}")
 	public void thereIsAProject(String projectName) throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
