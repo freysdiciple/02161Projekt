@@ -4,9 +4,9 @@ Feature: Assign developer to project
 
 # Main scenario
 Scenario: Add developer to project
-	Given 2- the user "Jan" is an admin
+	Given 2- the user "John" is an admin
 	And 2- there is a project named "210005"
-	When 2- the user "Jan" adds the developer "Hans" to the project "210005"
+	When 2- the user "John" adds the developer "Hans" to the project "210005"
   	Then 2- the developer "Hans" is added to the list of developers on the project "210005"
 
 # Alternate scenario one
@@ -17,9 +17,9 @@ Scenario: The developer doesn't exist
 
 # Alternate scenario two
 Scenario: The project doesn't exist
-	Given 2- the user "Jan" is an admin
+	Given 2- the user "John" is an admin
   	And 2- the project "210005" doesn’t exist
-	When 2- the user "Jan" adds the developer "Laurits" to the project "210005"
+	When 2- the user "John" adds the developer "Laur" to the project "210005"
     Then 2- the system provides an error message that the project doesn't exist
 
 # Alternate scenario three

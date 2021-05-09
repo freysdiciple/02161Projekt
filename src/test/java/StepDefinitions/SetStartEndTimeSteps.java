@@ -13,13 +13,13 @@ import SoftwareAS.Model.*;
 public class SetStartEndTimeSteps {
 
 
-    private String developerAndleaderName = "Konrad";
-    private String justDeveloperName = "Christian";
+    private String developerAndleaderName = "KONR";
+    private String justDeveloperName = "CHRI";
     private String projectID = "210001";
     private int activityID = 102;
 
     private DataBase database;
-    private Admin admin = new Admin("mogens",database);
+    private Admin admin = new Admin("MOG1",database);
     private Developer developerAndLeader;
     private Developer justDeveloper;
     private Project project;

@@ -28,8 +28,8 @@ public class assignDeveloperToProjectSteps {
     @Given("2- there is a project named {string}")
     public void thereIsAProject(String projectName) throws Throwable{
 
-        database.createAdmin("thisAdmin");
-        database.getAdminById("thisAdmin").createProject(projectName);
+        database.createAdmin("ADM1");
+        database.getAdminById("ADM1").createProject(projectName);
         assertTrue(database.containsProject(projectName));
 
     }
@@ -40,8 +40,8 @@ public class assignDeveloperToProjectSteps {
             database.getAdminById(adminName).createDeveloper(developerName);
         }
         catch (AdminNotFoundException e) {
-            database.createAdmin("thisAdmin");
-            database.getAdminById("thisAdmin").createDeveloper(developerName);
+            database.createAdmin("ADM1");
+            database.getAdminById("ADM1").createDeveloper(developerName);
         }
 
         try {

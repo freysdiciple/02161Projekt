@@ -7,14 +7,11 @@ import Exceptions.*;
 
 public class Admin extends Developer {
 
-	private DataBase database;
-
 	private List<Project> projects = new ArrayList<>();
 
 	public Admin(String id, DataBase database) throws OutOfBoundsException {
 		super(id, database);
 		setAdminState(true);
-		this.database = database;
 	}
 
 	public Admin() {
