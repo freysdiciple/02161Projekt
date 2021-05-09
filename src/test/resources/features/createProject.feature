@@ -27,7 +27,7 @@ Scenario: User is not an admin
 
 #Alternate scenario three
 Scenario: Invalid project name length
-	Given 5- there is an user with ID "Søren
+	Given 5- there is an user with ID "Søren"
 	And 5- the user is an admin
 	When 5- the user tries to create a project with a project name "xxx" with invalid length
 	Then 5- the system throws OutOfBoundsException
