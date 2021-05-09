@@ -15,6 +15,7 @@ public class assignDeveloperToProjectSteps {
     private DataBase database = DataBase.getInstance();
     private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
+
     @Given ("2- the user {string} is an admin")
     public void theUserIsAnAdmin(String adminName) throws Throwable{
 
@@ -25,8 +26,8 @@ public class assignDeveloperToProjectSteps {
     @Given("2- there is a project named {string}")
     public void thereIsAProject(String projectName) throws Throwable{
 
-        database.createAdmin("thisAdmin");
-        database.getAdminById("thisAdmin").createProject(projectName);
+        database.createAdmin("alwaysAdmin");
+        database.getAdminById("alwaysAdmin").createProject(projectName);
         assertTrue(database.containsProject(projectName));
 
     }
