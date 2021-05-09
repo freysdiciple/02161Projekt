@@ -131,7 +131,7 @@ public class SeeAvailableDevelopersSteps {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 	}
-	@Then("9- the system provides an error message that the length of the input time is invalid")
+	@Then("9- the system provides an error message that the format of the input time is invalid")
 	public void theSystemProvidesAnErrorMessageThatTheTimeFormatIsInvalid() throws OutOfBoundsException {
 		assertEquals("The time has to be compatible with GregorianCalendar", errorMessageHolder.getErrorMessage());
 		
