@@ -37,14 +37,14 @@ public class SessionSteps {
 	}
 
 	@Given("8 - there is a developer")
-	public void there_is_a_developer() {
-	    developer = new Developer();
+	public void there_is_a_developer() throws OutOfBoundsException {
+	    developer = new Developer("DEVE",database);
 
 	}
 
 	@Given("8 - there is an activity1")
-	public void there_is_an_activity1() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
-		admin = new Admin("admin", database);
+	public void there_is_an_activity1() throws ProjectAlreadyExistsException, ProjectNotFoundException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		admin = new Admin("ADM1", database);
 		admin.createProject("project1");
 		project = database.getProjectByName("project1");
 		project.assignDeveloperToProject(admin, developer);
@@ -54,7 +54,7 @@ public class SessionSteps {
 
 	@Given("8 - there is an activity2")
 	public void there_is_an_activity2() throws ProjectAlreadyExistsException, ProjectNotFoundException, OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
-		admin = new Admin("admin", database);
+		admin = new Admin("ADM1", database);
 		admin.createProject("project2");
 		project = database.getProjectByName("project2");
 		project.assignDeveloperToProject(admin, developer);
@@ -87,8 +87,6 @@ public class SessionSteps {
 		Session sessionInDeveloper = developer.getRegisteredSessions().get(0);
 	    assertTrue(sessionInDeveloper.getStartTime() == start && sessionInDeveloper.getEndTime() == end);
 	}
-
-
 
 	@When("8 - the developer registers another overlapping session")
 	public void the_developer_registers_another_overlapping_session() throws OperationNotAllowedException {
