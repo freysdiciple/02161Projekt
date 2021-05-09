@@ -121,8 +121,8 @@ public class setEstimatedHoursSteps {
 
 	@Given("10- the user {string} is not a project leader")
 	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, OutOfBoundsException {
-		admin.createDeveloper("tempProjectLeader");
-		projectLeader = database.getDeveloperById("tempProjectLeader");
+		admin.createDeveloper("temp");
+		projectLeader = database.getDeveloperById("temp");
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		
