@@ -36,20 +36,25 @@ public class ProjectLeaderSteps {
 //	Scenario: Assign the role project leader to a developer on an existing project successfully 
 	
 	@Given("3- the user {string} is an admin")
-	public void theUserIsAnAdmin(String adminName) {
-		admin = new Admin(adminName, database);
+	public void theUserIsAnAdmin(String adminName) throws AdminNotFoundException, OutOfBoundsException {
+		database.createAdmin(adminName);
+		admin = database.getAdminById(adminName);
+		assertTrue(database.containsAdmin(adminName));
 	}
 	
 	@Given("3- there is a project with ID {string}")
 	public void thereIsAProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectName);
 		project = database.getProjectByName(projectName);
+		assertTrue(database.containsProject(projectName));
 	}
 	
 	@Given("3- the admin assigns the developer {string} to the project")
-	public void thereIsADeveloperListedOnTheProject(String developerName) throws OperationNotAllowedException, ProjectNotFoundException, DeveloperNotFoundException, NotAuthorizedException {
-		developer = new Developer(developerName, database);
+	public void thereIsADeveloperListedOnTheProject(String developerName) throws OperationNotAllowedException, ProjectNotFoundException, DeveloperNotFoundException, NotAuthorizedException, OutOfBoundsException {
+		admin.createDeveloper(developerName);
+		developer = database.getDeveloperById(developerName);
 		project.assignDeveloperToProject(admin, developer);
+		assertTrue(project.isDeveloperOnProject(developerName));
 	}
 	
 	@Given("3- the developer does not have the role project leader")
@@ -76,8 +81,9 @@ public class ProjectLeaderSteps {
 //	# Alternate scenario one
 
 	@Given("3- a developer {string} who is not listed under the project")
-	public void developerKnutWhoIsNotListedUnderProject(String developerName) throws ProjectNotFoundException {
-		developer = new Developer(developerName, database);
+	public void developerKnutWhoIsNotListedUnderProject(String developerName) throws ProjectNotFoundException, DeveloperNotFoundException, OutOfBoundsException {
+		admin.createDeveloper(developerName);
+		developer = database.getDeveloperById(developerName);
 		assertFalse(project.isDeveloperOnProject(developer.getId()));
 	}
 	
@@ -90,7 +96,7 @@ public class ProjectLeaderSteps {
 //	# Alternate scenario two
 
 	@Given("3- the user {string} is not an admin")
-	public void theUserIsNotAnAdmin(String userName) throws AdminNotFoundException {
+	public void theUserIsNotAnAdmin(String userName) throws AdminNotFoundException, OutOfBoundsException {
 		database.createAdmin(userName);
 		user = database.getAdminById(userName);
 		user.setAdminState(false);
@@ -106,7 +112,7 @@ public class ProjectLeaderSteps {
 	}
 	
 	@When("3- the user assigns the role project leader to a developer {string} already on the project")
-	public void theUserAssignsProjectLeaderToADeveloperAlreadyOnTheProject(String developerName) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException {
+	public void theUserAssignsProjectLeaderToADeveloperAlreadyOnTheProject(String developerName) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, OutOfBoundsException {
 		admin.createDeveloper(developerName);
 		developer = database.getDeveloperById(developerName);
 		project.assignDeveloperToProject(admin, developer);

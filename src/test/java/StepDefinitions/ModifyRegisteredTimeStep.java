@@ -44,7 +44,7 @@ public class ModifyRegisteredTimeStep {
 //	#	Then the registered time is removed successfully
 
 	@Given("7- the user {string} is a developer")
-	public void theUserIsADeveloper(String developerName) throws DeveloperNotFoundException, AdminNotFoundException {
+	public void theUserIsADeveloper(String developerName) throws DeveloperNotFoundException, AdminNotFoundException, OutOfBoundsException {
 		database.createAdmin("Bob");
 		admin = database.getAdminById("Bob");
 		admin.createDeveloper(developerName);
@@ -61,7 +61,7 @@ public class ModifyRegisteredTimeStep {
 	}
 
 	@Given("7- there is an activity with Id {int} created by the project leader {string}")
-	public void thereIsAnActivityWithIdCreatedByProjectLeader(int activityID, String projectLeaderName) throws DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException {
+	public void thereIsAnActivityWithIdCreatedByProjectLeader(int activityID, String projectLeaderName) throws DeveloperNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, OutOfBoundsException {
 		admin.createDeveloper(projectLeaderName);
 		projectLeader = database.getDeveloperById(projectLeaderName);
 		project.assignDeveloperToProject(admin, projectLeader);
