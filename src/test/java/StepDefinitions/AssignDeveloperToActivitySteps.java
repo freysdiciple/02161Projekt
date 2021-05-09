@@ -167,7 +167,7 @@ public class AssignDeveloperToActivitySteps {
 
 	@Then("1- an OperationNotAllowedException is thrown")
 	public void anOperationNotAllowedExceptionIsThrown() {
-		assertEquals("Only project leaders can assign to activity", errorMessageHolder.getErrorMessage());
+		assertEquals("Only a project leader or admin can assign developer to activity", errorMessageHolder.getErrorMessage());
 	}
 
 	@Then("1- the second developer is not listed under the activity")
