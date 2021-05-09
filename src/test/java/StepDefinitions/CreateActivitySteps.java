@@ -33,7 +33,7 @@ public class CreateActivitySteps {
 	}
 
 	@Given("4- there is a user with ID {string} and database")
-	public void thereIsAUserWithIDAndDataBase(String developerID) throws DeveloperNotFoundException, OutOfBoundsException {
+	public void thereIsAUserWithIDAndDataBase(String developerID) throws DeveloperNotFoundException {
 		admin.createDeveloper(developerID);
 		developer = database.getDeveloperById(developerID);
 		assertTrue(database.containsDeveloper(developerID));
@@ -89,7 +89,7 @@ public class CreateActivitySteps {
 
 	//Scenario: Developer trying to create activity
 	@Given("4- the user is not a project leader")
-	public void theUserIsNotAProjectLeader() throws DeveloperNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void theUserIsNotAProjectLeader() throws DeveloperNotFoundException, NotAuthorizedException {
 		String developer2ID = "developer2ID";
 		admin.createDeveloper(developer2ID);
 		Developer developer2 = database.getDeveloperById(developer2ID);

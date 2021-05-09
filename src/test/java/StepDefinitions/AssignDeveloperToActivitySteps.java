@@ -42,7 +42,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- there is a user with ID {string} and database")
-	public void thereIsAUserWithIDAndDataBase(String developerID) throws DeveloperNotFoundException, OutOfBoundsException {
+	public void thereIsAUserWithIDAndDataBase(String developerID) throws DeveloperNotFoundException {
 		admin.createDeveloper(developerID);
 		developer = database.getDeveloperById(developerID);
 		assertTrue(database.containsDeveloper(developerID));
@@ -56,7 +56,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- there is a second developer with ID {string} and database")
-	public void thereIsASecondDeveloperWithIDAndDatabase(String developer2ID) throws DeveloperNotFoundException, OutOfBoundsException {
+	public void thereIsASecondDeveloperWithIDAndDatabase(String developer2ID) throws DeveloperNotFoundException {
 		admin.createDeveloper(developer2ID);
 		developer2 = database.getDeveloperById(developer2ID);
 		assertTrue(database.containsDeveloper(developer2ID));
@@ -69,7 +69,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- there is an activity with ID {int}")
-	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException, OutOfBoundsException {
+	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException  {
 		this.activityID = activityID;
 		if (project.isProjectLeader(developer)) {
 			project.createActivity(activityID, developer);
