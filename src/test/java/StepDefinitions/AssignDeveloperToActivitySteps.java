@@ -27,7 +27,7 @@ public class AssignDeveloperToActivitySteps {
 
 	//Scenario: Successfully assign developer to activity
 	@Given("1- there is a project with project ID {string}")
-	public void thereIsAProject(String projectID) throws ProjectAlreadyExistsException, ProjectNotFoundException, AdminNotFoundException, NotAuthorizedException, OutOfBoundsException {
+	public void thereIsAProject(String projectID) throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, OutOfBoundsException {
 		database.createAdmin(adminID);
 		admin = database.getAdminById(adminID);
 		admin.createProject(projectID);
@@ -43,7 +43,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- the user is a project leader")
-	public void theUserIsAProjectLeader() throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException {
+	public void theUserIsAProjectLeader() throws NotAuthorizedException, DeveloperNotFoundException  {
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
 		assertTrue(project.isProjectLeader(developer));
@@ -63,7 +63,7 @@ public class AssignDeveloperToActivitySteps {
 	}
 
 	@Given("1- there is an activity with ID {int}")
-	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException, OperationNotAllowedException, ProjectNotFoundException {
+	public void thereIsAnActivity(int activityID) throws NotAuthorizedException, ActivityAlreadyExistsException, DeveloperNotFoundException  {
 		this.activityID = activityID;
 		if (project.isProjectLeader(developer)) {
 			project.createActivity(activityID, developer);
@@ -71,7 +71,6 @@ public class AssignDeveloperToActivitySteps {
 			String developer3ID = "developer3ID";
 			admin.createDeveloper(developer3ID);
 			Developer developer3 = database.getDeveloperById(developer3ID);
-			//Developer developer3 = new Developer("developer3ID", database);
 			project.assignDeveloperToProject(admin, developer3);
 			project.setProjectLeader(admin, developer3);
 			project.createActivity(activityID, developer3);
