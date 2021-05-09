@@ -33,9 +33,23 @@ public class assignDeveloperToProjectSteps {
 
     @When("2- the user {string} adds the developer {string} to the project {string}")
     public void theUserAddsTheDeveloperToTheProject(String adminName, String developerName, String projectName) throws Throwable{
+        try {
+            database.getAdminById(adminName).createDeveloper(developerName);
+        }
+        catch (AdminNotFoundException e) {
+            database.createAdmin("thisAdmin");
+            database.getAdminById("thisAdmin").createDeveloper(developerName);
+        }
 
-        database.getAdminById(adminName).createDeveloper(developerName);
-        database.getProjectById(projectName).assignDeveloperToProject(database.getAdminById(adminName), database.getDeveloperById(developerName));
+        try {
+            database.getProjectById(projectName).assignDeveloperToProject(database.getAdminById(adminName), database.getDeveloperById(developerName));
+        }
+        catch (AdminNotFoundException e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+        catch (ProjectNotFoundException e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
 
     }
 
@@ -61,9 +75,40 @@ public class assignDeveloperToProjectSteps {
     public void developerDoesntExist() throws Throwable {
 
         assertEquals("No developer with described ID",errorMessageHolder.getErrorMessage());
+    }
 
+
+    @Given("2- the project {string} doesn’t exist")
+    public void theProjectDoesntExist(String projectName) throws Throwable {
+
+        if (database.containsProject(projectName)){
+            database.deleteProject(projectName);
+        }
 
     }
+
+    @Then("2- the system provides an error message that the project doesn't exist")
+    public void theProjectDoesntExist() throws Throwable {
+
+        assertEquals("No project with described ID",errorMessageHolder.getErrorMessage());
+    }
+
+
+    @Given("2- the user {string} is not admin")
+    public void theUserIsNotAdmin(String nonAdminName) throws Throwable{
+
+        database.deleteAdmin(nonAdminName);
+    }
+
+    @Then("2- the system provides an error message InvalidUserException")
+    public void notAdminAdminError() throws Throwable{
+
+        assertEquals("No admin with described ID",errorMessageHolder.getErrorMessage());
+    }
+
+
+
+
 
 
 }
