@@ -43,7 +43,7 @@ public class SeeAvailableDevelopersSteps {
 		assertTrue(database.containsDeveloper(userName));
 	}
 
-	@Given("9- there is a project with ID {int}")
+	@Given("9- there is a project with name {string}")
 	public void thereIsAProject(String projectname) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException {
 		admin.createProject(projectname);
@@ -94,7 +94,7 @@ public class SeeAvailableDevelopersSteps {
 	//	Then 9- the system provides an error message that the start week and/or end week is invalid
 	
 	@When("9- the user provides invalid input of the start week {int} and end week {int} of the activity where he needs developers")
-	public void theUserProvidesTooLongTimeInput(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
+	public void theUserProvidesInvalidTimeInput(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
 		try {
 			project.seeAvailableDevelopers(start, end, developer);
 		}
@@ -106,7 +106,7 @@ public class SeeAvailableDevelopersSteps {
 
 		
 	@Then("9- the system provides an error message that the start week and/or end week is invalid")
-	public void theSystemProvidesAnErrorMessageThatTheTimeLengthIsInvalid() throws OutOfBoundsException {
+	public void theSystemProvidesAnErrorMessageThatTheTimeInputIsInvalid() throws OutOfBoundsException {
 		assertEquals("The start week and end week has to be an integer between 1 and 52", errorMessageHolder.getErrorMessage());
 		
 	}
