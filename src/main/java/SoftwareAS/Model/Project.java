@@ -158,8 +158,8 @@ public class Project {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 		}
 
-		if (startWeek > 52 || endWeek > 52) {
-			throw new OutOfBoundsException("The start week and end week has to be an integer under 52");
+		if (startWeek > 52 || endWeek > 52 || startWeek<1 || endWeek<1) {
+			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
 		}
 
 
