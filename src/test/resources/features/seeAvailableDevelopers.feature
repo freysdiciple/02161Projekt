@@ -12,7 +12,7 @@ Feature: See available developers
 
 
 
-}# Alternate scenario one
+# Alternate scenario one
 Scenario: Given time not valid length
 	Given 9- there is an user with ID "Søren"
 	And 9- there is a project with ID "211234"
