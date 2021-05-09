@@ -7,7 +7,7 @@ Feature: See available developers
 	Given 9- there is an user with ID "SØR1"
 	And 9- there is a project with name "211234"
 	And 9- the user is a Project leader
-	When 9- the user provides information of the start time 32 and end time 40 of the activity where he needs developers
+	When 9- the user provides information of the start week 32 and end week 40 of the activity where he needs developers
 	Then 9- the system displays a list of available developers at the given time slot
 
 
@@ -18,5 +18,5 @@ Scenario: Given time not valid length
 	And 9- there is a project with name "214321"
 	And 9- the user is a Project leader
 	When 9- the user provides invalid input of the start week -32 and end week 400 of the activity where he needs developer
-  	Then 9- the system provides an error message that the length of the input time is invalid
+  	Then 9- the system provides an error message that the start week and/or end week is invalid
   	
