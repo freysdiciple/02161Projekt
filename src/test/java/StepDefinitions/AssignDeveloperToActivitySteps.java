@@ -74,7 +74,7 @@ public class AssignDeveloperToActivitySteps {
 		if (project.isProjectLeader(developer)) {
 			project.createActivity(activityID, developer);
 		} else {
-			String developer3ID = "developer3ID";
+			String developer3ID = "d3ID";
 			admin.createDeveloper(developer3ID);
 			Developer developer3 = database.getDeveloperById(developer3ID);
 			project.assignDeveloperToProject(admin, developer3);
