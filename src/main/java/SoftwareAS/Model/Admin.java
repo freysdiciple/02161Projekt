@@ -23,10 +23,10 @@ public class Admin extends Developer {
 
 	public void createProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException, NumberFormatException {
-		if (!isAdmin()) {        //2
+		if (!isAdmin()) {        //1
 			throw new NotAuthorizedException("Only admins can create new projects");
 		}
-		if (database.containsProject(projectName)) {       // 3
+		if (database.containsProject(projectName)) {       // 2
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		}
 		if (projectName.length() > 32 || projectName.length() < 4) {     //3
