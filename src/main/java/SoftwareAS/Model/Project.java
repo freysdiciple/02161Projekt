@@ -1,6 +1,9 @@
 package SoftwareAS.Model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -16,7 +19,8 @@ public class Project {
 	private String projectNumber;
 	private GregorianCalendar startDate;
 	private Admin creator;
-	
+	private String runningNumber = "";
+
 	private Developer projectLeader = null;
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
@@ -27,6 +31,22 @@ public class Project {
 		this.projectNumber = projectNumber;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
+		
+		setRunningNumber();
+	}
+	
+	public void setRunningNumber() {
+		DateFormat df = new SimpleDateFormat("yy"); 
+		String year = df.format(Calendar.getInstance().getTime());
+		
+		runningNumber = runningNumber + year;
+		
+		String amountOfProjects = String.valueOf(DataBase.getInstance().getAllProjects().size() + 1);
+		
+		for (int i=4; i > amountOfProjects.length(); i--) {
+			runningNumber = runningNumber + "0";
+		}
+		runningNumber = runningNumber + amountOfProjects;
 	}
 	
 	public String getProjectNumber() {
