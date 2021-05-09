@@ -10,6 +10,7 @@ import SoftwareAS.Model.*;
 
 public class setEstimatedHoursSteps {
 	private Developer projectLeader;
+	private Developer user;
 	private Developer developer;
 	private Admin admin;
 	private String adminName = "Mogens";
@@ -49,6 +50,7 @@ public class setEstimatedHoursSteps {
 		projectLeader = database.getDeveloperById(userName);
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
+		user = projectLeader;
 		assertTrue(project.isProjectLeader(projectLeader));
 	}
 
@@ -65,7 +67,7 @@ public class setEstimatedHoursSteps {
 	public void theUserProvidesTheEstimatedHours(int time) throws NotAuthorizedException, OutOfBoundsException {
 		this.time = time;
 		try {
-			activity.setEstimatedWorkHours(time, projectLeader, project);
+			activity.setEstimatedWorkHours(time, user, project);
 		} catch (NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -113,14 +115,21 @@ public class setEstimatedHoursSteps {
 //	#	And the estimated work hours is not set
 
 	@Given("10- the user {string} is not a project leader")
-	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException {
-		developer = database.getDeveloperById(developerName);
+	public void theUserIsNotAProjectLeader(String developerName) throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException {
+		admin.createDeveloper("tempProjectLeader");
+		projectLeader = database.getDeveloperById("tempProjectLeader");
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		
+		
+		user = database.getDeveloperById(developerName);
+		project.assignDeveloperToProject(admin, user);
 		assertFalse(project.getProjectLeader().equals(developer));
 	}
 
 	@Then("10- a NotAuthorizedException is thrown")
 	public void aNotAuthorizedExceptionIsThrown() {
-		assertEquals("Only project leaders is allowed to set work hours", errorMessageHolder.getErrorMessage());
+		assertEquals("Only project leaders are allowed to set work hours.", errorMessageHolder.getErrorMessage());
 	}
 
 	@Then("10- the estimated work hours is not set")
