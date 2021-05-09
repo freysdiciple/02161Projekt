@@ -15,6 +15,7 @@ public class DataBase {
 	private List<Developer> developers = new ArrayList<>();
 	private List<Admin> admins = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
+	private int projectsMade = 0;
 
 	public static DataBase getInstance() {
 		if(instance == null) {
@@ -94,7 +95,12 @@ public class DataBase {
 		if(containsProject(project.getProjectName()))
 			throw new ProjectAlreadyExistsException("Project Already Exists");
 		projects.add(project);
+		projectsMade++;
 	}
+	public int getProjectsMade() {
+		return projectsMade; 
+	}
+	
 	public void deleteProject(String projectName) {
 		for(Project project : projects) {
 			if(project.getProjectName() == projectName) {
