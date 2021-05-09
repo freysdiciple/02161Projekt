@@ -90,7 +90,7 @@ public class CreateActivitySteps {
 	//Scenario: Developer trying to create activity
 	@Given("4- the user is not a project leader")
 	public void theUserIsNotAProjectLeader() throws DeveloperNotFoundException, NotAuthorizedException, OutOfBoundsException {
-		String developer2ID = "d2ID";
+		String developer2ID = "Joe";
 		admin.createDeveloper(developer2ID);
 		Developer developer2 = database.getDeveloperById(developer2ID);
 		project.assignDeveloperToProject(admin, developer2);
