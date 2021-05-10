@@ -1,4 +1,3 @@
-//This class was made by Peter - s204484
 package StepDefinitions;
 
 import static org.junit.Assert.*;
@@ -17,6 +16,7 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
+//This class is made by Peter - s204484
 public class AssignDeveloperToActivitySteps {
 	private DataBase database;
 	private Admin admin;

@@ -1,4 +1,3 @@
-//This class was made by Peter - s204484
 package WhiteBoxTests;
 
 import static org.junit.Assert.*;
@@ -18,7 +17,7 @@ import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 import io.cucumber.java.en.Given;
 
-
+//This class is made by Peter - s204484
 public class setEstimatedWorkHoursWhiteBox {
 	ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	private DataBase database = DataBase.getInstance();

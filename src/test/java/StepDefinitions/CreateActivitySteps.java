@@ -1,4 +1,3 @@
-//This class was made by Peter - s204484
 package StepDefinitions;
 
 import static org.junit.Assert.*;
@@ -8,6 +7,7 @@ import io.cucumber.java.en.*;
 import SoftwareAS.Controller.*;
 import SoftwareAS.Model.*;
 
+//This class is made by Peter - s204484
 public class CreateActivitySteps {
 	private DataBase database;
 	private Admin admin;
