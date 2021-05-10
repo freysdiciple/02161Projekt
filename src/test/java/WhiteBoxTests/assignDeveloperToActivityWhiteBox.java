@@ -13,6 +13,7 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	ErrorMessageHolder emh = new ErrorMessageHolder();
 	
+	DataBase database;
 	Activity activity;
 	Developer developer;
 	Developer developer2;
@@ -58,31 +59,38 @@ public class assignDeveloperToActivityWhiteBox {
 	}
 	
 	@Test
-	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException {
+	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, OutOfBoundsException {
 		admin = new Admin();
 		projectLeader = new Developer();
 		project = new Project("Hello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		project.createActivity(322, projectLeader);
-		
-		developer = new Developer();
+		activity = project.getActivityById(322);
+		developer = new Developer("Helo", database);
 		project.assignDeveloperToProject(admin, developer);
 		
-		
-		
+		activity.assignDeveloperToActivity(projectLeader, developer);
+		assertTrue(activity.isDeveloperOnAcitivty(developer.getId()));
+
 	}
 	
 	
 	@Test
-	public void testInputDataSetD()  {
+	public void testInputDataSetD() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, OperationNotAllowedException  {
+		admin = new Admin();
+		projectLeader = new Developer();
+		project = new Project("Jello",admin);
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		project.createActivity(322, projectLeader);
+		activity = project.getActivityById(322);
+		developer = new Developer("Halo", database);
+		project.assignDeveloperToProject(admin, developer);
 		
-		
+		activity.assignDeveloperToActivity(admin, developer);
+		assertTrue(activity.isDeveloperOnAcitivty(developer.getId()));
 	}
-	
-	
-	
-	
-	
+
 	
 }
