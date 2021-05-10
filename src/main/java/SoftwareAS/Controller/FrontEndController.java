@@ -18,6 +18,8 @@ import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
 import SoftwareAS.Model.*;
 
+
+//Lavet af alle, der er blevet rettet af alle personer, selvom der kun står et navn...
 public class FrontEndController {
 	
 	private DataBase database;
@@ -38,6 +40,8 @@ public class FrontEndController {
 		System.out.println("");
 	} 
 	
+	
+	//Massimo
 	public void loginSequence() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Please Enter Your ID to login:");
@@ -57,6 +61,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Massimo
 	public void WelcomePageAdmin() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome " + currentUser.getId() + "!");
@@ -91,6 +96,7 @@ public class FrontEndController {
 		
 	}
 	
+	//Peter
 	private void mySessions() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to your sessions!");
@@ -117,6 +123,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Peter
 	private void modifySession() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("What would you like to do with this session?");
@@ -144,6 +151,7 @@ public class FrontEndController {
 		}
 	}
 
+	//Simon
 	private void changeEndTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Give the new desired end date and time in the form,");
@@ -175,6 +183,7 @@ public class FrontEndController {
 		
 	}
 
+	//Simon
 	private void changeStartTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Give the new desired start date and time in the form,");
@@ -204,12 +213,14 @@ public class FrontEndController {
 		
 	}
 
+	//Peter
 	private void deleteSession() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		currentSession.delete();
 		System.out.println("Session deleted");
 		chooseSession();
 	}
 
+	//Massimo
 	private void chooseSession() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your sessions you would like to modify:");
@@ -246,6 +257,7 @@ public class FrontEndController {
 		
 	}
 
+	//Simon
 	private void registerSession(boolean underActivity) throws OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, AdminNotFoundException, DeveloperNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Register a session by entering the following and pressing enter: ");
@@ -267,6 +279,7 @@ public class FrontEndController {
 		
 	}
 	
+	//Markus
 	private void myProjects() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your projects you would like to access:");
@@ -304,6 +317,7 @@ public class FrontEndController {
 		
 	}
 	
+	//Markus
 	public void projectMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to project " + currentProject.getProjectName() + "!");
@@ -334,6 +348,7 @@ public class FrontEndController {
 	}
 	
 
+	//Markus
 	private void manageProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to Manage Project!");
@@ -362,6 +377,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Mathias
 	private void myActivities() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your projects you would like to access:");
@@ -397,6 +413,7 @@ public class FrontEndController {
 		
 	}
 	
+	//Peter
 	private void manageDevelopers() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to Manage Developers on the current project!");
@@ -433,6 +450,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Simon
 	public void addDevelopersToProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose a developer to add to the current project!");
@@ -464,7 +482,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
-	
+	//Massimo
 	public void removeDevelopersFromProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which developer from your project you would like to remove:");
@@ -497,6 +515,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//Markus
 	public void addDeveloperToActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which developer from your project you would like to add:");
@@ -529,6 +548,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//Mathias
 	public void removeDeveloperFromActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which developer from your activity you would like to remove:");
@@ -561,6 +581,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//Mathias
 	public void chooseActivityToRemoveDeveloperFromActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose the activity from your project, where you want to remove a developer:");
@@ -593,6 +614,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//Mathias
 	public void chooseActivityToAddDeveloperToActivity() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose the activity from your project, where you want to add a developer:");
@@ -625,6 +647,7 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
+	//Simon
 		public void seeAvailableDevelopers() throws NotAuthorizedException, NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
 	 		System.out.println("Please enter the start week and end week for the time slot,");
 	 		System.out.println("you want to see avaliable developers for");
@@ -649,7 +672,7 @@ public class FrontEndController {
 
 	 		}
 		
-	
+	//Markus
 	private void manageActivities() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Welcome to Manage Activities!");
 		System.out.println("Here you can manage activities,");
@@ -678,6 +701,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Markus
 	private void createActivity() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to create:");
@@ -699,6 +723,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Massimo
 	private void deleteActivity() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to delete:");
@@ -723,7 +748,8 @@ public class FrontEndController {
 			manageActivities();
 		}
 	}
-		
+	
+	//Peter
 	private void getSummary() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Enter the number of the activity you would like to get summary of:");
 		System.out.println("or enter 0 to go back");
@@ -758,6 +784,7 @@ public class FrontEndController {
 	}
 	}
 
+	//Massimo
 	private void activityMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Welcome to activity " + currentActivity.getId() + "!");
 		System.out.println("0 - Back");
@@ -777,6 +804,7 @@ public class FrontEndController {
 		}
 	}
 
+	//Massimo
 	private void manageProjects() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to Project Management!");
@@ -807,6 +835,7 @@ public class FrontEndController {
 		}
 	}
 
+	//Markus
 	private void assignProjectLeader() throws NumberFormatException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException, AdminNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("To assign a project leader, ");
@@ -836,6 +865,7 @@ public class FrontEndController {
 		
 	}
 
+	//Simon
 	private void deleteProject() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the name of the project you would like to delete:");
@@ -871,6 +901,7 @@ public class FrontEndController {
 		
 	}
 
+	//Mathias
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("Minimum characters: 4 and Maximum characters: 32");
@@ -895,6 +926,7 @@ public class FrontEndController {
 		}
 	}
 	
+	//Peter
 	private void manageEmployees() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome to Employee management!");
@@ -919,7 +951,8 @@ public class FrontEndController {
 				manageEmployees();
 		}
 	}
-
+	
+	//Markus
 	private void deleteEmployee() throws AdminNotFoundException, NumberFormatException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Here you can delete an employee!");
 		System.out.println("Enter the id of the employee you wish to delete:");
@@ -949,6 +982,7 @@ public class FrontEndController {
 		manageEmployees();
 	}
 
+	//Massimo
 	private void createEmployee() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Here you can create an employee!");
 		System.out.println("Enter the id (4 letters) of the employee you wish to create,");
@@ -996,6 +1030,7 @@ public class FrontEndController {
 		}
 	}
 
+	//Mathias
 	public void WelcomePageDeveloper() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Welcome " + currentUser.getId() + "!");
