@@ -1,5 +1,3 @@
-// This class is made by Mathias Jensen
-
 package WhiteBoxTests;
 
 import static org.junit.Assert.*;
@@ -10,7 +8,7 @@ import SoftwareAS.Model.*;
 import org.junit.jupiter.api.Test;
 
 
-
+// This class is made by Mathias Jensen
 public class DeleteActivityWhiteBox {
 
     ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
