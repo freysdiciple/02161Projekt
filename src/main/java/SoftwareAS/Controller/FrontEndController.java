@@ -970,7 +970,7 @@ public class FrontEndController {
 			manageEmployees();
 		}
 		
-		if(id.length() != 4){
+		if(id.length() > 4 || id.length() < 1){
 			System.out.println("Please enter correct input...");
 			deleteEmployee();
 		}
