@@ -27,7 +27,7 @@ public class createProjectWhiteBox {
 	 */
 
 	private Admin admin;
-	private DataBase database;
+	private DataBase database = DataBase.getInstance();
 	private String userName = "TEST";
 	private String projectName = "TEST";
 	private String projectNameInvalid = "12";
