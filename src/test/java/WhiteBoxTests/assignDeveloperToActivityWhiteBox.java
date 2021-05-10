@@ -37,8 +37,12 @@ public class assignDeveloperToActivityWhiteBox {
 		developer2 = database.getDeveloperById("Klo");
 		admin.createProject("DatasetA");
 		project = database.getProjectByName("DatasetA");
-		project.createActivity(232, admin);
-		activity = project.getActivityById(232);
+		admin.createDeveloper("Proj");
+		projectLeader = database.getDeveloperById("Proj");
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		project.createActivity(200, projectLeader);
+		activity = project.getActivityById(200);
 		
 		try {
 			activity.assignDeveloperToActivity(developer2, developer);
@@ -50,12 +54,6 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	@Test
 	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, AdminNotFoundException {
-		admin.createDeveloper("Proj");
-		projectLeader = database.getDeveloperById("Proj");
-		project.assignDeveloperToProject(admin, projectLeader);
-		project.setProjectLeader(admin, projectLeader);
-		project.createActivity(200, projectLeader);
-		activity = project.getActivityById(200);
 		
 		try {
 			activity.assignDeveloperToActivity(projectLeader, developer);
