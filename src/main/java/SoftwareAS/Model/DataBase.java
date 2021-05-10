@@ -32,8 +32,18 @@ public class DataBase {
 	}
 
 	public void deleteDeveloper(String id) {
+		Developer developerToRemove = null;
+		boolean developerFound = false;
+
 		for(Developer developer : developers) {
-			if(developer.getId().equals(id)) developers.remove(developer);
+			if(developer.getId().equals(id)) {
+				developerToRemove = developer;
+				developerFound = true;
+			}
+		}
+
+		if(developerFound){
+			developers.remove(developerToRemove);
 		}
 	}
 	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
@@ -61,8 +71,18 @@ public class DataBase {
 		admins.add(new Admin(id, this));
 	}
 	public void deleteAdmin(String id) {
+		Admin adminToRemove = null;
+		boolean adminFound = false;
+
 		for(Admin admin : admins) {
-			if(admin.getId().equals(id)) developers.remove(admin);
+			if(admin.getId().equals(id)) {
+				adminToRemove = admin;
+				adminFound = true;
+			}
+		}
+
+		if(adminFound){
+			admins.remove(adminToRemove);
 		}
 	}
 	public Admin getAdminById(String id) throws AdminNotFoundException {
@@ -99,13 +119,21 @@ public class DataBase {
 	}
 
 	public void deleteProject(String projectName) {
+		Project projectToRemove = null;
+		boolean projectFound = false;
+
 		for(Project project : projects) {
 			if(project.getProjectName().equals(projectName)) {
-				for(Developer dev : project.getDevelopers()) {
-					dev.deleteProject(project);
-				}
-				projects.remove(project);
+				projectToRemove = project;
+				projectFound = true;
 			}
+		}
+
+		if(projectFound){
+			for(Developer dev : projectToRemove.getDevelopers()) {
+				dev.deleteProject(projectToRemove);
+			}
+			projects.remove(projectToRemove);
 		}
 	}
 	public Project getProjectByName(String projectName) throws ProjectNotFoundException {

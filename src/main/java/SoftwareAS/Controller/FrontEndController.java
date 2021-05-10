@@ -33,12 +33,7 @@ public class FrontEndController {
 		loginSequence();
 	}
 	
-	public static void clearScreen() {     
-		try {
-			Runtime.getRuntime().exec("clear");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static void clearScreen() {
 	} 
 	
 	public void loginSequence() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
@@ -272,6 +267,7 @@ public class FrontEndController {
 		System.out.println("Choose which of your projects you would like to access:");
 		Switcher switcher = new Switcher();
 		List<Project> projects = currentUser.getProjects();
+		System.out.println(projects.size());
 		
 		System.out.println(0 + " - Back");
 		switcher.addCaseCommand(0, new Command() {
@@ -632,10 +628,11 @@ public class FrontEndController {
 		System.out.println("Here you can manage activities,");
 		System.out.println("on the current project. Choose wisely");
 		System.out.println("0 - Back");
-		System.out.println("1 - Manage Developers");
-		System.out.println("2 - Manage Activities");
+		System.out.println("1 - Create Activity");
+		System.out.println("2 - Delete Activity");
+		System.out.println("3 - Get Summary");
 
-		int choice = InputHelper.getMultipleChoice(input, 1, 2);
+		int choice = InputHelper.getMultipleChoice(input, 1, 3);
 		
 		switch(choice) {
 		case 0:
@@ -665,6 +662,8 @@ public class FrontEndController {
 		}
 		else {
 		currentProject.createActivity(number, currentUser);
+		Activity activity = currentProject.getActivityById(number);
+		activity.assignDeveloperToActivity(currentUser, currentUser);
 		manageActivities();
 		}
 	}
@@ -806,12 +805,18 @@ public class FrontEndController {
 		
 		String s = input.next();
 		boolean projectFound = false;
-		
+
+		Project projectToDelete = null;
+
 		for(Project project : database.getAllProjects()) {			
 			if(project.getProjectName().equals(s)) {
-				database.deleteProject(s);
+				projectToDelete = project;
 				projectFound = true;
 			}
+		}
+
+		if(projectFound){
+			database.deleteProject(projectToDelete.getProjectName());
 		}
 		
 		if(!projectFound) {
@@ -823,10 +828,8 @@ public class FrontEndController {
 		}
 		
 	}
-	
-	//MANGLER KONTROL CHECKS
+
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
-		clearScreen();
 		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("Minimum characters: 4 and Maximum characters: 32");
 		String s = input.next();
@@ -838,6 +841,7 @@ public class FrontEndController {
 		else {
 			Admin admin = (Admin) currentUser;
 			admin.createProject(s);
+
 			Project project = database.getProjectByName(s);
 			project.assignDeveloperToProject(currentUser, currentUser);
 
@@ -869,8 +873,6 @@ public class FrontEndController {
 				manageEmployees();
 		}
 	}
-	
-	//MANGLER KONTROL CHECKS
 
 	private void deleteEmployee() throws AdminNotFoundException, NumberFormatException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Here you can delete an employee!");

@@ -100,6 +100,7 @@ public class Project {
 		if(!(admin.isAdmin() || isProjectLeader(admin)))
 			throw new NotAuthorizedException("Not authorized to assign developers to projects");
 		developers.add(developer);
+		developer.addProject(this);
 	}
 
 	public void removeDeveloperFromProject(Developer developer) {

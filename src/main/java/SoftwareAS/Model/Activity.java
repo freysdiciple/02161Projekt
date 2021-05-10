@@ -84,6 +84,7 @@ public class Activity {
 			throw new DeveloperNotFoundException("Developer not on project.");
 		
 		developers.add(developer);
+		developer.addActivity(this);
 	}
 	
 	public void removeDeveloperFromActivity(Developer developer) {

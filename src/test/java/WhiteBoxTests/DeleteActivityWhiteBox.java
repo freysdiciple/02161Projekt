@@ -66,8 +66,8 @@ public class DeleteActivityWhiteBox {
 
         dataBase.createAdmin("Hans");
         admin = dataBase.getAdminById("Hans");
-        admin.createProject("DatasetB");
-        project = dataBase.getProjectByName("DatasetB");
+        admin.createProject("DatasetC");
+        project = dataBase.getProjectByName("DatasetC");
         admin.createDeveloper("Jørn");
         developer = dataBase.getDeveloperById("Jørn");
         int nonId = 0;

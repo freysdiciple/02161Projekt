@@ -116,8 +116,7 @@ public class InputHelper {
 	}
 
 	public static int getMultipleChoice(Scanner scanner, int answerLength, int maxAnswer){
-		scanner.nextLine();
-		String input = scanner.nextLine();
+		String input = scanner.next();
 
 		if(input.length() > answerLength) {
 			System.out.println("Please enter one of the above integer choices...");
