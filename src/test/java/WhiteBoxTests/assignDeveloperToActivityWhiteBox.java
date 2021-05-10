@@ -122,6 +122,8 @@ public class assignDeveloperToActivityWhiteBox {
 		
 		
 		
+		
+		project.assignDeveloperToProject(projectLeader, developer);
 		activity.assignDeveloperToActivity(admin, developer);
 		assertTrue(activity.isDeveloperOnAcitivty(developer.getId()));
 	}
