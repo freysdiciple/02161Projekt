@@ -44,7 +44,7 @@ public class RegisterSessionWhiteBox {
 		activity = new Activity();
 		start = new GregorianCalendar();
 		end = new GregorianCalendar();
-		start.add(GregorianCalendar.DAY_OF_YEAR, 2);
+		end.add(GregorianCalendar.DAY_OF_YEAR, 2);
 		
 		developer = new Developer();
 		developer.registerSession(activity, start, end);
@@ -52,7 +52,7 @@ public class RegisterSessionWhiteBox {
 		GregorianCalendar start2 = new GregorianCalendar();
 		GregorianCalendar end2 = new GregorianCalendar();
 		start2.add(GregorianCalendar.DAY_OF_YEAR, 1);
-		end2.add(GregorianCalendar.DAY_OF_YEAR, 1);
+		end2.add(GregorianCalendar.DAY_OF_YEAR, 3);
 		
 		try {
 			developer.registerSession(activity, start2, end2);
@@ -68,7 +68,7 @@ public class RegisterSessionWhiteBox {
 		activity = null;
 		start = new GregorianCalendar();
 		end = new GregorianCalendar();
-		start.add(GregorianCalendar.DAY_OF_YEAR, 2);
+		end.add(GregorianCalendar.DAY_OF_YEAR, 2);
 		
 		developer = new Developer();
 		developer.registerSession(activity, start, end);

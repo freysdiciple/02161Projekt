@@ -22,7 +22,7 @@ public class Session {
 	}
 	
 	public void setSessionId2() {
-		sessionId2 = "" + developer.getId() + activity.getId() + startTime.get(GregorianCalendar.YEAR) + startTime.get(GregorianCalendar.MONTH) + 
+		sessionId2 = "" + developer.getId() + (activity == null ? "" : activity.getId()) + startTime.get(GregorianCalendar.YEAR) + startTime.get(GregorianCalendar.MONTH) +
 				startTime.get(GregorianCalendar.DATE) + startTime.get(GregorianCalendar.HOUR_OF_DAY) + startTime.get(GregorianCalendar.MINUTE) + 
 				endTime.get(GregorianCalendar.YEAR) + endTime.get(GregorianCalendar.MONTH) + endTime.get(GregorianCalendar.DATE) + endTime.get(GregorianCalendar.HOUR_OF_DAY) +
 				endTime.get(GregorianCalendar.MINUTE);

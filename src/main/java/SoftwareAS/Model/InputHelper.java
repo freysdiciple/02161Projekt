@@ -1,7 +1,6 @@
 package SoftwareAS.Model;
 
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import Exceptions.OutOfBoundsException;
 
@@ -114,6 +113,30 @@ public class InputHelper {
 				
 		
 				
+	}
+
+	public static int getMultipleChoice(Scanner scanner, int answerLength, int maxAnswer){
+		scanner.nextLine();
+		String input = scanner.nextLine();
+
+		if(input.length() > answerLength) {
+			System.out.println("Please enter one of the above integer choices...");
+			return getMultipleChoice(scanner, answerLength, maxAnswer);
+		}
+
+		try{
+			int choice = Integer.parseInt(input);
+			if(choice <= maxAnswer){
+				return choice;
+			}
+			else{
+				System.out.println("Please enter one of the above integer choices...");
+				return getMultipleChoice(scanner, answerLength, maxAnswer);
+			}
+		}catch(Exception e){
+			System.out.println("Please enter one of the above integer choices...");
+			return getMultipleChoice(scanner, answerLength, maxAnswer);
+		}
 	}
 
 }

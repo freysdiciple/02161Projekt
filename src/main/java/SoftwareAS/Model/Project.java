@@ -163,7 +163,6 @@ public class Project {
 			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
 		}
 
-
 		List<Developer> developers = user.getDatabase().getAllDevelopers();
 		for (Developer developer : developers) {
 			List<Activity> activities = developer.getActivities();
@@ -179,5 +178,5 @@ public class Project {
 			}
 		}
 		return availableDevelopers;
-			}
+		}
 	}

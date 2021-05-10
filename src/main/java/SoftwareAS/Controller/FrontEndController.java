@@ -23,12 +23,9 @@ public class FrontEndController {
 	private DataBase database;
 	private Scanner input;
 	private Developer currentUser;
-	private Admin currentAdmin;
 	private Activity currentActivity;
 	private Project currentProject;
 	private Session currentSession;
-	
-	//ALLE MANGLER KONTROL FOR HVORVIDT DER BLIVER GIVET TAL
 	
 	public FrontEndController(DataBase database) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		this.database = database;
@@ -51,7 +48,6 @@ public class FrontEndController {
 		
 		if(database.containsAdmin(id)) {
 			currentUser = database.getAdminById(id);
-			currentAdmin = database.getAdminById(id);
 			WelcomePageAdmin();
 		}
 		else if(database.containsDeveloper(id)) {
@@ -59,7 +55,7 @@ public class FrontEndController {
 			WelcomePageDeveloper();
 		}
 		else {
-			System.out.println("No employee with the given id. Pleas try again!");
+			System.out.println("No employee with the given id. Please try again!");
 			loginSequence();
 		}
 	}
@@ -74,7 +70,7 @@ public class FrontEndController {
 		System.out.println("3 - My Projects");
 		System.out.println("4 - My Sessions");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 4);
 		
 		switch(choice) {
 			case 0:
@@ -106,7 +102,7 @@ public class FrontEndController {
 		System.out.println("1 - Register A Session");
 		System.out.println("2 - Modify A Session");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 2);
 		
 		switch(choice) {
 			case 0:
@@ -131,7 +127,7 @@ public class FrontEndController {
 		System.out.println("2 - Change Start Time");
 		System.out.println("3 - Change End Time");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 3);
 		
 		switch(choice) {
 			case 0:
@@ -149,8 +145,7 @@ public class FrontEndController {
 				modifySession();
 		}
 	}
-	
-	//MANGLER KONTROL CHECKS
+
 	private void changeEndTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Give the new desired end date and time in the form,");
 		System.out.println("DD/MM/YYYY HH-MM,");
@@ -181,7 +176,6 @@ public class FrontEndController {
 		
 	}
 
-	//MANGLER KONTROL CHECKS
 	private void changeStartTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Give the new desired start date and time in the form,");
 		System.out.println("DD/MM/YYYY HH-MM,");
@@ -216,7 +210,6 @@ public class FrontEndController {
 		chooseSession();
 	}
 
-	//MANGLER DEFAULT SWITCHER
 	private void chooseSession() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your sessions you would like to modify:");
@@ -247,13 +240,12 @@ public class FrontEndController {
 			});
 		}
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, (sessions.size() + "").length(), sessions.size());
 		
 		switcher.on(choice);
 		
 	}
 
-	//MANGLER KONTROL CHECKS!!
 	private void registerSession(boolean underActivity) throws OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, AdminNotFoundException, DeveloperNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Register a session by entering the following and pressing enter: ");
@@ -268,13 +260,13 @@ public class FrontEndController {
 			Object[] properties = InputHelper.stringToSessionProperties(sessionInfo, currentUser, underActivity? currentActivity : null);
 			currentUser.registerSession((Activity) properties[2], (GregorianCalendar)properties[0], (GregorianCalendar)properties[1]);
 		}catch(Exception e) {
+			System.out.println("Wrong input, please enter your session info correctly");
 			registerSession(underActivity);
 		}
 		
 		
 	}
 	
-	//MANGLER DEFAULT SWITCHER
 	private void myProjects() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your projects you would like to access:");
@@ -305,13 +297,12 @@ public class FrontEndController {
 			});
 		}
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, (projects.size() + "").length(), projects.size());
 		
 		switcher.on(choice);
 		
 	}
 	
-	//MANGLER AT BLIVE LAVET
 	public void projectMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		
 		System.out.println("Welcome to project " + currentProject.getProjectName() + "!");
@@ -322,7 +313,7 @@ public class FrontEndController {
 			System.out.println("2 - Manage Project");
 		}
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, currentProject.isProjectLeader(currentUser) || currentUser.isAdmin() ? 2 : 1);
 		
 		switch(choice) {
 			case 0:
@@ -353,7 +344,7 @@ public class FrontEndController {
 		
 		
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 2);
 		
 		switch(choice) {
 		case 0:
@@ -370,7 +361,6 @@ public class FrontEndController {
 		}
 	}
 	
-	//MANGLER DEFAULT SWITCHER
 	private void myActivities() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Choose which of your projects you would like to access:");
@@ -400,7 +390,7 @@ public class FrontEndController {
 			});
 		}
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, (activities.size()+"").length(), activities.size());
 		
 		switcher.on(choice);
 		
@@ -415,7 +405,7 @@ public class FrontEndController {
 		System.out.println("4 - Remove developer from activities");
 		System.out.println("5 - See available developers");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 5);
 		
 		switch(choice) {
 		case 0:
@@ -633,7 +623,6 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
-	//MANGLER AT BLIVE LAVET
 	public void seeAvailableDevelopers() {
 		
 	}
@@ -645,10 +634,8 @@ public class FrontEndController {
 		System.out.println("0 - Back");
 		System.out.println("1 - Manage Developers");
 		System.out.println("2 - Manage Activities");
-		
-		
-		
-		int choice = input.nextInt();
+
+		int choice = InputHelper.getMultipleChoice(input, 1, 2);
 		
 		switch(choice) {
 		case 0:
@@ -671,7 +658,7 @@ public class FrontEndController {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to create:");
 		
-		int number = input.nextInt();
+		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
 		if(currentProject.containsActivityWithId(number)) {
 			System.out.println("An activity with the given number already exists");
 			createActivity();
@@ -686,7 +673,7 @@ public class FrontEndController {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to delete:");
 		
-		int number = input.nextInt();
+		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
 		boolean activityFound = false;
 		
 		
@@ -696,7 +683,7 @@ public class FrontEndController {
 		}
 		
 		if(!activityFound) {
-			System.out.println("Project Not Found");
+			System.out.println("Activity Not Found");
 			deleteActivity();
 		}
 		else {
@@ -707,7 +694,7 @@ public class FrontEndController {
 		
 	private void getSummary() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Enter the number of the activity you would like to get summary of:");
-		int number = input.nextInt();
+		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
 		boolean activityFound = false;
 		
 		if(currentProject.containsActivityWithId(number)){			
@@ -734,14 +721,13 @@ public class FrontEndController {
 		}
 	}
 	}
-	
-	
+
 	private void activityMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Welcome to activity " + currentActivity.getId() + "!");
 		System.out.println("0 - Back");
 		System.out.println("1 - Register Session In " + currentActivity.getId());
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1,1);
 		
 		switch(choice) {
 			case 0:
@@ -765,7 +751,7 @@ public class FrontEndController {
 		System.out.println("2 - Delete Project");
 		System.out.println("3 - Assign Project Leader to Project");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 3);
 		
 		switch(choice) {
 			case 0:
@@ -784,24 +770,33 @@ public class FrontEndController {
 				manageProjects();
 		}
 	}
-	
-	//MANGLER KONTROL CHECKS!!
 
 	private void assignProjectLeader() throws NumberFormatException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException, AdminNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("To assign a project leader, ");
-		System.out.println("give the number of the project and the employee id:");
+		System.out.println("give the name of the project and the employee id:");
 		System.out.println("(Separated by a single space)");
 		
 		input.nextLine();
 		String info = input.nextLine();
-		
-		String numberString = info.substring(0,6);
-		String idString = info.substring(7,11);
-		
-		database.getProjectByName(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
-		
-		manageProjects();
+
+		if(info.length() != 11) {
+			System.out.println("Please give correct input...");
+			assignProjectLeader();
+		}
+		else {
+			String numberString = info.substring(0, 6);
+			String idString = info.substring(7, 11);
+
+			if(database.containsProject(numberString) && database.containsDeveloper(idString)) {
+				database.getProjectByName(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
+				manageProjects();
+			}
+			else{
+				System.out.println("Please give correct input...");
+				assignProjectLeader();
+			}
+		}
 		
 	}
 
@@ -835,12 +830,19 @@ public class FrontEndController {
 		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("Minimum characters: 4 and Maximum characters: 32");
 		String s = input.next();
-		
-		currentAdmin.createProject(s);
-		Project project = database.getProjectByName(s);
-		project.assignDeveloperToProject(currentAdmin, currentUser);
-		
-		manageProjects();
+
+		if(s.length() > 32 || s.length() < 4){
+			System.out.println("Please enter correct input...");
+			createProject();
+		}
+		else {
+			Admin admin = (Admin) currentUser;
+			admin.createProject(s);
+			Project project = database.getProjectByName(s);
+			project.assignDeveloperToProject(currentUser, currentUser);
+
+			manageProjects();
+		}
 	}
 	
 	private void manageEmployees() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
@@ -851,7 +853,7 @@ public class FrontEndController {
 		System.out.println("1 - Create Employee");
 		System.out.println("2 - Delete Employee");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 2);
 		
 		switch(choice) {
 			case 0:
@@ -875,11 +877,21 @@ public class FrontEndController {
 		System.out.println("Enter the id of the employee you wish to delete:");
 		
 		String id = input.next();
+
+		if(id.length() != 4){
+			System.out.println("Please enter correct input...");
+			deleteEmployee();
+		}
 		
 		if(database.containsAdmin(id)) {
 			database.deleteAdmin(id);
 		}
-		else database.deleteDeveloper(id);
+		else if(database.containsDeveloper(id))
+			database.deleteDeveloper(id);
+		else{
+			System.out.println("Employee doesn't exist...");
+			deleteEmployee();
+		}
 		
 		manageEmployees();
 	}
@@ -915,7 +927,8 @@ public class FrontEndController {
 			}
 		}
 		catch (OutOfBoundsException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Please enter correct input...");
+			createEmployee();
 		}
 		catch (Exception e) {}
 		finally {
@@ -957,7 +970,7 @@ public class FrontEndController {
 		System.out.println("1 - My Projects");
 		System.out.println("2 - My Sessions");
 		
-		int choice = input.nextInt();
+		int choice = InputHelper.getMultipleChoice(input, 1, 2);
 		
 		switch(choice) {
 			case 0:
