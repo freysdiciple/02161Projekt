@@ -17,7 +17,7 @@ public class DeleteActivityWhiteBox {
     DataBase dataBase = DataBase.getInstance();
     Project project;
     Developer developer;
-
+    Activity activity;
 
 
     @Test
@@ -70,15 +70,19 @@ public class DeleteActivityWhiteBox {
         project = dataBase.getProjectByName("DatasetC");
         admin.createDeveloper("Jørn");
         developer = dataBase.getDeveloperById("Jørn");
-        int nonId = 0;
+        int id = 1;
+        project.createActivity(id, admin);
+        activity = project.getActivityById(id);
+
+        project.deleteActivity(id,admin);
 
         try {
-            project.deleteActivity(nonId,admin);
+            project.getActivityById(id);
         } catch (ActivityNotFoundException e){
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
 
-        assertEquals(errorMessageHolder.getErrorMessage(),"An activity with that ID doesnt exists.");
+        assertEquals(errorMessageHolder.getErrorMessage(),"No activity with described ID");
 
     }
 
