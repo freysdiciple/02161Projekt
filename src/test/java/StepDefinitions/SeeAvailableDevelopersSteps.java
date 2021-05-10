@@ -27,13 +27,14 @@ public class SeeAvailableDevelopersSteps {
 	private int endTime;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 
-//Main scenario
-//Scenario: See available developers
-//	Given there is an user with ID {string}
-//  Given there is a project with ID {String}
-//	Given the user is a Project leader
-//  When the user provides information of the start time {string} and end time {string} of the activity where he needs developers
-//  Then the system displays a list of available developers at the given time slot
+	//# Main scenario
+	//	Scenario: See available developers
+	//	Given 9- there is an user with ID "SØR1"
+	//	And 9- there is a project with name "211234"
+	//	And 9- the user is a Project leader
+	//	And 9- there are other developers
+	//	When 9- the user provides information of the start week 32 and end week 40 of the activity where he needs developers
+	//	Then 9- the system displays a list of available developers at the given time slot
 
 	@Given("9- there is an user with ID {string}")
 	public void thereIsAnUserWithIDAndDataBase(String userName) throws NotAuthorizedException,
@@ -100,11 +101,11 @@ public class SeeAvailableDevelopersSteps {
 	
 	//# Alternate scenario one
 	//Scenario: Given time not valid length
-	//	Given 9- there is an user with ID "Søren"
-	//	And 9- there is a project with ID "211234"
+	//	Given 9- there is an user with ID "MOG1"
+	//	And 9- there is a project with name "214321"
 	//	And 9- the user is a Project leader
-	//	When 9- the user provides invalid length input of the start week {int} and end week {int} of the activity where he needs developers
-	//	Then 9- the system provides an error message that the start week and/or end week is invalid
+	//	When 9- the user provides invalid input of the start week -32 and end week 400 of the activity where he needs developers
+	//  Then 9- the system provides an error message that the start week and/or end week is invalid
 	
 	@When("9- the user provides invalid input of the start week {int} and end week {int} of the activity where he needs developers")
 	public void theUserProvidesInvalidTimeInput(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
