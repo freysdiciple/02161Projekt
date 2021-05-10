@@ -16,32 +16,27 @@ import SoftwareAS.Model.DataBase;
 
 public class createProjectWhiteBox {
 
-	/*
-	 * 
-	 * public void createProject(int projectNumber) { //pre: isAdmin &&
-	 * Integer.toString(projectNumber).length()==6 &&
-	 * !database.containsProject(projectNumber); //post:
-	 * database.containsProject(projectNumber)==true; }
-	 * 
-	 * }
-	 */
-
 	private Admin admin;
-	private DataBase database;
-	private String userName = "TEST";
-	private String projectName = "TEST";
+	private DataBase database = DataBase.getInstance();
+	private String projectName1 = "TEST1";
+	private String projectName2 = "TEST2";
+	private String projectName3 = "TEST3";
 	private String projectNameInvalid = "12";
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	private String userName1 = "T111";
+	private String userName2 = "T222";
+	private String userName3 = "T333";
+	private String userName4 = "T444";
 
 	@Test
 	public void PathA() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
 			ProjectNotFoundException, OutOfBoundsException {
 
-		database.createAdmin(userName);
-		admin = database.getAdminById(userName);
+		database.createAdmin(userName1);
+		admin = database.getAdminById(userName1);
 		admin.setAdminState(false);
 		try {
-			admin.createProject(projectName);
+			admin.createProject(projectName1);
 		} catch (NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -52,11 +47,11 @@ public class createProjectWhiteBox {
 	@Test
 	public void PathB() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
-		database.createAdmin(userName);
-		admin = database.getAdminById(userName);
-		admin.createProject(projectName);
+		database.createAdmin(userName2);
+		admin = database.getAdminById(userName2);
+		admin.createProject(projectName2);
 		try {
-			admin.createProject(projectName);
+			admin.createProject(projectName2);
 		} catch (ProjectAlreadyExistsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -67,8 +62,8 @@ public class createProjectWhiteBox {
 	@Test
 	public void PathC() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
-		database.createAdmin(userName);
-		admin = database.getAdminById(userName);
+		database.createAdmin(userName3);
+		admin = database.getAdminById(userName3);
 		try {
 			admin.createProject(projectNameInvalid);
 		} catch (OutOfBoundsException e) {
@@ -81,10 +76,10 @@ public class createProjectWhiteBox {
 	@Test
 	public void PathD() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
-		database.createAdmin(userName);
-		admin = database.getAdminById(userName);
-		admin.createProject(projectName);
+		database.createAdmin(userName4);
+		admin = database.getAdminById(userName4);
+		admin.createProject(projectName3);
 
-		assertTrue(database.containsProject(projectName));
+		assertTrue(database.containsProject(projectName3));
 	}
 }

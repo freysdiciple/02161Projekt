@@ -25,7 +25,7 @@ public class Project {
 	private List<Activity> activities = new ArrayList<>();
 	private List<Developer> developers = new ArrayList<>();
 	private List<ProjectSummary> summaries = new ArrayList<>();
-	private List<Developer> availableDevelopers;
+	private List<Developer> availableDevelopers = new ArrayList<>();
 
 	public Project(String projectName, Admin creator) {
 		this.projectName = projectName;
@@ -90,7 +90,6 @@ public class Project {
 
 	public boolean isDeveloperOnProject(String name) {
 		for (Developer developer : developers) {
-			System.out.println(developer.getId());
 			if (developer.getId().equals(name))
 				return true;
 		}
@@ -111,8 +110,8 @@ public class Project {
 	}
 
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
-		if (!this.isProjectLeader(developer))
-			throw new NotAuthorizedException("Only the project leader can create activities.");
+		if (!(this.isProjectLeader(developer) || developer.isAdmin()))
+			throw new NotAuthorizedException("Not authorized to create activities.");
 		if (this.containsActivityWithId(id))
 			throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
 
@@ -155,7 +154,7 @@ public class Project {
 	}
 	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
 			throws NotAuthorizedException, OutOfBoundsException {
-		if (!isProjectLeader(user) || user.isAdmin()) {
+		if (!isProjectLeader(user) && !user.isAdmin()) {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 		}
 
