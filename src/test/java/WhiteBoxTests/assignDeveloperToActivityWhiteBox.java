@@ -28,10 +28,18 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	
 	@Test
-	public void testInputDataSetA() throws OperationNotAllowedException, OverlappingSessionsException, DeveloperNotFoundException {
-		developer = new Developer();
-		developer2 = new Developer();
-		activity = new Activity();
+	public void testInputDataSetA() throws OperationNotAllowedException, OverlappingSessionsException, DeveloperNotFoundException, OutOfBoundsException, AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
+		database.createAdmin("Blib");
+		admin = database.getAdminById("Blib");
+		admin.createDeveloper("Bobb");
+		developer = database.getDeveloperById("Bobb");
+		admin.createDeveloper("Klo");
+		developer2 = database.getDeveloperById("Klo");
+		admin.createProject("DatasetA");
+		project = database.getProjectByName("DatasetA");
+		project.createActivity(232, admin);
+		activity = project.getActivityById(232);
+		
 		try {
 			activity.assignDeveloperToActivity(developer2, developer);
 		}catch(OperationNotAllowedException e) {
@@ -42,10 +50,8 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	@Test
 	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, AdminNotFoundException {
-		database.createAdmin("Blub");
-		admin = database.getAdminById("Blub");
-		projectLeader = new Developer();
-		project = new Project("Hello",admin);
+		admin.createDeveloper("Proj");
+		projectLeader = database.getDeveloperById("Proj");
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		project.createActivity(200, projectLeader);
@@ -61,16 +67,8 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	@Test
 	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, OutOfBoundsException, AdminNotFoundException {
-		database.createAdmin("Blab");
-		admin = database.getAdminById("Blab");
-		projectLeader = new Developer();
-		project = new Project("Hello",admin);
-		project.assignDeveloperToProject(admin, projectLeader);
-		project.setProjectLeader(admin, projectLeader);
-		project.createActivity(322, projectLeader);
-		activity = project.getActivityById(322);
-		developer = new Developer("Helo", database);
-		project.assignDeveloperToProject(admin, developer);
+		
+		project.assignDeveloperToProject(projectLeader, developer);
 		
 		activity.assignDeveloperToActivity(projectLeader, developer);
 		assertTrue(activity.isDeveloperOnAcitivty(developer.getId()));
@@ -80,17 +78,7 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	@Test
 	public void testInputDataSetD() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, OperationNotAllowedException, AdminNotFoundException  {
-		database.createAdmin("Blib");
-		admin = database.getAdminById("Blib");
-		projectLeader = new Developer();
-		project = new Project("Jello",admin);
-		project.assignDeveloperToProject(admin, projectLeader);
-		project.setProjectLeader(admin, projectLeader);
-		project.createActivity(322, projectLeader);
-		activity = project.getActivityById(322);
-		developer = new Developer("Halo", database);
-		project.assignDeveloperToProject(admin, developer);
-		
+				
 		activity.assignDeveloperToActivity(admin, developer);
 		assertTrue(activity.isDeveloperOnAcitivty(developer.getId()));
 	}
