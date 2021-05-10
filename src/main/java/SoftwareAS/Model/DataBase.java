@@ -3,11 +3,7 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.AdminNotFoundException;
-import Exceptions.DeveloperNotFoundException;
-import Exceptions.OutOfBoundsException;
-import Exceptions.ProjectAlreadyExistsException;
-import Exceptions.ProjectNotFoundException;
+import Exceptions.*;
 
 public class DataBase {
 
@@ -36,8 +32,18 @@ public class DataBase {
 	}
 
 	public void deleteDeveloper(String id) {
+		Developer developerToRemove = null;
+		boolean developerFound = false;
+
 		for(Developer developer : developers) {
-			if(developer.getId().equals(id)) developers.remove(developer);
+			if(developer.getId().equals(id)) {
+				developerToRemove = developer;
+				developerFound = true;
+			}
+		}
+
+		if(developerFound){
+			developers.remove(developerToRemove);
 		}
 	}
 	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
@@ -65,8 +71,18 @@ public class DataBase {
 		admins.add(new Admin(id, this));
 	}
 	public void deleteAdmin(String id) {
+		Admin adminToRemove = null;
+		boolean adminFound = false;
+
 		for(Admin admin : admins) {
-			if(admin.getId().equals(id)) developers.remove(admin);
+			if(admin.getId().equals(id)) {
+				adminToRemove = admin;
+				adminFound = true;
+			}
+		}
+
+		if(adminFound){
+			admins.remove(adminToRemove);
 		}
 	}
 	public Admin getAdminById(String id) throws AdminNotFoundException {
@@ -103,13 +119,21 @@ public class DataBase {
 	}
 
 	public void deleteProject(String projectName) {
+		Project projectToRemove = null;
+		boolean projectFound = false;
+
 		for(Project project : projects) {
 			if(project.getProjectName().equals(projectName)) {
-				for(Developer dev : project.getDevelopers()) {
-					dev.deleteProject(project);
-				}
-				projects.remove(project);
+				projectToRemove = project;
+				projectFound = true;
 			}
+		}
+
+		if(projectFound){
+			for(Developer dev : projectToRemove.getDevelopers()) {
+				dev.deleteProject(projectToRemove);
+			}
+			projects.remove(projectToRemove);
 		}
 	}
 	public Project getProjectByName(String projectName) throws ProjectNotFoundException {
@@ -139,6 +163,40 @@ public class DataBase {
 		developers= new ArrayList<Developer>();
 	}
 
+	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
+			throws NotAuthorizedException, OutOfBoundsException {
+
+		boolean isProjectLeader = false;
+		List<Developer> availableDevelopers = new ArrayList<>();
+
+		for(Project project : getAllProjects()){
+			if(project.isProjectLeader(user)) isProjectLeader = true;
+		}
+
+		if (!isProjectLeader && !user.isAdmin()) {
+			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
+		}
+
+		if (startWeek > 52 || endWeek > 52 || startWeek<1 || endWeek<1) {
+			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
+		}
+
+		List<Developer> developers = user.getDatabase().getAllDevelopers();
+		for (Developer developer : developers) {
+			List<Activity> activities = developer.getActivities();
+			int k = 0;
+			for (Activity activity : activities) {
+				if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+					k++;
+				}
+
+			}
+			if (k < 21) {
+				availableDevelopers.add(developer);
+			}
+		}
+		return availableDevelopers;
+	}
 
 
 }

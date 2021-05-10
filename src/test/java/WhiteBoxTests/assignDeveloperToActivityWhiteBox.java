@@ -35,8 +35,8 @@ public class assignDeveloperToActivityWhiteBox {
 		developer = database.getDeveloperById("Bobb");
 		admin.createDeveloper("Klo");
 		developer2 = database.getDeveloperById("Klo");
-		admin.createProject("DatasetA");
-		project = database.getProjectByName("DatasetA");
+		admin.createProject("DatasetAForWhiteBox");
+		project = database.getProjectByName("DatasetAForWhiteBox");
 		admin.createDeveloper("Proj");
 		projectLeader = database.getDeveloperById("Proj");
 		project.assignDeveloperToProject(admin, projectLeader);
@@ -58,8 +58,8 @@ public class assignDeveloperToActivityWhiteBox {
 		admin = database.getAdminById("Blib");
 		admin.createDeveloper("Bobb");
 		developer = database.getDeveloperById("Bobb");
-		admin.createProject("DatasetB");
-		project = database.getProjectByName("DatasetB");
+		admin.createProject("DatasetBForWhiteBox");
+		project = database.getProjectByName("DatasetBForWhiteBox");
 		admin.createDeveloper("Proj");
 		projectLeader = database.getDeveloperById("Proj");
 		project.assignDeveloperToProject(admin, projectLeader);
@@ -85,8 +85,8 @@ public class assignDeveloperToActivityWhiteBox {
 		admin = database.getAdminById("Blib");
 		admin.createDeveloper("Bobb");
 		developer = database.getDeveloperById("Bobb");
-		admin.createProject("DatasetC");
-		project = database.getProjectByName("DatasetC");
+		admin.createProject("DatasetCForWhiteBox");
+		project = database.getProjectByName("DatasetCForWhiteBox");
 		admin.createDeveloper("Proj");
 		projectLeader = database.getDeveloperById("Proj");
 		project.assignDeveloperToProject(admin, projectLeader);
@@ -111,8 +111,8 @@ public class assignDeveloperToActivityWhiteBox {
 		admin = database.getAdminById("Blib");
 		admin.createDeveloper("Babb");
 		developer = database.getDeveloperById("Babb");
-		admin.createProject("DatasetD");
-		project = database.getProjectByName("DatasetD");
+		admin.createProject("DatasetDForWhiteBox");
+		project = database.getProjectByName("DatasetDForWhiteBox");
 		admin.createDeveloper("Proj");
 		projectLeader = database.getDeveloperById("Proj");
 		project.assignDeveloperToProject(admin, projectLeader);

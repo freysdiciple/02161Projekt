@@ -16,7 +16,7 @@ public class Activity {
 	private int id;
 	private int startWeek;
 	private int endWeek;
-	private int estimatedWorkHours;
+	private int estimatedWorkHours = 0;
 	private int timeLeft = 0;
 	
 	private List<Developer> developers = new ArrayList<>();
@@ -84,6 +84,7 @@ public class Activity {
 			throw new DeveloperNotFoundException("Developer not on project.");
 		
 		developers.add(developer);
+		developer.addActivity(this);
 	}
 	
 	public void removeDeveloperFromActivity(Developer developer) {

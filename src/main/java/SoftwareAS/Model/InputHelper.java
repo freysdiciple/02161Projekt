@@ -14,14 +14,14 @@ public class InputHelper {
 			if(time.length() == 11) {
 				usedTodayParameter = true;
 			}
-			else throw new OutOfBoundsException("String must be a length of 16 or 5");
+			else throw new OutOfBoundsException("String must be a length of 16 or 11");
 		}
 		
-		String yearString = time.substring(6,10);
-		String monthString = time.substring(3,5);
-		String dayString = time.substring(0,2);
-		String hourString = time.substring(11,13);
-		String minString = time.substring(14,16);
+		String yearString;
+		String monthString;
+		String dayString;
+		String hourString;
+		String minString;
 		
 		if(!usedTodayParameter) {
 			yearString = time.substring(6,10);
@@ -116,8 +116,7 @@ public class InputHelper {
 	}
 
 	public static int getMultipleChoice(Scanner scanner, int answerLength, int maxAnswer){
-		scanner.nextLine();
-		String input = scanner.nextLine();
+		String input = scanner.next();
 
 		if(input.length() > answerLength) {
 			System.out.println("Please enter one of the above integer choices...");
