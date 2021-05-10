@@ -1,6 +1,7 @@
 package SoftwareAS.Model;
 
 
+// This class is made by Massimo
 public class ActivitySummary {
 	
 	private int[] dailyWorkLoad;

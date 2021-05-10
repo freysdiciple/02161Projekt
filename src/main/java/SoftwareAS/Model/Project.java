@@ -35,6 +35,7 @@ public class Project {
 		setProjectID();
 	}
 	
+	// Peter
 	public void setProjectID() {
 		DateFormat df = new SimpleDateFormat("yy"); 
 		String year = df.format(Calendar.getInstance().getTime());
@@ -64,6 +65,7 @@ public class Project {
 		return startDate;
 	}
 
+	// Mathias
 	public void setProjectLeader(Developer admin, Developer developer) throws DeveloperNotFoundException, NotAuthorizedException {
 		if (isDeveloperOnProject(developer.getId()) == false)
 			throw new DeveloperNotFoundException("Developer is not on the project");
@@ -96,6 +98,7 @@ public class Project {
 		return false;
 	}
 
+	// Markus
 	public void assignDeveloperToProject(Developer admin, Developer developer) throws NotAuthorizedException {
 		if(!(admin.isAdmin() || isProjectLeader(admin)))
 			throw new NotAuthorizedException("Not authorized to assign developers to projects");
@@ -110,6 +113,7 @@ public class Project {
 		}
 	}
 
+	// Peter
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
 		if (!(this.isProjectLeader(developer) || developer.isAdmin()))
 			throw new NotAuthorizedException("Not authorized to create activities.");
@@ -120,6 +124,7 @@ public class Project {
 	}
 
 
+	// Massimo
 	public void deleteActivity(int id, Developer developer) throws NotAuthorizedException, ActivityNotFoundException {
 		if (!(this.isProjectLeader(developer) || developer.isAdmin()))														/* 1 */
 			throw new NotAuthorizedException("Not authorized to delete activities.");
@@ -153,30 +158,4 @@ public class Project {
 		summaries.add(summary);
 		return summary;
 	}
-	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
-			throws NotAuthorizedException, OutOfBoundsException {
-		if (!isProjectLeader(user) && !user.isAdmin()) {
-			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
-		}
-
-		if (startWeek > 52 || endWeek > 52 || startWeek<1 || endWeek<1) {
-			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
-		}
-
-		List<Developer> developers = user.getDatabase().getAllDevelopers();
-		for (Developer developer : developers) {
-			List<Activity> activities = developer.getActivities();
-			int k = 0;
-			for (Activity activity : activities) {
-				if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
-					k++;
-				}
-
-			}
-			if (k < 21) {
-				availableDevelopers.add(developer);
-			}
-		}
-		return availableDevelopers;
-		}
-	}
+}

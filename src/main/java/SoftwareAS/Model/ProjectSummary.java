@@ -3,6 +3,7 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class is made by Massimo
 public class ProjectSummary {
 
 	private int[] activityProgress;

@@ -658,7 +658,7 @@ public class FrontEndController {
 	 		int endWeek = input.nextInt();
 
 	 		try {
-	 		availableDevelopers=currentProject.seeAvailableDevelopers(startWeek, endWeek, currentUser);
+	 		availableDevelopers=database.seeAvailableDevelopers(startWeek, endWeek, currentUser);
 	 		}
 	 		catch (OutOfBoundsException e) {
 	 			System.out.println("The start week and end week has to be an integer between 1 and 52");

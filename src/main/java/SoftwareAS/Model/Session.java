@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 
 import Exceptions.OutOfBoundsException;
 
+// This class is made by Markus
 public class Session {
 	
 	private int sessionId;

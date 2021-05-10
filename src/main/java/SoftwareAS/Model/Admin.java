@@ -5,6 +5,7 @@ import java.util.List;
 
 import Exceptions.*;
 
+//This class is made by Simon
 public class Admin extends Developer {
 
 	private List<Project> projects = new ArrayList<>();

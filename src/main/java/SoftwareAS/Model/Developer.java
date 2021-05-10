@@ -9,6 +9,7 @@ import Exceptions.OutOfBoundsException;
 import Exceptions.OverlappingSessionsException;
 import Exceptions.SessionNotFoundException;
 
+// This class is made by Massimo
 public class Developer {
 	
 	private String id;

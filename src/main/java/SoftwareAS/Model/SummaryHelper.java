@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+// This class is made by Simon
 public abstract class SummaryHelper {
 	
 	public static int[] calculateDailyWorkload(Session[] sessions) {

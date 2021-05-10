@@ -19,7 +19,8 @@ class DoNothingCommand implements Command {
 }
 
 
-//Massimo
+// This class was taken from: https://coderwall.com/p/wgtifw/java-tip-3-how-to-implement-dynamic-switch
+// And is purely used as a helper class to switches
 public class Switcher {
 	
 	private Map<Integer, Command> caseCommands;

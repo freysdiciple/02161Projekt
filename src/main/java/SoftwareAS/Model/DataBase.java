@@ -31,6 +31,7 @@ public class DataBase {
 		developers.add(developer);
 	}
 
+	// Mathias
 	public void deleteDeveloper(String id) {
 		Developer developerToRemove = null;
 		boolean developerFound = false;
@@ -46,6 +47,8 @@ public class DataBase {
 			developers.remove(developerToRemove);
 		}
 	}
+	
+	// Markus
 	public Developer getDeveloperById(String id) throws DeveloperNotFoundException {
 		for(Developer developer : developers) {
 			if(developer.getId().equals(id)) return developer;
@@ -53,6 +56,8 @@ public class DataBase {
 
 		throw new DeveloperNotFoundException("No developer with described ID");
 	}
+	
+	// Peter
 	public Developer getDeveloperByIdWOE(String id) {
 		for(Developer developer : developers) {
 			if(developer.getId().equals(id)) return developer;
@@ -70,6 +75,8 @@ public class DataBase {
 	public void createAdmin(String id) throws OutOfBoundsException {
 		admins.add(new Admin(id, this));
 	}
+	
+	// Massimo
 	public void deleteAdmin(String id) {
 		Admin adminToRemove = null;
 		boolean adminFound = false;
@@ -85,6 +92,7 @@ public class DataBase {
 			admins.remove(adminToRemove);
 		}
 	}
+	
 	public Admin getAdminById(String id) throws AdminNotFoundException {
 		for(Admin admin : admins) {
 			if(admin.getId().equals(id)) return admin;
@@ -108,6 +116,8 @@ public class DataBase {
 	public List<Project> getAllProjects(){
 		return projects;
 	}
+	
+	// Simon
 	public void createProject(Project project) throws ProjectNotFoundException, ProjectAlreadyExistsException {
 		if(containsProject(project.getProjectName()))
 			throw new ProjectAlreadyExistsException("Project Already Exists");
@@ -118,6 +128,7 @@ public class DataBase {
 		return projectsMade;
 	}
 
+	// Mathias
 	public void deleteProject(String projectName) {
 		Project projectToRemove = null;
 		boolean projectFound = false;
@@ -163,6 +174,7 @@ public class DataBase {
 		developers= new ArrayList<Developer>();
 	}
 
+	// Simon
 	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
 			throws NotAuthorizedException, OutOfBoundsException {
 

@@ -6,6 +6,7 @@ import Exceptions.OutOfBoundsException;
 
 public class InputHelper {
 	
+	// Simon
 	public static GregorianCalendar stringToGregorianCalendar(String time) throws OutOfBoundsException {
 		
 		boolean usedTodayParameter = false;
@@ -54,6 +55,7 @@ public class InputHelper {
 		
 	}
 	
+	// Massimo
 	public static Object[] stringToSessionProperties(String sessionInfo, Developer currentUser, Activity activity) throws OutOfBoundsException {
 		if(sessionInfo.length() != 40 && sessionInfo.length() != 35 && sessionInfo.length() != 30) throw new OutOfBoundsException("Input not correct");
 		
@@ -115,6 +117,7 @@ public class InputHelper {
 				
 	}
 
+	// Markus
 	public static int getMultipleChoice(Scanner scanner, int answerLength, int maxAnswer){
 		String input = scanner.next();
 

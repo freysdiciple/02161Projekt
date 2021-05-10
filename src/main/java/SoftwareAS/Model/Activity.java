@@ -10,6 +10,7 @@ import Exceptions.OperationNotAllowedException;
 import Exceptions.OutOfBoundsException;
 import Exceptions.SessionNotFoundException;
 
+// This class is made by Peter
 public class Activity {
 	
 	private Project project;
@@ -94,9 +95,6 @@ public class Activity {
 		}
 	}
 	
-//	public void assignDeveloper(Developer developer) throws OperationNotAllowedException {
-//		developers.add(developer);
-//	}
 	
 	public void registerSession(Session session) {
 		registeredSessions.add(session);
