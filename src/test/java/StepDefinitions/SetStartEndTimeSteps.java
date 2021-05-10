@@ -40,8 +40,8 @@ public class SetStartEndTimeSteps {
     public void thereIsAProject(String projectName) throws Throwable {
 
 
-        database.createAdmin("alwaysAdmin");
-        admin = database.getAdminById("alwaysAdmin");
+        database.createAdmin("Joe");
+        admin = database.getAdminById("Joe");
 
         try {
             admin.createProject(projectName);
