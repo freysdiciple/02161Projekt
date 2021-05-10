@@ -134,6 +134,10 @@ public class DataBase {
 		}
 		return false;
 	}
+	
+	public void removeAllDevelopers() {
+		developers= new ArrayList<Developer>();
+	}
 
 
 
