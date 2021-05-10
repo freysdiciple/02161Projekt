@@ -1,5 +1,6 @@
 package SoftwareAS.Controller;
 
+//Simon
 public class ErrorMessageHolder {
 	private String errorMessage = "";
 
