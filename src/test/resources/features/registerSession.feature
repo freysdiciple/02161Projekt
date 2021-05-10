@@ -1,7 +1,7 @@
 Feature: Register Spent Time
 Description: The developer has to register the amount of time he has spent on different activities that day
 Actors: Developer
-
+#Massimo
 Scenario: The developer successfully registers a session
 	Given 8 - there is a developer
 	And 8 - there is an activity1

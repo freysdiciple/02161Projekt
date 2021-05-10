@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
+
+//Massimo
 public class SummarySteps {
 
 	private DataBase database;

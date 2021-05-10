@@ -11,6 +11,8 @@ import SoftwareAS.Model.*;
 
 import io.cucumber.java.en.*;
 
+
+//Markus
 public class ModifyRegisteredTimeStep {
 	
 	private Admin admin;
@@ -35,13 +37,7 @@ public class ModifyRegisteredTimeStep {
 	
 	
 //	Main scenario:
-//	#Scenario: The developer removes the registered time on an activity the developer has registered
-//	#   Given the user {string} is a developer
-//	#	And there is a project
-//	#	And there is an activity
-//	#	And the developer have registered time on that activity
-//	#	When the developer removes the registered time on that activity
-//	#	Then the registered time is removed successfully
+
 
 	@Given("7- the user {string} is a developer")
 	public void theUserIsADeveloper(String developerName) throws DeveloperNotFoundException, AdminNotFoundException, OutOfBoundsException {
@@ -93,15 +89,8 @@ public class ModifyRegisteredTimeStep {
 	}
 	
 //	Alternate scenario 1
-//	Scenario: The developer changes the registered time on an activity the developer has registered
-//	Given 7- the user "kludwig" is a developer 
-//	And 7- there is a project with id "790123" created by Bob
-//	And 7- there is an activity with Id 701 created by the project leader "Kenneth"
-//	When 7- the developer changes the registered time on that activity
-//	Then 7- the registered time is changed successfully
-	
-	
-	
+
+
 	@When("7- the developer changes start and end time of the session on that activity")
 	public void theDeveloperChangesStartAndEndTimeOfTheRegisteredTimeOnThatActivity() throws SessionNotFoundException, OutOfBoundsException {
 		session.changeStartTime(newStartTime);

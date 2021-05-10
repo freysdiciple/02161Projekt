@@ -1,7 +1,7 @@
 Feature: Modify registered time
    Description: The user assign a project leader to a given project
    Actors: Admin
-
+## Markus
 
 #Main scenario
 Scenario: The developer removes the registered time on an activity the developer has registered

@@ -1,7 +1,7 @@
 Feature: Get Summary
 Description: The project manager request a time-related summary of a project or activity
 Actors: Project Leader
-
+#Massimo
 Scenario: Get summary of activity in last week
 	Given 6 - the user is a project leader1
 	And 6 - the developers have registered their daily time on the activities

@@ -10,6 +10,8 @@ import Exceptions.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
+
+//Massimo
 public class RegisterSessionWhiteBox {
 	
 	ErrorMessageHolder emh = new ErrorMessageHolder();

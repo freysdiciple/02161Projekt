@@ -9,6 +9,8 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 import org.junit.jupiter.api.Test;
 
+
+//Markus
 public class assignDeveloperToActivityWhiteBox {
 	
 	ErrorMessageHolder emh = new ErrorMessageHolder();
