@@ -16,29 +16,17 @@ import SoftwareAS.Model.DataBase;
 
 public class createProjectWhiteBox {
 
-	/*
-	 * 
-	 * public void createProject(int projectNumber) { //pre: isAdmin &&
-	 * Integer.toString(projectNumber).length()==6 &&
-	 * !database.containsProject(projectNumber); //post:
-	 * database.containsProject(projectNumber)==true; }
-	 * 
-	 * }
-	 */
-
 	private Admin admin;
 	private DataBase database = DataBase.getInstance();
 	private String projectName1 = "TEST1";
 	private String projectName2 = "TEST2";
 	private String projectName3 = "TEST3";
-	
 	private String projectNameInvalid = "12";
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	private String userName1 = "T111";
 	private String userName2 = "T222";
 	private String userName3 = "T333";
 	private String userName4 = "T444";
-
 
 	@Test
 	public void PathA() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
@@ -60,7 +48,7 @@ public class createProjectWhiteBox {
 	public void PathB() throws AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException,
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
 		database.createAdmin(userName2);
-		admin = database.getAdminById(userName2 );
+		admin = database.getAdminById(userName2);
 		admin.createProject(projectName2);
 		try {
 			admin.createProject(projectName2);
