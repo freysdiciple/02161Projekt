@@ -1,3 +1,5 @@
+// This feature is made by Simon Bang Hjortkilde - s183557
+
 Feature: See available developers
    Description: The user requests to see a list of available developers
    Actors: Project leader

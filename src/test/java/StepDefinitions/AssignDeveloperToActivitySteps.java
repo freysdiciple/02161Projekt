@@ -1,3 +1,4 @@
+//This class was made by Peter - s204484
 package StepDefinitions;
 
 import static org.junit.Assert.*;
@@ -98,10 +99,10 @@ public class AssignDeveloperToActivitySteps {
 		assertTrue(project.getActivityById(activityID).isDeveloperOnAcitivty(developer2.getId()));
 	}
 		//Scenario: Successfully assign developer to activity
-		//	Given 1- there is a project with project ID 123456
+		//	Given 1- there is a project with project name "1- Scenario 1"
 		//	And 1- there is a user with ID "John" and database
 		//	And 1- the user is a project leader
-		//	And 1- there is a second developer with ID "James" and database
+		//	And 1- there is a second developer with ID "Joe" and database
 		//	And 1- the second developer is part of the project
 		//	And 1- there is an activity with ID 924
 		//	When 1- the second developer is assigned to the activity
@@ -124,10 +125,10 @@ public class AssignDeveloperToActivitySteps {
 		assertFalse(project.getActivityById(activityID).isDeveloperOnAcitivty(developer2.getId()));
 	}
 		//Scenario: Assign developer not on project to an activity
-		//	Given 1- there is a project with project ID 123456
+		//	Given 1- there is a project with project name "1- Scenario 2"
 		//	And 1- there is a user with ID "John" and database
 		//	And 1- the user is a project leader
-		//	And 1- there is a second developer with ID "James" and database
+		//	And 1- there is a second developer with ID "Joe" and database
 		//	And 1- the second developer is not part of the project
 		//	And 1- there is an activity with ID 924
 		//	When 1- the second developer is assigned to the activity
@@ -150,10 +151,10 @@ public class AssignDeveloperToActivitySteps {
 		assertEquals("No activity with described ID", errorMessageHolder.getErrorMessage());
 	}
 		//Scenario: Assign developer to an activity that does not exist
-		//	Given 1- there is a project with project ID 123456
+		//	Given 1- there is a project with project name "1- Scenario 3"
 		//	And 1- there is a user with ID "John" and database
 		//	And 1- the user is a project leader
-		//	And 1- there is a second developer with ID "James" and database
+		//	And 1- there is a second developer with ID "Joe" and database
 		//	And 1- there is not an activity with ID 924
 		//	When 1- the second developer is assigned to the activity
 		//	Then 1- an ActivityNotFoundException is thrown
@@ -175,10 +176,10 @@ public class AssignDeveloperToActivitySteps {
 		assertFalse(project.getActivityById(activityID).isDeveloperOnAcitivty(developer2.getId()));
 	}
 		//Scenario: Developer assigns developer to an activity
-		//	Given 1- there is a project with project ID 123456
+		//	Given 1- there is a project with project name "1- Scenario 4"
 		//	And 1- there is a user with ID "John" and database
 		//	And 1- the user is not a project leader
-		//	And 1- there is a second developer with ID "James" and database
+		//	And 1- there is a second developer with ID "Joe" and database
 		//	And 1- the second developer is part of the project
 		//	And 1- there is an activity with ID 924
 		//	When 1- the second developer is assigned to the activity

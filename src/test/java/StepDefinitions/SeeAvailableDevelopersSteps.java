@@ -1,3 +1,5 @@
+// This class is made by Simon Bang Hjortkilde - s183557
+
 package StepDefinitions;
 
 import static org.junit.Assert.*;

@@ -1,3 +1,5 @@
+#This feature is made by Simon Bang Hjortkilde - s183557
+
 Feature: Create new project
    Description: The user creates a new project
    Actors: Admin
