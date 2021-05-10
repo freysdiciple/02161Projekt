@@ -141,7 +141,7 @@ public class SeeAvailableDevelopersSteps {
 		assertFalse(project.isProjectLeader(developer) && developer.isAdmin());
 	}
 	
-	@When("9- the user tries to provide imformation of the start week {int} and end week {int} of the activity where he needs developers")
+	@When("9- the user tries to provide information of the start week {int} and end week {int} of the activity where he needs developers")
 	public void theUserTriesProvideInformation(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
 		try {
 			project.seeAvailableDevelopers(start, end, developer);
