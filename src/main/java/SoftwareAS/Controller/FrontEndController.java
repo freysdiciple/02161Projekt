@@ -189,7 +189,7 @@ public class FrontEndController {
 		System.out.println("Give the new desired start date and time in the form,");
 		System.out.println("DD/MM/YYYY HH-MM,");
 		System.out.println("or enter 0 to go back");
-		
+
 		input.nextLine();
 		String info = input.nextLine();
 		
@@ -264,13 +264,21 @@ public class FrontEndController {
 		System.out.println((underActivity ? "" : "{activityID} ") + "{startdatetime} {enddatetime}");
 		System.out.println("The dates have the following syntax:");
 		System.out.println("DD/MM/YYYY HH-MM");
+		System.out.println("or enter 0 to go back");
 		
 		input.nextLine();
 		String sessionInfo = input.nextLine();
-		
+		if(sessionInfo.length() == 1 && Integer.parseInt(sessionInfo.substring(0, 1)) == 0) { 
+			if (underActivity)
+				activityMenu();
+			mySessions();
+		}
 		try {
 			Object[] properties = InputHelper.stringToSessionProperties(sessionInfo, currentUser, underActivity? currentActivity : null);
 			currentUser.registerSession((Activity) properties[2], (GregorianCalendar)properties[0], (GregorianCalendar)properties[1]);
+			if (underActivity)
+				activityMenu();
+			mySessions();
 		}catch(Exception e) {
 			System.out.println("Wrong input, please enter your session info correctly");
 			registerSession(underActivity);
@@ -839,17 +847,15 @@ public class FrontEndController {
 	private void assignProjectLeader() throws NumberFormatException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException, AdminNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("To assign a project leader, ");
-		System.out.println("give the name of the project first: and the employee id:");
+		System.out.println("give the name of the project first:");
 		System.out.println("or enter 0 to go back");
-		input.nextLine();
-		String projectName = input.nextLine();
+		String projectName = input.next();
 		if(projectName.length() == 1 && Integer.parseInt(projectName.substring(0, 1)) == 0) {
 			manageProjects();
 		}
 		System.out.println("and the employee id:");
 		System.out.println("or enter 0 to go back");
-		input.nextLine();
-		String developerName = input.nextLine();
+		String developerName = input.next();
 		if(developerName.length() == 1 && Integer.parseInt(developerName.substring(0, 1)) == 0) {
 			manageProjects();
 			
