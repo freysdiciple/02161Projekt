@@ -1,3 +1,4 @@
+//This class was made by Peter - s204484
 package StepDefinitions;
 
 import static org.junit.Assert.*;
@@ -61,7 +62,7 @@ public class CreateActivitySteps {
 		assertTrue(project.containsActivityWithId(activityID));
 	}
 		//Scenario: Successfully create activity
-		//	Given 4- there is a project with project ID 123456
+		//	Given 4- there is a project with project name "4- Scenario 1"
 		//	And 4- there is a user with ID "John" and database
 		//	And 4- the user is a project leader
 		//	When 4- the user creates an activity with ID 925 in that project
@@ -79,7 +80,7 @@ public class CreateActivitySteps {
 		assertEquals("An activity with that ID already exists.", errorMessageHolder.getErrorMessage());
 	}
 		//Scenario: Duplicate name
-		//	Given 4- there is a project with project ID 123456
+		//	Given 4- there is a project with project name "4- Scenario 2"
 		//	And 4- there is a user with ID "John" and database
 		//	And 4- the user is a project leader
 		//	And 4- there is an activity with ID 925
@@ -108,7 +109,7 @@ public class CreateActivitySteps {
 		assertFalse(project.containsActivityWithId(activityID));
 	}
 		//Scenario: Developer trying to create activity
-		//	Given 4- there is a project with project ID 123456
+		//	Given 4- there is a project with project name "4- Scenario 3"
 		//	And 4- there is a user with ID "John" and database
 		//	And 4- the user is not a project leader
 		//	When 4- the user creates an activity with ID 925 in that project

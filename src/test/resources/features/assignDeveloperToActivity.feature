@@ -1,3 +1,4 @@
+#This feature was made by Peter - s204484
 Feature: Assign developer to activity
 Description: The project leader assigns developers to an existing activity
 Actor: Project leader
