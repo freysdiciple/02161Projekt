@@ -134,7 +134,7 @@ public class SeeAvailableDevelopersSteps {
 //	When 9- the user provides information of the start week 32 and end week 40 of the activity where he needs developers
 //	Then 9- the system provides an error message that the user is not authorized for this action
 	
-	@Given("9- the user is not a Project leader or Admin")
+	@Given("9- the user is not a Project leader or admin")
 	public void theUserIsNotAProjectLeaderOrAdmin()
 			throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
 		project.assignDeveloperToProject(admin, developer);
