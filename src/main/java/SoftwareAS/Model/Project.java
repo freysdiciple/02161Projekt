@@ -120,9 +120,9 @@ public class Project {
 
 
 	public void deleteActivity(int id, Developer developer) throws NotAuthorizedException, ActivityNotFoundException {
-		if (!(this.isProjectLeader(developer) || developer.isAdmin()))
+		if (!(this.isProjectLeader(developer) || developer.isAdmin()))														/* 1 */
 			throw new NotAuthorizedException("Not authorized to delete activities.");
-		if (!this.containsActivityWithId(id))
+		if (!this.containsActivityWithId(id))																				/* 2 */
 			throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
 		Activity activity = getActivityById(id);
 		for(Developer dev : activity.getDevelopers())

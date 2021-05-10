@@ -1,3 +1,5 @@
+// This class is made by Mathias Jensen
+
 package WhiteBoxTests;
 
 import static org.junit.Assert.*;
