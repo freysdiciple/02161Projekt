@@ -28,7 +28,10 @@ public class createProjectWhiteBox {
 
 	private Admin admin;
 	private DataBase database = DataBase.getInstance();
-	private String projectName = "TEST";
+	private String projectName1 = "TEST1";
+	private String projectName2 = "TEST2";
+	private String projectName3 = "TEST3";
+	
 	private String projectNameInvalid = "12";
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
 	private String userName1 = "T111";
@@ -45,7 +48,7 @@ public class createProjectWhiteBox {
 		admin = database.getAdminById(userName1);
 		admin.setAdminState(false);
 		try {
-			admin.createProject(projectName);
+			admin.createProject(projectName1);
 		} catch (NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -58,9 +61,9 @@ public class createProjectWhiteBox {
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
 		database.createAdmin(userName2);
 		admin = database.getAdminById(userName2 );
-		admin.createProject(projectName);
+		admin.createProject(projectName2);
 		try {
-			admin.createProject(projectName);
+			admin.createProject(projectName2);
 		} catch (ProjectAlreadyExistsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -87,8 +90,8 @@ public class createProjectWhiteBox {
 			ProjectNotFoundException, OutOfBoundsException, NotAuthorizedException {
 		database.createAdmin(userName4);
 		admin = database.getAdminById(userName4);
-		admin.createProject(projectName);
+		admin.createProject(projectName3);
 
-		assertTrue(database.containsProject(projectName));
+		assertTrue(database.containsProject(projectName3));
 	}
 }
