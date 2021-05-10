@@ -46,14 +46,29 @@ public class assignDeveloperToActivityWhiteBox {
 		
 		try {
 			activity.assignDeveloperToActivity(developer2, developer);
-		}catch(OperationNotAllowedException e) {
+		} catch(OperationNotAllowedException e) {
 			emh.setErrorMessage(e.getMessage());
 		}
-		assertEquals(emh,"Only a project leader or admin can assign developer to activity");
+		assertEquals(emh.getErrorMessage(),"Only a project leader or admin can assign developer to activity");
 	}
 	
 	@Test
-	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, AdminNotFoundException {
+	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, AdminNotFoundException, NumberFormatException, ProjectAlreadyExistsException, ProjectNotFoundException {
+		database.createAdmin("Blib");
+		admin = database.getAdminById("Blib");
+		admin.createDeveloper("Bobb");
+		developer = database.getDeveloperById("Bobb");
+		admin.createProject("DatasetB");
+		project = database.getProjectByName("DatasetB");
+		admin.createDeveloper("Proj");
+		projectLeader = database.getDeveloperById("Proj");
+		project.assignDeveloperToProject(admin, projectLeader);
+		project.setProjectLeader(admin, projectLeader);
+		project.createActivity(200, projectLeader);
+		activity = project.getActivityById(200);
+		
+		
+		
 		
 		try {
 			activity.assignDeveloperToActivity(projectLeader, developer);
