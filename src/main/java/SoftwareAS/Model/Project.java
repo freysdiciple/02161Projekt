@@ -110,8 +110,8 @@ public class Project {
 	}
 
 	public void createActivity(int id, Developer developer) throws NotAuthorizedException, ActivityAlreadyExistsException {
-		if (!this.isProjectLeader(developer))
-			throw new NotAuthorizedException("Only the project leader can create activities.");
+		if (!(this.isProjectLeader(developer) || developer.isAdmin()))
+			throw new NotAuthorizedException("Not authorized to create activities.");
 		if (this.containsActivityWithId(id))
 			throw new ActivityAlreadyExistsException("An activity with that ID already exists.");
 
