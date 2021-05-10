@@ -26,6 +26,7 @@ public class FrontEndController {
 	private Activity currentActivity;
 	private Project currentProject;
 	private Session currentSession;
+	private List<Developer> availableDevelopers;
 	
 	public FrontEndController(DataBase database) throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		this.database = database;
@@ -619,9 +620,29 @@ public class FrontEndController {
 		switcher.on(choice);
 	}
 	
-	public void seeAvailableDevelopers() {
+		public void seeAvailableDevelopers() throws NotAuthorizedException, NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
+	 		System.out.println("Please enter the start week and end week for the time slot you want to see avaliable developers for");
+
+	 		System.out.println("Start week?");
+	 		int startWeek = input.nextInt();
+	 		System.out.println("End week?");
+	 		int endWeek = input.nextInt();
+
+	 		try {
+	 		availableDevelopers=currentProject.seeAvailableDevelopers(startWeek, endWeek, currentUser);
+	 		}
+	 		catch (OutOfBoundsException e) {
+	 			System.out.println("The start week and end week has to be an integer between 1 and 52");
+	 			seeAvailableDevelopers();
+
+	 		}
+	 		for (Developer developer :availableDevelopers) {
+	 			System.out.print(developer.getId());
+	 		}
+	 		manageDevelopers();
+
+	 		}
 		
-	}
 	
 	private void manageActivities() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Welcome to Manage Activities!");
