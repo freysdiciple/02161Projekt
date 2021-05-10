@@ -13,7 +13,7 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	ErrorMessageHolder emh = new ErrorMessageHolder();
 	
-	DataBase database;
+	DataBase database = DataBase.getInstance();
 	Activity activity;
 	Developer developer;
 	Developer developer2;
@@ -41,8 +41,9 @@ public class assignDeveloperToActivityWhiteBox {
 	}
 	
 	@Test
-	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
-		admin = new Admin();
+	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, AdminNotFoundException {
+		database.createAdmin("Blub");
+		admin = database.getAdminById("Blub");
 		projectLeader = new Developer();
 		project = new Project("Hello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
@@ -59,8 +60,9 @@ public class assignDeveloperToActivityWhiteBox {
 	}
 	
 	@Test
-	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, OutOfBoundsException {
-		admin = new Admin();
+	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OperationNotAllowedException, OutOfBoundsException, AdminNotFoundException {
+		database.createAdmin("Blab");
+		admin = database.getAdminById("Blab");
 		projectLeader = new Developer();
 		project = new Project("Hello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
@@ -77,8 +79,9 @@ public class assignDeveloperToActivityWhiteBox {
 	
 	
 	@Test
-	public void testInputDataSetD() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, OperationNotAllowedException  {
-		admin = new Admin();
+	public void testInputDataSetD() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException, ActivityNotFoundException, OutOfBoundsException, OperationNotAllowedException, AdminNotFoundException  {
+		database.createAdmin("Blib");
+		admin = database.getAdminById("Blib");
 		projectLeader = new Developer();
 		project = new Project("Jello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
