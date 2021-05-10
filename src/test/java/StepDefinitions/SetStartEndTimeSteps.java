@@ -11,107 +11,105 @@ import SoftwareAS.Model.*;
 
 
 public class SetStartEndTimeSteps {
-	/*
 
-
-    private String developerAndleaderName = "KONR";
-    private String justDeveloperName = "CHRI";
+    /*
+    private String developerAndleaderName = "Konrad";
+    private String justDeveloperName = "Christian";
     private String projectID = "210001";
     private int activityID = 102;
 
     private DataBase database;
-    private Admin admin = new Admin("MOG1",database);
+    private Admin admin = new Admin("mogens",database);
     private Developer developerAndLeader;
     private Developer justDeveloper;
     private Project project;
-    
-    public SetStartEndTimeSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) throws OutOfBoundsException {
+    */
+
+    private DataBase database;
+    private Admin admin;
+    private Project project;
+    private Developer developer;
+    private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+
+
+    public SetStartEndTimeSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder) {
 		this.database = softwareAS.getDataBase();
 	}
 
-    @Given ("11- there is a project")
-    public void thereIsAProject() throws Throwable {
+    @Given ("11- there is a project {string}")
+    public void thereIsAProject(String projectName) throws Throwable {
+
+
+        database.createAdmin("alwaysAdmin");
+        admin = database.getAdminById("alwaysAdmin");
 
         try {
-            admin.createProject(projectID);
-        } catch (ProjectAlreadyExistsException e){}
+            admin.createProject(projectName);
+        }
+        catch (ProjectAlreadyExistsException e) {}
 
-        project = database.getProjectByName(projectID);
-        assertTrue(database.containsProject(projectID));
+        project = database.getProjectByName(projectName);
+        assertTrue(database.containsProject(projectName));
     }
 
-    @Given ("11- the user is a project leader")
-    public void theUserIsAProjectLeader() throws Throwable{
+    @Given ("11- the user {string} is a project leader")
+    public void theUserIsAProjectLeader(String userName) throws Throwable{
 
-        admin.createDeveloper(developerAndleaderName);
-        developerAndLeader = database.getDeveloperById(developerAndleaderName);
-        project.assignDeveloperToProject(admin, developerAndLeader);
-        project.setProjectLeader(admin, developerAndLeader);
 
-        assertEquals(developerAndLeader, project.getProjectLeader());
+        admin.createDeveloper(userName);
+        developer = database.getDeveloperById(userName);
+        project.assignDeveloperToProject(admin, developer);
+        project.setProjectLeader(admin, developer);
+
     }
 
-
-    @Given ("11- there is an activity")
-    public void thereIsAnActivity() throws Throwable{
+    @Given ("11- there is an activity {int}")
+    public void thereIsAnActivity(int activityID) throws Throwable{
 
         try {
-            project.createActivity(activityID, developerAndLeader);
+            project.createActivity(activityID, developer);
         }catch (ActivityAlreadyExistsException e) {}
 
-        assertTrue(project.containsActivityWithId(activityID));
     }
 
 
-    @When ("11- the user sets the activity to begin week {int} and end week {int}")
-    public void userProvidesTimeForTheActivity(int activityStart, int activityEnd) throws Throwable{
+    @When ("11- the user {string} sets the activity {int} to begin week {int} and end week {int}")
+    public void userProvidesTimeForTheActivity(String username, int activityID, int activityStart, int activityEnd) throws Throwable{
 
         project.getActivityById(activityID).setStartWeek(activityStart);
         project.getActivityById(activityID).setEndWeek(activityEnd);
+
     }
 
 
-    @Then("11- the the activity is registered to begin week {int} and end week {int}")
-    public void theTimeForTheActivityIsSet(int activityStart, int activityEnd) throws Throwable{
+    @Then("11- the the activity {int} is registered to begin week {int} and end week {int}")
+    public void theTimeForTheActivityIsSet(int activityID, int activityStart, int activityEnd) throws Throwable{
+
         assertEquals(activityStart, project.getActivityById(activityID).getStartWeek());
         assertEquals(activityEnd, project.getActivityById(activityID).getEndWeek());
 
-        System.out.println("The start variable is " + activityStart + " and the registered start week is " + project.getActivityById(activityID).getStartWeek());
-        System.out.println("The end variable is " + activityEnd + " and the registered end week is " + project.getActivityById(activityID).getEndWeek());
     }
 
 
-    @Given ("11- the activity is already registered to begin week {int} and end week {int}")
-    public void theActivityAlreadyHasTime(int existingActivityStart, int existingActivityEnd) throws Throwable{
+    @Given ("11- the activity {int} is already registered to begin week {int} and end week {int}")
+    public void theActivityAlreadyHasTime(int activityID, int existingActivityStart, int existingActivityEnd) throws Throwable{
+
         project.getActivityById(activityID).setStartWeek(existingActivityStart);
         project.getActivityById(activityID).setEndWeek(existingActivityEnd);
 
-        assertEquals(existingActivityStart, project.getActivityById(activityID).getStartWeek());
-        assertEquals(existingActivityEnd, project.getActivityById(activityID).getEndWeek());
-
     }
 
 
 
-    @Given ("11- the user is not a project leader")
-    public void theUserIsNotAProjectLeader() throws Throwable{
+    @Given ("11- the user {string} is not a project leader")
+    public void theUserIsNotAProjectLeader(String userName) throws Throwable{
 
-        // This user is just a Developer
-        admin.createDeveloper(justDeveloperName);
-        justDeveloper = database.getDeveloperById(justDeveloperName);
-        project.assignDeveloperToProject(admin, justDeveloper);
-
-        // This Leader is made to create activities only.
-        admin.createDeveloper(developerAndleaderName);
-        developerAndLeader = database.getDeveloperById(developerAndleaderName);
-        project.assignDeveloperToProject(admin, developerAndLeader);
-        project.setProjectLeader(admin, developerAndLeader);
-
-        assertTrue(!project.isProjectLeader(justDeveloper));
-        System.out.println("Are the developer a project leader? " + project.isProjectLeader(justDeveloper));
+        admin.createDeveloper(userName);
+        developer = database.getDeveloperById(userName);
+        project.assignDeveloperToProject(admin, developer);
 
     }
-
+/*
     @Then ("11- a NotAuthorizedException is thrown")
     public void aNotAuthorizedExceptionIsThrown() throws Throwable{
 
@@ -126,7 +124,7 @@ public class SetStartEndTimeSteps {
         throw new PendingException();
     }
 
-*/
 
+*/
 
 }
