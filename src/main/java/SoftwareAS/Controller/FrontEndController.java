@@ -35,6 +35,7 @@ public class FrontEndController {
 	}
 	
 	public static void clearScreen() {
+		System.out.println("");
 	} 
 	
 	public void loginSequence() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
@@ -117,6 +118,7 @@ public class FrontEndController {
 	}
 	
 	private void modifySession() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		clearScreen();
 		System.out.println("What would you like to do with this session?");
 		System.out.println("0 - Back");
 		System.out.println("1 - Delete Session");
@@ -143,6 +145,7 @@ public class FrontEndController {
 	}
 
 	private void changeEndTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		clearScreen();
 		System.out.println("Give the new desired end date and time in the form,");
 		System.out.println("DD/MM/YYYY HH-MM,");
 		System.out.println("or enter 0 to go back");
@@ -173,6 +176,7 @@ public class FrontEndController {
 	}
 
 	private void changeStartTime() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		clearScreen();
 		System.out.println("Give the new desired start date and time in the form,");
 		System.out.println("DD/MM/YYYY HH-MM,");
 		System.out.println("or enter 0 to go back");
@@ -301,7 +305,7 @@ public class FrontEndController {
 	}
 	
 	public void projectMenu() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
-		
+		clearScreen();
 		System.out.println("Welcome to project " + currentProject.getProjectName() + "!");
 		System.out.println("0 - Back");
 		System.out.println("1 - My Activities");
@@ -331,7 +335,7 @@ public class FrontEndController {
 	
 
 	private void manageProject() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
-		
+		clearScreen();
 		System.out.println("Welcome to Manage Project!");
 		System.out.println("Here you can manage developers or activities,");
 		System.out.println("on the current project. Choose wisely");
@@ -394,6 +398,7 @@ public class FrontEndController {
 	}
 	
 	private void manageDevelopers() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
+		clearScreen();
 		System.out.println("Welcome to Manage Developers on the current project!");
 		System.out.println("0 - Back");
 		System.out.println("1 - Add developer to the project");
@@ -621,8 +626,9 @@ public class FrontEndController {
 	}
 	
 		public void seeAvailableDevelopers() throws NotAuthorizedException, NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
-	 		System.out.println("Please enter the start week and end week for the time slot you want to see avaliable developers for");
-
+	 		System.out.println("Please enter the start week and end week for the time slot,");
+	 		System.out.println("you want to see avaliable developers for");
+	 		
 	 		System.out.println("Start week?");
 	 		int startWeek = input.nextInt();
 	 		System.out.println("End week?");
@@ -675,8 +681,12 @@ public class FrontEndController {
 	private void createActivity() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to create:");
+		System.out.println("or enter 0 to go back");
 		
 		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
+		if(number == 0) {
+			manageActivities();
+		}
 		if(currentProject.containsActivityWithId(number)) {
 			System.out.println("An activity with the given number already exists");
 			createActivity();
@@ -692,10 +702,13 @@ public class FrontEndController {
 	private void deleteActivity() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the number of the activity you would like to delete:");
+		System.out.println("or enter 0 to go back");
 		
 		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
 		boolean activityFound = false;
-		
+		if(number == 0) {
+			manageActivities();
+		}
 		
 		if(currentProject.containsActivityWithId(number)){			
 				activityFound = true;
@@ -709,13 +722,16 @@ public class FrontEndController {
 		else {
 			manageActivities();
 		}
-		
 	}
 		
 	private void getSummary() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Enter the number of the activity you would like to get summary of:");
+		System.out.println("or enter 0 to go back");
 		int number = InputHelper.getMultipleChoice(input, 6, 1000000);
 		boolean activityFound = false;
+		if(number == 0) {
+			manageActivities();
+		}
 		
 		if(currentProject.containsActivityWithId(number)){			
 			activityFound = true;
@@ -796,13 +812,13 @@ public class FrontEndController {
 		System.out.println("To assign a project leader, ");
 		System.out.println("give the name of the project and the employee id:");
 		System.out.println("(Separated by a single space)");
-		
+		System.out.println("or enter 0 to go back");
+
 		input.nextLine();
 		String info = input.nextLine();
 
-		if(info.length() != 11) {
-			System.out.println("Please give correct input...");
-			assignProjectLeader();
+		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 0) {
+			manageProjects();
 		}
 		else {
 			String numberString = info.substring(0, 6);
@@ -823,8 +839,13 @@ public class FrontEndController {
 	private void deleteProject() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("Enter the name of the project you would like to delete:");
+		System.out.println("or enter 0 to go back");
 		
 		String s = input.next();
+		
+		if(s.length() == 1 && Integer.parseInt(s.substring(0, 1)) == 0) {
+			manageProjects();
+		}
 		boolean projectFound = false;
 
 		Project projectToDelete = null;
@@ -853,8 +874,12 @@ public class FrontEndController {
 	private void createProject() throws ProjectNotFoundException, ProjectAlreadyExistsException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Enter the name of the project you would like to create");
 		System.out.println("Minimum characters: 4 and Maximum characters: 32");
+		System.out.println("or enter 0 to go back");
+		
 		String s = input.next();
-
+		if(s.length() == 1 && Integer.parseInt(s.substring(0, 1)) == 0) {
+			manageProjects();
+		}
 		if(s.length() > 32 || s.length() < 4){
 			System.out.println("Please enter correct input...");
 			createProject();
@@ -898,9 +923,14 @@ public class FrontEndController {
 	private void deleteEmployee() throws AdminNotFoundException, NumberFormatException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Here you can delete an employee!");
 		System.out.println("Enter the id of the employee you wish to delete:");
+		System.out.println("or enter 0 to go back");
 		
 		String id = input.next();
 
+		if(id.length() == 1 && Integer.parseInt(id.substring(0, 1)) == 0) {
+			manageEmployees();
+		}
+		
 		if(id.length() != 4){
 			System.out.println("Please enter correct input...");
 			deleteEmployee();
@@ -922,10 +952,14 @@ public class FrontEndController {
 	private void createEmployee() throws NumberFormatException, AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
 		System.out.println("Here you can create an employee!");
 		System.out.println("Enter the id (4 letters) of the employee you wish to create,");
-		System.out.println("and if you wish it to be an admin, add admin after:");
+		System.out.println("and if you wish it to be an admin, add admin after(Separated by a single space):");
+		System.out.println("or enter 0 to go back");
 		
 		input.nextLine();
 		String info = input.nextLine();
+		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 0) {
+			manageEmployees();
+		}
 		try {
 			if (info.length() > 10 || info.length() < 1) {
 				System.out.println("ID has to consist of 1 to 4 characters.");
@@ -960,32 +994,6 @@ public class FrontEndController {
 		finally {
 			manageEmployees();
 		}
-		
-		
-//		String id = info.substring(0,4);
-//
-//		boolean isAdmin = false;
-//
-//		if(info.length() > 4) {
-//			if(info.length() == 10) {
-//				if(info.substring(5,10).equals("admin")) {
-//					isAdmin = true;
-//				}
-//				else createEmployee();
-//			}
-//			else createEmployee();
-//		}
-//		if(info.length() < 4) {
-//			createEmployee();
-//		}
-//		else {			
-//			if(isAdmin) {
-//				database.createAdmin(id);
-//			}
-//			else database.createDeveloper(new Developer(id, database));
-//
-//			manageEmployees();
-//		}
 	}
 
 	public void WelcomePageDeveloper() throws AdminNotFoundException, DeveloperNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectNotFoundException, ProjectAlreadyExistsException, NumberFormatException, NotAuthorizedException, ActivityAlreadyExistsException, OutOfBoundsException {
