@@ -12,6 +12,7 @@ import Exceptions.OperationNotAllowedException;
 import Exceptions.OutOfBoundsException;
 import Exceptions.ProjectAlreadyExistsException;
 import Exceptions.ProjectNotFoundException;
+import SoftwareAS.Controller.SoftwareAS;
 import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
@@ -20,13 +21,17 @@ public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;
 	private String adminName = "MOG1";
-	private DataBase database = DataBase.getInstance();
+	private DataBase database;
 	private Project project;
 	private List<Developer> availableDevelopers = new ArrayList<>();
 	private int startTime;
 	private int endTime;
-	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	private ErrorMessageHolder errorMessageHolder;
 
+	public SeeAvailableDevelopersSteps(SoftwareAS softwareAS, ErrorMessageHolder errorMessageHolder){
+		this.database = softwareAS.getDataBase();
+		this.errorMessageHolder = errorMessageHolder;
+	}
 	// # Main scenario
 	// Scenario: See available developers
 	// Given 9- there is an user with ID "SØR1"
@@ -83,7 +88,7 @@ public class SeeAvailableDevelopersSteps {
 
 	@Then("9- the system displays a list of available developers at the given time slot")
 	public void theSystemProvidesListOfAvailableDevelopers() throws NotAuthorizedException, OutOfBoundsException {
-		availableDevelopers = project.seeAvailableDevelopers(startTime, endTime, developer);
+		availableDevelopers = database.seeAvailableDevelopers(startTime, endTime, developer);
 		assertTrue(availableDevelopers.size() == 3);
 		for (Developer developer : availableDevelopers) {
 			List<Activity> activities = developer.getActivities();
@@ -113,7 +118,7 @@ public class SeeAvailableDevelopersSteps {
 	public void theUserProvidesInvalidTimeInput(int start, int end)
 			throws OutOfBoundsException, NotAuthorizedException {
 		try {
-			project.seeAvailableDevelopers(start, end, developer);
+			database.seeAvailableDevelopers(start, end, developer);
 		} catch (OutOfBoundsException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -145,7 +150,7 @@ public class SeeAvailableDevelopersSteps {
 	@When("9- the user tries to provide information of the start week {int} and end week {int} of the activity where he needs developers")
 	public void theUserTriesProvideInformation(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
 		try {
-			project.seeAvailableDevelopers(start, end, developer);
+			database.seeAvailableDevelopers(start, end, developer);
 		} catch (NotAuthorizedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}

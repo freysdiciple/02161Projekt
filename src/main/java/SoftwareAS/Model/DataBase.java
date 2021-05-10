@@ -3,11 +3,7 @@ package SoftwareAS.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.AdminNotFoundException;
-import Exceptions.DeveloperNotFoundException;
-import Exceptions.OutOfBoundsException;
-import Exceptions.ProjectAlreadyExistsException;
-import Exceptions.ProjectNotFoundException;
+import Exceptions.*;
 
 public class DataBase {
 
@@ -139,6 +135,40 @@ public class DataBase {
 		developers= new ArrayList<Developer>();
 	}
 
+	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
+			throws NotAuthorizedException, OutOfBoundsException {
+
+		boolean isProjectLeader = false;
+		List<Developer> availableDevelopers = new ArrayList<>();
+
+		for(Project project : getAllProjects()){
+			if(project.isProjectLeader(user)) isProjectLeader = true;
+		}
+
+		if (!isProjectLeader && !user.isAdmin()) {
+			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
+		}
+
+		if (startWeek > 52 || endWeek > 52 || startWeek<1 || endWeek<1) {
+			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
+		}
+
+		List<Developer> developers = user.getDatabase().getAllDevelopers();
+		for (Developer developer : developers) {
+			List<Activity> activities = developer.getActivities();
+			int k = 0;
+			for (Activity activity : activities) {
+				if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+					k++;
+				}
+
+			}
+			if (k < 21) {
+				availableDevelopers.add(developer);
+			}
+		}
+		return availableDevelopers;
+	}
 
 
 }

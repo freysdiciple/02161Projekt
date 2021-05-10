@@ -913,7 +913,10 @@ public class FrontEndController {
 			}
 			else {
 				char[] infoAsCharArray = info.toCharArray();
-				int indexOfSpace = Arrays.asList(infoAsCharArray).indexOf(' ');
+				int indexOfSpace = -1;
+				for(int i=0; i<infoAsCharArray.length; i++) {
+					if(infoAsCharArray[i] == 32) indexOfSpace = i;
+				}
 				if (indexOfSpace == -1) {
 					System.out.println("ID has to consist of 1 to 4 characters (if creating an admin, add admin after the id seperated by space)");
 					throw new Exception();
