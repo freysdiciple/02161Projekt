@@ -1,4 +1,4 @@
-// This class is made by Simon Bang Hjortkilde - s183557
+
 
 package StepDefinitions;
 
@@ -19,6 +19,7 @@ import io.cucumber.java.en.*;
 import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.*;
 
+//This class is made by Simon Bang Hjortkilde - s183557
 public class SeeAvailableDevelopersSteps {
 	private Developer developer;
 	private Admin admin;

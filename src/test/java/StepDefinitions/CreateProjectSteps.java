@@ -1,4 +1,4 @@
-// This class is made by Simon Bang Hjortkilde - s183557
+
 
 package StepDefinitions;
 
@@ -16,7 +16,7 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Controller.SoftwareAS;
 import SoftwareAS.Model.*;
 
-
+//This class is made by Simon Bang Hjortkilde - s183557
 public class CreateProjectSteps {
 	private Admin admin;
 	private DataBase database;
