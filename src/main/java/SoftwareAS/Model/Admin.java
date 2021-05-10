@@ -14,9 +14,6 @@ public class Admin extends Developer {
 		setAdminState(true);
 	}
 
-	public Admin() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public void createProject(String projectName) throws ProjectAlreadyExistsException, ProjectNotFoundException,
 			NotAuthorizedException, OutOfBoundsException, NumberFormatException {
