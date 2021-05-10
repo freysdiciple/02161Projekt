@@ -127,7 +127,6 @@ public class Project {
 		Activity activity = getActivityById(id);
 		for(Developer dev : activity.getDevelopers())
 			dev.deleteActivity(activity);
-			System.out.println("Hey from here");
 
 		activities.remove(getActivityById(id));
 	}
