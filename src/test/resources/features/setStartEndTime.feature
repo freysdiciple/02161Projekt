@@ -1,3 +1,5 @@
+# This Class is made Mathias Jensen - s204480
+
 Feature: Set start/deadline for activity
 Description: The project leader assigns a start and a deadline for an activity
 Actor: Project leader

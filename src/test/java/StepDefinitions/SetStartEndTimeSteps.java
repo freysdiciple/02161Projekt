@@ -1,3 +1,5 @@
+// This class is made by Mathias Jensen - s204480
+
 package StepDefinitions;
 
 import static org.junit.Assert.*;
@@ -12,18 +14,6 @@ import SoftwareAS.Model.*;
 
 public class SetStartEndTimeSteps {
 
-    /*
-    private String developerAndleaderName = "Konrad";
-    private String justDeveloperName = "Christian";
-    private String projectID = "210001";
-    private int activityID = 102;
-
-    private DataBase database;
-    private Admin admin = new Admin("mogens",database);
-    private Developer developerAndLeader;
-    private Developer justDeveloper;
-    private Project project;
-    */
 
     private DataBase database;
     private Admin admin;
