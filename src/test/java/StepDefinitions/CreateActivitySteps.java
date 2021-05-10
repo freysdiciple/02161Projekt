@@ -100,7 +100,7 @@ public class CreateActivitySteps {
 
 	@Then("4- a NotAuthorizedException is thrown")
 	public void aNotAuthorizedExceptionIsThrown() {
-		assertEquals("Only the project leader can create activities.", errorMessageHolder.getErrorMessage());
+		assertEquals("Not authorized to create activities.", errorMessageHolder.getErrorMessage());
 	}
 
 	@Then("4- the activity is not created")
