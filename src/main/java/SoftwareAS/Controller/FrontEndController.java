@@ -839,28 +839,34 @@ public class FrontEndController {
 	private void assignProjectLeader() throws NumberFormatException, DeveloperNotFoundException, NotAuthorizedException, ProjectNotFoundException, AdminNotFoundException, OperationNotAllowedException, OverlappingSessionsException, ActivityNotFoundException, ProjectAlreadyExistsException, ActivityAlreadyExistsException, OutOfBoundsException {
 		clearScreen();
 		System.out.println("To assign a project leader, ");
-		System.out.println("give the name of the project and the employee id:");
-		System.out.println("(Separated by a single space)");
+		System.out.println("give the name of the project first: and the employee id:");
 		System.out.println("or enter 0 to go back");
-
 		input.nextLine();
-		String info = input.nextLine();
-
-		if(info.length() == 1 && Integer.parseInt(info.substring(0, 1)) == 0) {
+		String projectName = input.nextLine();
+		if(projectName.length() == 1 && Integer.parseInt(projectName.substring(0, 1)) == 0) {
 			manageProjects();
 		}
-		else {
-			String numberString = info.substring(0, 6);
-			String idString = info.substring(7, 11);
+		System.out.println("and the employee id:");
+		System.out.println("or enter 0 to go back");
+		input.nextLine();
+		String developerName = input.nextLine();
+		if(developerName.length() == 1 && Integer.parseInt(developerName.substring(0, 1)) == 0) {
+			manageProjects();
+			
+		}
 
-			if(database.containsProject(numberString) && database.containsDeveloper(idString)) {
-				database.getProjectByName(numberString).setProjectLeader(currentUser, database.getDeveloperById(idString));
+		if(database.containsProject(projectName) && database.getProjectByName(projectName).isDeveloperOnProject(developerName)) {
+				database.getProjectByName(projectName).setProjectLeader(currentUser, database.getDeveloperById(developerName));
 				manageProjects();
-			}
-			else{
-				System.out.println("Please give correct input...");
-				assignProjectLeader();
-			}
+		}
+		if(database.containsProject(projectName) && database.containsDeveloper(developerName)) {
+			database.getProjectByName(projectName).assignDeveloperToProject(currentUser, database.getDeveloperById(developerName));
+			database.getProjectByName(projectName).setProjectLeader(currentUser, database.getDeveloperById(developerName));
+			manageProjects();
+		}
+		else{
+			System.out.println("Please give correct input...");
+			assignProjectLeader();
 		}
 		
 	}
