@@ -40,13 +40,14 @@ public class assignDeveloperToActivityWhiteBox {
 	}
 	
 	@Test
-	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException {
+	public void testInputDataSetB() throws DeveloperNotFoundException, OperationNotAllowedException, NotAuthorizedException, ActivityAlreadyExistsException, ActivityNotFoundException {
 		admin = new Admin();
 		projectLeader = new Developer();
 		project = new Project("Hello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
 		project.createActivity(200, projectLeader);
+		activity = project.getActivityById(200);
 		
 		try {
 			activity.assignDeveloperToActivity(projectLeader, developer);
@@ -57,18 +58,27 @@ public class assignDeveloperToActivityWhiteBox {
 	}
 	
 	@Test
-	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException {
+	public void testInputDataSetC() throws NotAuthorizedException, DeveloperNotFoundException, ActivityAlreadyExistsException {
 		admin = new Admin();
 		projectLeader = new Developer();
 		project = new Project("Hello",admin);
 		project.assignDeveloperToProject(admin, projectLeader);
 		project.setProjectLeader(admin, projectLeader);
+		project.createActivity(322, projectLeader);
 		
+		developer = new Developer();
+		project.assignDeveloperToProject(admin, developer);
 		
 		
 		
 	}
 	
+	
+	@Test
+	public void testInputDataSetD()  {
+		
+		
+	}
 	
 	
 	
