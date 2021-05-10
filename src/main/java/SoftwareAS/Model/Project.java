@@ -31,32 +31,32 @@ public class Project {
 		this.projectName = projectName;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
-		
+
 		setProjectID();
 	}
-	
+
 	public void setProjectID() {
-		DateFormat df = new SimpleDateFormat("yy"); 
+		DateFormat df = new SimpleDateFormat("yy");
 		String year = df.format(Calendar.getInstance().getTime());
-		
+
 		projectId = projectId + year;
-		
+
 		String amountOfProjects = String.valueOf(DataBase.getInstance().getProjectsMade() + 1);
-		
-		for (int i=4; i > amountOfProjects.length(); i--) 
+
+		for (int i=4; i > amountOfProjects.length(); i--)
 			projectId = projectId + "0";
-		
+
 		projectId = projectId + amountOfProjects;
 	}
 
 	public String getProjectName() {
 		return projectName;
 	}
-	
+
 	public String getProjectID() {
 		return projectId;
 	}
-	
+
 	public Admin getCreator() {
 		return creator;
 	}
@@ -127,6 +127,7 @@ public class Project {
 		Activity activity = getActivityById(id);
 		for(Developer dev : activity.getDevelopers())
 			dev.deleteActivity(activity);
+			System.out.println("Hey from here");
 
 		activities.remove(getActivityById(id));
 	}
