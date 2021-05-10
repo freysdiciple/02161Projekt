@@ -1,4 +1,4 @@
-// This class is made by Simon Bang Hjortkilde - s183557
+
 
 package WhiteBoxTests;
 
@@ -16,6 +16,7 @@ import SoftwareAS.Controller.ErrorMessageHolder;
 import SoftwareAS.Model.Admin;
 import SoftwareAS.Model.DataBase;
 
+//This class is made by Simon Bang Hjortkilde - s183557
 public class createProjectWhiteBox {
 
 	private Admin admin;
