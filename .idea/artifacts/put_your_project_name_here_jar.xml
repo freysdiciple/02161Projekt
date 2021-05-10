@@ -2,7 +2,7 @@
   <artifact type="jar" name="put_your_project_name_here:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/put_your_project_name_here_jar</output-path>
     <root id="archive" name="put_your_project_name_here.jar">
-      <element id="module-output" name="put_your_project_name_here" />
+      <element id="module-output" name="project_25" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-expressions/10.3.0/cucumber-expressions-10.3.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/cucumber-picocontainer/6.9.1/cucumber-picocontainer-6.9.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/cucumber/datatable/3.5.0/datatable-3.5.0.jar" path-in-jar="/" />
