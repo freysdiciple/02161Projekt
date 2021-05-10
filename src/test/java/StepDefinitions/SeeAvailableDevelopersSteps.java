@@ -64,9 +64,10 @@ public class SeeAvailableDevelopersSteps {
 	
 	@Given("9- there are other developers")
 	public void thereIsOtherUsers() throws OutOfBoundsException, DeveloperNotFoundException {
-		//admin.createDeveloper("1111");
-		//admin.createDeveloper("2222");
-		//admin.createDeveloper("3333");
+		database.removeAllDevelopers();
+		admin.createDeveloper("1111");
+		admin.createDeveloper("2222");
+		admin.createDeveloper("3333");
 	}
 	
 	
