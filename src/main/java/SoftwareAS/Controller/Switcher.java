@@ -18,6 +18,8 @@ class DoNothingCommand implements Command {
     @Override public void execute() {}
 }
 
+
+//Massimo
 public class Switcher {
 	
 	private Map<Integer, Command> caseCommands;
