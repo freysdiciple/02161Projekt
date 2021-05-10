@@ -54,12 +54,12 @@ public class SeeAvailableDevelopersSteps {
 		assertTrue(database.containsProject(projectname));
 	}
 
-	@Given("9- the user is a Project leader")
-	public void theUserIsAProjectLeader()
+	@Given("9- the user is a Project leader or admin")
+	public void theUserIsAProjectLeaderOrAdmin()
 			throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
 		project.assignDeveloperToProject(admin, developer);
 		project.setProjectLeader(admin, developer);
-		assertTrue(project.isProjectLeader(developer));
+		assertTrue(project.isProjectLeader(developer) || developer.isAdmin());
 
 	}
 	
@@ -122,6 +122,38 @@ public class SeeAvailableDevelopersSteps {
 	@Then("9- the system provides an error message that the start week and\\/or end week is invalid")
 	public void theSystemProvidesAnErrorMessageThatTheTimeInputIsInvalid() throws OutOfBoundsException {
 		assertEquals("The start week and end week has to be an integer between 1 and 52", errorMessageHolder.getErrorMessage());
+		
+	}
+	
+//	# Alternate scenario two
+//	Scenario: See available developers
+//	Given 9- there is an user with ID "JEP1"
+//	And 9- there is a project with name "212222"
+//	And 9- the user is not a Project leader
+//	And 9- there are other developers
+//	When 9- the user provides information of the start week 32 and end week 40 of the activity where he needs developers
+//	Then 9- the system provides an error message that the user is not authorized for this action
+	
+	@Given("9- the user is not a Project leader or Admin")
+	public void theUserIsNotAProjectLeaderOrAdmin()
+			throws OperationNotAllowedException, DeveloperNotFoundException, NotAuthorizedException {
+		project.assignDeveloperToProject(admin, developer);
+		assertFalse(project.isProjectLeader(developer) && developer.isAdmin());
+	}
+	
+	@When("9- the user tries to provide imformation of the start week {int} and end week {int} of the activity where he needs developers")
+	public void theUserTriesProvideInformation(int start, int end) throws OutOfBoundsException, NotAuthorizedException {
+		try {
+			project.seeAvailableDevelopers(start, end, developer);
+		}
+		catch(NotAuthorizedException e) {
+		errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	
+	@Then("9- the system provides an error message that the user is not authorized for this action")
+	public void theSystemProvidesAnErrorMessageThatTheUserIsNotAuthorized() throws OutOfBoundsException {
+		assertEquals("Only project leaders or admins can request to see available developers", errorMessageHolder.getErrorMessage());
 		
 	}
 }

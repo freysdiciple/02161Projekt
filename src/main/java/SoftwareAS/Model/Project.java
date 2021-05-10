@@ -154,7 +154,7 @@ public class Project {
 	}
 	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
 			throws NotAuthorizedException, OutOfBoundsException {
-		if (!isProjectLeader(user) || user.isAdmin()) {
+		if (!isProjectLeader(user) && !user.isAdmin()) {
 			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
 		}
 
