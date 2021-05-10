@@ -134,7 +134,7 @@ public class setEstimatedHoursSteps {
 
 	@Then("10- a NotAuthorizedException is thrown")
 	public void aNotAuthorizedExceptionIsThrown() {
-		assertEquals("Only project leaders are allowed to set work hours.", errorMessageHolder.getErrorMessage());
+		assertEquals("Only project leaders and admins are allowed to set work hours.", errorMessageHolder.getErrorMessage());
 	}
 
 	@Then("10- the estimated work hours is not set")

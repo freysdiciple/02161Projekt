@@ -31,36 +31,35 @@ public class Project {
 		this.projectName = projectName;
 		this.creator = creator;
 		this.startDate = new GregorianCalendar();
-
+		
 		setProjectID();
 	}
-
+	
 	public void setProjectID() {
-		DateFormat df = new SimpleDateFormat("yy");
+		DateFormat df = new SimpleDateFormat("yy"); 
 		String year = df.format(Calendar.getInstance().getTime());
-
+		
 		projectId = projectId + year;
-
+		
 		String amountOfProjects = String.valueOf(DataBase.getInstance().getProjectsMade() + 1);
-
-		for (int i = 4; i > amountOfProjects.length(); i--)
+		
+		for (int i=4; i > amountOfProjects.length(); i--) 
 			projectId = projectId + "0";
-
+		
 		projectId = projectId + amountOfProjects;
 	}
 
 	public String getProjectName() {
 		return projectName;
 	}
-
+	
 	public String getProjectID() {
 		return projectId;
 	}
-
+	
 	public Admin getCreator() {
 		return creator;
 	}
-
 	public GregorianCalendar getStartDate() {
 		return startDate;
 	}
@@ -68,7 +67,7 @@ public class Project {
 	public void setProjectLeader(Developer admin, Developer developer) throws DeveloperNotFoundException, NotAuthorizedException {
 		if (isDeveloperOnProject(developer.getId()) == false)
 			throw new DeveloperNotFoundException("Developer is not on the project");
-		if (admin.isAdmin() == false)
+		if (admin.isAdmin()  == false)
 			throw new NotAuthorizedException("Project leader can only be assigned by Admin");
 		this.projectLeader = developer;
 	}
@@ -77,11 +76,10 @@ public class Project {
 		return projectLeader;
 	}
 
-	public List<Developer> getDevelopers() {
+	public List<Developer> getDevelopers(){
 		return developers;
 	}
-
-	public List<Activity> getActivities() {
+	public List<Activity> getActivities(){
 		return activities;
 	}
 
@@ -99,13 +97,13 @@ public class Project {
 	}
 
 	public void assignDeveloperToProject(Developer admin, Developer developer) throws NotAuthorizedException {
-		if (!(admin.isAdmin() || isProjectLeader(admin)))
+		if(!(admin.isAdmin() || isProjectLeader(admin)))
 			throw new NotAuthorizedException("Not authorized to assign developers to projects");
 		developers.add(developer);
 	}
 
 	public void removeDeveloperFromProject(Developer developer) {
-		if (developers.contains(developer)) {
+		if(developers.contains(developer)) {
 			developer.deleteProject(this);
 			developers.remove(developer);
 		}
@@ -127,15 +125,15 @@ public class Project {
 		if (!this.containsActivityWithId(id))
 			throw new ActivityNotFoundException("An activity with that ID doesnt exists.");
 		Activity activity = getActivityById(id);
-		for (Developer dev : activity.getDevelopers())
+		for(Developer dev : activity.getDevelopers())
 			dev.deleteActivity(activity);
 
 		activities.remove(getActivityById(id));
 	}
 
 	public Activity getActivityById(int id) throws ActivityNotFoundException {
-		for (Activity activity : activities) {
-			if (activity.getId() == id) return activity;
+		for(Activity activity : activities) {
+			if(activity.getId() == id) return activity;
 		}
 
 		throw new ActivityNotFoundException("No activity with described ID");
@@ -149,10 +147,35 @@ public class Project {
 			return false;
 		}
 	}
-
 	public ProjectSummary createSummary() {
 		ProjectSummary summary = new ProjectSummary(activities);
 		summaries.add(summary);
 		return summary;
 	}
-}
+	public List<Developer> seeAvailableDevelopers(int startWeek, int endWeek, Developer user)
+			throws NotAuthorizedException, OutOfBoundsException {
+		if (!isProjectLeader(user) && !user.isAdmin()) {
+			throw new NotAuthorizedException("Only project leaders or admins can request to see available developers");
+		}
+
+		if (startWeek > 52 || endWeek > 52 || startWeek<1 || endWeek<1) {
+			throw new OutOfBoundsException("The start week and end week has to be an integer between 1 and 52");
+		}
+
+		List<Developer> developers = user.getDatabase().getAllDevelopers();
+		for (Developer developer : developers) {
+			List<Activity> activities = developer.getActivities();
+			int k = 0;
+			for (Activity activity : activities) {
+				if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+					k++;
+				}
+
+			}
+			if (k < 21) {
+				availableDevelopers.add(developer);
+			}
+		}
+		return availableDevelopers;
+		}
+	}
