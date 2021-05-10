@@ -1,6 +1,8 @@
 package StepDefinitions;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.AdminNotFoundException;
@@ -20,7 +22,7 @@ public class SeeAvailableDevelopersSteps {
 	private String adminName = "MOG1";
 	private DataBase database = DataBase.getInstance();
 	private Project project;
-	private List<Developer> availableDevelopers;
+	private List<Developer> availableDevelopers = new ArrayList<>();
 	private int startTime;
 	private int endTime;
 	private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
@@ -62,9 +64,9 @@ public class SeeAvailableDevelopersSteps {
 	
 	@Given("9- there are other developers")
 	public void thereIsOtherUsers() throws OutOfBoundsException, DeveloperNotFoundException {
-		admin.createDeveloper("1111");
-		admin.createDeveloper("2222");
-		admin.createDeveloper("3333");
+		//admin.createDeveloper("1111");
+		//admin.createDeveloper("2222");
+		//admin.createDeveloper("3333");
 	}
 	
 	
