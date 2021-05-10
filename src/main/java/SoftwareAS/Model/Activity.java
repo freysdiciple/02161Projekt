@@ -16,7 +16,7 @@ public class Activity {
 	private int id;
 	private int startWeek;
 	private int endWeek;
-	private int estimatedWorkHours;
+	private int estimatedWorkHours = 0;
 	private int timeLeft = 0;
 	
 	private List<Developer> developers = new ArrayList<>();
